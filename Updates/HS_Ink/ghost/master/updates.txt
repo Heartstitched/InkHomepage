@@ -24,7 +24,7 @@ file,HS_Ink_Scribbles/sstp.png9f2684fc224fae751554c8e411d9e71bsize=222date=20
 file,HS_Ink_Scribbles/thumbnail.pna4b521a5e3c89050b8d1d20da8e52feb5size=3416date=2021-10-05T02:27:59
 file,HS_Ink_Scribbles/thumbnail.pngacb2e683bf790ef327a3f31e88eec14dsize=13810date=2024-02-24T19:36:11
 file,README.md2e7f03c2309b74ebec35e895dfda39aasize=11date=2024-02-24T19:32:06
-file,ghost/master/aitalk.dicdeb7f9caa50bff5db5eaf61091fc04ddsize=23283date=2024-02-24T20:33:06
+file,ghost/master/aitalk.dicbce6658c8bd8802a9ed3744eaabad382size=23325date=2024-02-24T20:44:19
 file,ghost/master/boot.dic0cf24210fa9668bbee06d216dc73fddbsize=4694date=2024-02-24T18:02:05
 file,ghost/master/descript.txtef6397ed07a159a4c69e9f866bcde7c5size=241date=2024-02-24T19:44:54
 file,ghost/master/emerg.dic6ae63fdf0d6d5932150105a02c328ab0size=378date=2024-02-23T16:15:13

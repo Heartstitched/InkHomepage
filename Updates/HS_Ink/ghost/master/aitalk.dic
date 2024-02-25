@@ -100,6 +100,8 @@ RandomTalk : nonoverlap_pool
 			  "\0\s[0]\f[bold,true]Make sure you drink some water- \s[22]it wont do to get dehydrated....\f[bold,false]"
 
 			  "\0\s[3]\f[bold,true]What's your favorite color?\f[bold,false]"
+			  
+			  // checking an update thingy
 
 		//	 "\0\s[0]\f[bold,true]Hey.\w8\w8 \nJust pick up your pencil, crayons, whatever youve got- \w8\nAnd stay colorful. \w8\w8\w8\n\n You see? This world is wonderful!\f[bold,false]"
 
