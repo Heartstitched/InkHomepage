@@ -1,0 +1,50 @@
+charset,Shift_JIS
+version,1
+option,DisableNoDefineSurfaces
+
+group,__disabled
+{
+1,__parts
+}
+
+
+// Sakura normal surface
+group,Ink
+{
+scope,0
+0, Happy
+1, Silly Mode
+2, Neutral
+3, ConfusedHappy
+4, Determined
+5, Bittersweet
+6, Sad
+7, Angry
+8, Confused
+9, Surprised
+11, HappyBlush
+12,StartledBlush
+13,Neutral-NoBlush
+14,Closed Eyes Happy
+15,Closed Eyes Blush
+16,Bashful
+17,BashfulBlush
+18,Pensive
+19,Closed Eyes Neutral
+20,Peaceful
+21,Annoyed
+22,Thoughtful
+23,Impish Grin
+24,Snicker
+
+}
+
+
+
+//// Kero normal surface
+group,Null
+{
+10, empty
+}
+
+

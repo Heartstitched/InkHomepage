@@ -1,0 +1,120 @@
+//Separate from the menus because you could put other interactions here, like poking or booping or punching or asking about various hotspots
+OnMouseDoubleClick
+{
+	if reference5 == 0 //reference5 is the mouse button being clicked, in this case a left click
+	{
+		//reference3 is which character is being clicked
+		//If you want to add double click interactions, reference4 will be the name of the hitbox the mouse is over
+		if reference3 == 0
+		{
+			OnSakuraMenu
+		}
+		else
+		{
+			OnKeroMenu
+		}
+	}
+}
+
+OnMouseMove
+{
+	if reference4 != ""
+	{
+		stroke++
+		
+		if stroke % 40 == 0
+		{
+			if reference3 == 0; OnMouseMove.Sakura
+			else; OnMouseMove.Kero
+		}
+	}
+}
+
+OnMouseMove.Sakura
+{
+	if reference4 == "Head"
+	{
+		"\0\s[3]\f[bold,true]Petting??\f[bold,false]"
+		"\0\s[20]\f[bold,true]An affectionate one, arent you?\f[bold,false]"
+		"\0\s[14]\f[bold,true]Hehehe...\f[bold,false]"
+		"\0\s[16]\f[bold,true]Eheheh...\f[bold,false]"
+		"\0\s[12]\f[bold,true]Is this a 'thank you'?\f[bold,false]"
+	}
+	if reference4 == "Broomie"
+	{
+		"\0\s[22]\f[bold,true]What are you doing?\f[bold,false]"
+	}
+	if reference4 == "Scarf"
+	{
+		"\0\s[8]\f[bold,true]What are you touching my scarf for?\f[bold,false]"
+		"\0\s[13]\f[bold,true]Be careful not to smudge my notes.....\f[bold,false]"
+	}
+	if reference4 == "Vials"
+	{
+		"\0\s[9]\f[bold,true]Be careful with those!\f[bold,false]"
+	}
+	if reference4 == "Sash"
+	{
+		"\0\s[3]\f[bold,true]Interested in my pencils? Thats why youre touching my sash, right?\f[bold,false]"
+	}
+	if reference4 == "Hands"
+	{
+		"\0\s[18]\f[bold,true]Scandalous!\f[bold,false]"
+	}
+	if reference4 == "Arms"
+	{
+		"\0\s[13]\f[bold,true]Don't.....\f[bold,false]"
+	}
+	if reference4 == "Sleeves"
+	{
+	
+	}
+	if reference4 == "Heartshades"
+	{
+	"\0\s[17]\f[bold,true]Cute, right?\f[bold,false]"
+	}
+}
+
+OnMouseMove.Kero
+{
+	if reference4 == "head"
+	{
+		"\1\s[10]"
+	}
+}
+
+OnMouseLeaveAll
+{
+	stroke = 0
+}
+
+OnMouseDragStart
+ {
+ 	if reference0 <= 1920 //here, this is checking to see if the user is double clicking on either the character's head OR their face, which for our purposes means they're hitting the ghost. More about operators at the walkthrough.
+	{
+	//	"\0\s[4] woah woah- be careful there- \w4\b[-1]"
+	//	"\0\s[4] h-hey you could ask first, kiddo- \w4\b[-1]"
+	//	"\0\s[4] ah- wait- dont drop me-- \w4\b[-1]"
+		
+		//Replace this dialogue with appropriate dialogue as you need. You can add more or cut it down if you want, even down to nothing if you want no response from your ghost at all when those areas are double clicked.
+ 	}
+	elseif reference0 >= 1920 
+	{
+	//"\0\s[4] ah- thats uh.. pretty far, be careful.\w8\w8"
+	}
+	else
+ 	{
+		
+	}
+	
+ }
+  OnMouseDragEnd
+ {
+	{
+	//	"\0\s[8] back on solid ground.. sort of."
+	//	"\0\s[8]\_q* he lets out a breath in relief. "
+		
+ 	}
+	
+	
+ }

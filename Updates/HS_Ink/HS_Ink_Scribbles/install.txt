@@ -1,0 +1,5 @@
+charset,UTF-8
+type,balloon
+name,Ink Scribbles
+directory,HS_Ink_Scribbles
+

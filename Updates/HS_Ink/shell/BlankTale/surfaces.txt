@@ -1,0 +1,302 @@
+//Some quick notes:
+//1: SERIKO does NOT support same line comments. If you want to write a comment, ALWAYS PUT IT ON ITS OWN LINE. If you put comments after other bits of code in the same line, it may seem to work at first, but it can cause cryptic errors down the line. Save yourself the trouble. Always put comments on their own lines in here. Additionally, it doesn't do block comments with /* and */
+//2: The example blink code is set up with the new definition, which I recommend you use. Here is my guide to what that means: https://zichqec.github.io/s-the-skeleton/olddef_vs_newdef
+//If you want to use old definition, make sure to erase that 'version,1' bit.
+//3: It is very common for people to feel stuck on how to start, because they don't know what expressions to make without having dialogue, but they don't know what dialogue to write without having expressions. If you're feeling that way, I highly suggest using emoji as substitutes just to get you started! That may sound weird if you're not fond of emoji, but seriously, just give it a try. I've found that just writing a few messages in Discord and using the emoji to signify surface changes is a great help to get me past that initial hump where it feels impossible.
+
+
+descript
+{
+	version,1
+}
+
+
+//—————————————————————————————— Sakura surfaces ——————————————————————————————
+
+surface0
+{
+
+}
+
+//—————————————————————————————— Silly Mode ——————————————————————————————
+surface1 \\ silly mode activate
+{
+	element0,overlay,surface1.png,0,0
+}
+
+//—————————————————————————————— Neutral ——————————————————————————————
+surface2
+{
+
+	element0,overlay,surface2.png,0,0
+
+
+}
+
+//—————————————————————————————— Curious ——————————————————————————————
+surface3
+{
+
+	element0,overlay,surface3.png,0,0
+
+}
+
+//—————————————————————————————— Determined ——————————————————————————————
+surface4
+{
+
+	element0,overlay,surface4.png,0,0
+
+}
+
+
+//—————————————————————————————— Bittersweet ——————————————————————————————
+surface5
+{
+
+	element0,overlay,surface5.png,0,0
+}
+
+
+//—————————————————————————————— Sad ——————————————————————————————
+surface6
+{
+
+	element0,overlay,surface6.png,0,0
+
+}
+
+
+//—————————————————————————————— Angy ——————————————————————————————
+surface7
+{
+
+	element0,overlay,surface7.png,0,0
+
+}
+
+//—————————————————————————————— Confused ——————————————————————————————
+surface8
+{
+
+	element0,overlay,surface8.png,0,0
+
+}
+
+
+//—————————————————————————————— Surprised ——————————————————————————————
+surface9
+{
+
+	element0,overlay,surface9.png,0,0
+
+}
+
+
+//—————————————————————————————— Smiley Blush ——————————————————————————————
+surface11
+{
+
+	element0,overlay,surface11.png,0,0
+}
+
+
+//—————————————————————————————— Surprised Blush ——————————————————————————————
+surface12
+{
+
+	element0,overlay,surface12.png,0,0
+
+}
+
+//—————————————————————————————— No-Blush Neutral ——————————————————————————————
+surface13
+{
+	element0,overlay,surface13.png,0,0
+
+}
+
+//—————————————————————————————— Closed Eyes Happy ——————————————————————————————
+surface14
+{
+	
+	element0,overlay,surface14.png,0,0
+
+}
+
+
+//—————————————————————————————— Closed Eyes Happy Blush ——————————————————————————————
+surface15
+{
+	
+	element0,overlay,surface15.png,0,0
+
+}
+
+
+//—————————————————————————————— Bashful ——————————————————————————————
+surface16
+{
+	
+	element0,overlay,surface16.png,0,0
+
+}
+
+
+//—————————————————————————————— Bashful Blush ——————————————————————————————
+surface17
+{
+
+	element0,overlay,surface17.png,0,0
+
+}
+
+//—————————————————————————————— Pensive ——————————————————————————————
+surface18
+{
+	
+	element0,overlay,surface18.png,0,0
+
+}
+
+//—————————————————————————————— Closed Eyes Neutral ——————————————————————————————
+surface19
+{
+
+	element0,overlay,surface19.png,0,0
+
+}
+
+//—————————————————————————————— Peaceful ——————————————————————————————
+surface20
+{
+
+	element0,overlay,surface20.png,0,0
+
+}
+
+//—————————————————————————————— Annoyed ——————————————————————————————
+surface21
+{
+	
+	element0,overlay,surface21.png,0,0
+
+}
+
+//—————————————————————————————— Thoughtful ——————————————————————————————
+surface22
+{
+
+	element0,overlay,surface22.png,0,0
+
+}
+
+//—————————————————————————————— Impish Grin ——————————————————————————————
+surface23
+{
+
+	element0,overlay,surface23.png,0,0
+
+}
+
+//—————————————————————————————— Snicker ——————————————————————————————
+surface24
+{
+
+	element0,overlay,surface24.png,0,0
+
+}
+
+//—————————————————————————————— Kero surfaces ——————————————————————————————
+
+
+surface10
+{
+
+}
+
+
+//—————————————————————————————— Talking Animation ——————————————————————————————
+
+surface0,3-5,11,14-18,20,21,23,24
+{
+//Smiley
+	animation1.interval,talk,4
+	animation1.pattern0,alternativestart,(2,3,4)
+	
+	animation2.interval,never
+	animation2.pattern0,overlay,2100,0,0,0
+	animation2.pattern1,overlay,2101,100,0,0
+	animation2.pattern2,overlay,-1,100,0,0
+	
+	animation3.interval,never
+	animation3.pattern0,overlay,2102,0,0,0
+	animation3.pattern1,overlay,-1,100,0,0
+	
+	animation4.interval,never
+	animation4.pattern0,overlay,2102,0,0,0
+	animation4.pattern1,overlay,2101,100,0,0
+	animation4.pattern2,overlay,-1,100,0,0
+}
+
+surface2,6-9,12,13,19,22
+{	
+//Neutral
+	animation1.interval,talk,4
+	animation1.pattern0,alternativestart,(2,3,4)
+	
+	animation2.interval,never
+	animation2.pattern0,overlay,2103,0,0,0
+	animation2.pattern1,overlay,2104,100,0,0
+	animation2.pattern2,overlay,-1,100,0,0
+	
+	animation3.interval,never
+	animation3.pattern0,overlay,2105,0,0,0
+	animation3.pattern1,overlay,-1,100,0,0
+	
+	animation4.interval,never
+	animation4.pattern0,overlay,2104,0,0,0
+	animation4.pattern1,overlay,2103,100,0,0
+	animation4.pattern2,overlay,-1,100,0,0
+}
+	
+//—————————————————————————————— Float Animation,Blink ——————————————————————————————
+	
+surface.append0-9,11-24
+{	
+	animation2999.interval,always
+	animation2999.pattern0,move,-1,0,0,0
+	animation2999.pattern1,move,-1,800-1000,0,-1
+	animation2999.pattern2,move,-1,400,0,-2
+	animation2999.pattern3,move,-1,500,0,-3
+	animation2999.pattern4,move,-1,1000-2000,0,-2
+	animation2999.pattern5,move,-1,500,0,-1
+	animation2999.pattern6,move,-1,400,0,0
+
+}
+
+
+surface.append0-9,11-13
+{
+	animation0.interval,random,4
+	animation0.pattern1,overlay,1000,0,0,0
+	animation0.pattern2,overlay,1001,100,0,0
+	animation0.pattern3,overlay,-1,50,0,0
+}
+
+//—————————————————————————————— Base Collision ——————————————————————————————
+surface.append0-9,11-24
+
+{
+	collisionex0,Head,region,collisionbody.png,243,236,230
+	
+}
+
+
+-----------
+sakura.cursor
+{
+mouseup0,Head,system:hand
+mousedown0,Head,system:hand
+}
+

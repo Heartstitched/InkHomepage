@@ -1,0 +1,17 @@
+charset,UTF-8
+
+name,Ink
+type,ghost
+
+shiori,yaya.dll
+
+craftman,Heartstitched
+craftmanurl, https://www.tumblr.com/monster-kind
+
+sakura.name,Ink
+kero.name,Broomie
+
+icon,icon.ico
+balloon,Ink Scribbles
+
+sstp.allowunspecifiedsend,0

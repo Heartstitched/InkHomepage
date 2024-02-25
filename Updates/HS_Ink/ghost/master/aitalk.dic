@@ -1,0 +1,507 @@
+OnAiTalk
+{
+	if CHAIN.IDName == ""
+	{
+		LastTalk = RandomTalk
+	}
+	else
+	{
+		LastTalk = ChainTalk
+	}
+	LastTalk
+}
+
+RandomTalk : nonoverlap_pool
+
+{
+	if nowshell == "____Tale"
+	{
+			"\0\s[3]\f[bold,true]What brings you inspiration,\w3 %(username)?\w8\w3 \s[4]Whatever it is..\w3 be sure to hold it close.\w8\w3 \nNever lose it. \f[bold,false]"
+			
+			"\0\s[4]\f[bold,true]You know I believe in you, right?\w8 Dont give up!\f[bold,false]"
+				
+			"\0\s[0]\f[bold,true]Try not to be too hard on yourself okay?\w8\n We all get burnt out sometimes...\f[bold,false]"
+			
+			"\0\s[2]\f[bold,true]Dont forget to get up and stretch!\w8 It wont do to end up hurting yourself by being careless.\f[bold,false]"
+			
+			"\0\s[5]\f[bold,true]Dont forget me, okay?\f[bold,false]"
+			
+			"\0\s[2]\f[bold,true]Do you think my story will be finished?\f[bold,false]"
+			
+			"\0\s[3]\f[bold,true]Do you have any works in progress that need some love?\f[bold,false]"
+			if PeekingOkay == 1
+			{
+				"%(OverYourShoulder)\e"
+			
+				"%(OverYourShoulder)\e"
+			
+				"%(OverYourShoulder)\e"
+			}
+	}
+	else
+	{
+		//	"\0\s[0]\f[bold,true]Fill this with lots of random dialogue.\f[bold,false]"
+			
+			//Some writing advice/inspo, since aitalk can be tough!
+		//	"\f[bold,true]\0\s[0]Consider what sort of angle you want to go with for your ghost?\w8 What sort of genre, if you will?\w8 Is your character on the user's desktop?\w8 Are they aware they're on a computer or have they been dragged to a strange place?\w8 What if the user is meeting them somewhere instead?\w8 What if they're visiting your ghost at home?\w8 At the office?\w8\n\nWhat if they know the user already?\w8 What if they are coworkers?\w8 Siblings?\w8 What if they're protecting you from something?\w8 There are \f[italics,1]so\f[italics,0] many possibilities for ways to go with this!\w8 Think about what's fun and interesting to do with your character!\f[bold,false]"
+			
+		//	"\0\s[0]\f[bold,true]Content is the top priority!\w8 That's what this template is all about.\w8 Randomtalk is the heart and soul of your ghost, so make it count!\w8 You should be able to ignore almost everything else in the template if you want to.\w8 That being said, though, not all ghosts have randomtalk.\w8 If you're doing something else interesting or useful, that's great, and don't be afraid to cut this if it isn't what your ghost needs!\f[bold,false]"
+
+		//	"\0\s[0]\f[bold,true]How's your character feel about the user?\w8 Is the user a stranger to them?\w8 If so, do they like talking to strangers and learning about them/sharing with them?\w8 Or are they a loner that doesn't want to talk much?\f[bold,false]"
+
+		//	"\0\s[0]\f[bold,true]Do you want a narrator, or no?\w8 If you're going with a narrator, consider carefully how you use it!\w8 Many users don't like having their actions dictated to them too much, especially in randomtalk.\w8 But you could use it in other ways, to describe the environment and such.\f[bold,false]"
+
+		//	"\0\s[0]\f[bold,true]If you're going to comment on things like months and seasons, think about what they mean to the character and what they'd have to say about them.\w8 It'd be kinda weird to be hanging out with someone and just say ""It's July"", right?\w8 Do they feel something strongly enough about July to talk about anything specific in July at all, much less call it out by name?\w8 Don't feel obligated to add dialogues about the months and such if you don't have anything you want to say about them!\f[bold,false]"
+
+		//	"\0\s[0]\f[bold,true]Ghosts don't need a ton of fancy functions to be cool and wonderful!\w8 If you really think about the idle dialogues and nail them, you'll have a fun ghost on your hands.\w8 So spend some time on this, and think about what you want to do!\f[bold,false]"
+
+		//	"\0\s[0]\f[bold,true]Figuring out what expressions to make for your ghost can be difficult.\w8 Something that you may find helpful is to find a \_a[https://emojipedia.org/twitter/]list of emoji\_a, and pick out expressions that you think might suit your character.\w8 Try writing a couple of tester dialogues with those emoji just to get a feel for it, and you might soon find you're thinking of other expressions you want to have.\w8 Keep track of which emoji you're using, and soon you'll have a list of expressions to make for your shell!\f[bold,false]"
+
+		//	"\0\s[0]\f[bold,true]If you're stuck on what kind of expressions and poses to draw for your shell, try flipping through a few other ghosts that you like the shells of, and study why they work so well.\w8 What kind of expressions do they have?\w8 Do they have multiple poses for different body language?\w8 What makes it so interesting to you?\w8 Really take time to look it over and think about it, and make notes!\f[bold,false]"
+			
+		//	"\0\s[0]\f[bold,true]A quick overview of the built in ways to address the user in this template, which are all decided through the SSP preferences:\w8\n%(username) %(they) %(them) %(their) %(theirs) %(themself)\w8\nAnd an example of the " + '%(p)' + " function: %(they) %(p('are','is')) working on a ghost\f[bold,false]"
+				
+				"\0\s[4]\f[bold,true]Make something cool, %(username)!\w8 You've got this!\f[bold,false]"
+			
+				"\0\s[8]\f[bold,true]You know...\w8 I was gonna say somthing- \n\w8\w8\w8but..\w8\w8 now I cant remember what it was... \n\n\w8\w8\w8\s[0]oh well.\f[bold,false]"
+				
+				"\0\s[20]\f[bold,true]\_q* (He hums a tune.)\_q \w8\w3\n\n\s[14]You paint the world and I'll play my melodii-\w8ies!\f[bold,false]"
+			
+				"\0\s[3]\f[bold,true]Do you have any works in progress that need some love?\f[bold,false]"
+			
+				"\0\s[2]\f[bold,true]Dont forget to get up and stretch!\w8 It wont do to end up hurting yourself by being careless.\f[bold,false]"
+			
+				"\0\s[14]\f[bold,true]\_q* (He seems to be humming something.)\_q\f[bold,false]"
+			
+				"\0\s[0]\f[bold,true]I can't wait to see what kind of new additions the Doodlesphere will have... \w8\w8\w8\n Ahh how exciting!\f[bold,false]"
+			
+			   "\0\s[3]\f[bold,true]What brings you inspiration,\w3 %(username)?\w8\w3 \s[4]Whatever it is..\w3 be sure to hold it close.\w8\w3 \nNever lose it. \f[bold,false]"
+			
+			   "\0\s[0]\f[bold,true]Psst...\w8\w3 dont be afraid to try a different angle.\f[bold,false]"
+			
+		//	   "\0\s[0]\f[bold,true]%(favoredcolors)..... hehe! What a wonderful color, don't you think? \f[bold,false]"
+			
+			  "\0\s[20]\f[bold,true]When I think of what makes me happiest.\w3.\w2.\w2.\w2. \w8\w8I think of seeing people being creative and believing in themselves enough to keep walking forward.\w8\w3 \s[18]Seeing that you can make yourself happy with your creations....\w8\w3 \s[0]I hope you can taste that feeling someday,\w5 it's why I'm alive and its the best thing I could ever ask for.\f[bold,false]"
+			
+			  "\0\s[4]\f[bold,true]You know I believe in you, right?\w8 Dont give up!\f[bold,false]"
+			 
+			  "\0\s[0]\f[bold,true]Sometimes ideas can come from looking at examples!\f[bold,false]"
+			  
+			  "\0\s[4]\f[bold,true]The expanse of the multiverse is incredible don't you think?\w8 \s[20]So many alternate universes....\w8\w8 \s[24]So many creators pouring their souls into the things they make! \w8\w4\s[4]I cant wait to see the things you can do %(username).\f[bold,false]"
+			  
+			  "\0\s[5]\f[bold,true]I almost wish you could experience the feelings my colors give me. \s[14]It's always a rush!\f[bold,false]"
+			  
+			  "\0\s[0]\f[bold,true]Hey...\w8\w6 What'cha doin'?\f[bold,false]"
+			
+			  "\0\s[0]\f[bold,true]Do you forget things too?\w8\w2 I like to write stuff down on my scarf to remind me....\n\w5but then\w5 i forget to look at my scarf too.....\f[bold,false]"
+				
+			  "\0\s[1]h e h."
+			
+
+		//	 "\0\s[0]\f[bold,true]Hey.\w8\w8 \nJust pick up your pencil, crayons, whatever youve got- \w8\nAnd stay colorful. \w8\w8\w8\n\n You see? This world is wonderful!\f[bold,false]"
+
+			if PeekingOkay == 1
+			{
+				"%(OverYourShoulder)\e"
+				
+				"%(OverYourShoulder)\e"
+				
+				"%(OverYourShoulder)\e"
+			}
+
+			if KiaMode > 0
+			{
+				"\f[bold,true]\0\s[13]So........ how's Hotarubitale?\s[5] Is there anything new..?\f[bold,false]\e"
+			}
+			if BoneJMode > 0
+			{
+				"\f[bold,true]\0\s[3]Y'know...\w5 I'm surprised Fresh isnt around here somewhere.....\f[bold,false]\e"
+			}
+			
+			if WearingDressup("Heart Shades")
+				{
+					"\0\s[4]\f[bold,true]Like the shades? I... \s[24]borrowed them from a \n\_a[https://www.tumblr.com/bonejello]friend,\_a  hehe.\f[bold,False]"
+				}
+			if WearingDressup("Red Glasses")
+				{
+					"\0\s[23]\f[bold,true]Lets...\w8\w3 just say I borrowed these glasses.......\n\w8\w8\s[1]and you dont tell the owner where they went.....\nyeah?\f[bold,False]"
+				}	
+			if WearingDressup("Niji's Outfit")
+				{
+					"\0\s[2]\f[bold,true]Oh these clothes...? \s[5]They.. \w8\s[18]remind me of an \_a[https://siiversans.tumblr.com]old friend.\_a \f[bold,False]"
+				}
+			if WearingDressup("Treehouse Outfit")
+				{
+					"\0\s[20]\f[bold,true]This is always an \_a[https://www.tumblr.com/dreemurr-skelememer/688418133303836672/updated-and-revamped-treehouse-au-designs]interesting outfit!\_a \s[4]I like how comfy it is!\f[bold,False]"
+				}
+			if WearingDressup("Casual Outfit")
+				{
+					"\0\s[4]\f[bold,true]Snazzy clothes yeah? My \_a[https://www.tumblr.com/bonejello]buddy\_a designed them!!\f[bold,False]"
+				}
+
+
+
+	}
+	
+//**************************************************- Anchors -***********************************************************************************
+	
+	"\0\s[0]\f[bold,true]Do you know about BlueChitChat and DreamChitChat?\w8\w8 \s[20]I work with them a lot... \w8\w8\s[24]what fun we get up to sometimes!\f[bold,false]"
+
+	"\0\s[24]\f[bold,true]I wonder what ErrorChitChat's up to right now....?\w8\w8 \n\n\n \_q*(he snickers.)\_q\f[bold,false]"
+	
+
+}
+
+
+
+//Looking at people's programs
+OverYourShoulder
+
+{
+	//as a reminder, ALWAYS put WHAT you're defining first. 4=2+2, not 2+2=4.
+	
+	//This will store how many windows are open in WindowTest. 
+	//WindowTest = FUNCTIONEX("findwin.dll","count")
+	
+	//This will find whether or not a program is running. This WILL count the window being minimized. CalcFrame is an example window.
+	//WindowTest2 = FUNCTIONEX("findwin.dll","find",,"CalcFrame")
+	
+	//Combining these two lets you find out if something is open, but minimized.
+	
+	//This returns MSCTFIME UI, whatever that means.
+	//WindowTest3 = FUNCTIONEX("findwin.dll","getclass")
+	
+	//Probably returns the PID of whatever that above process is.
+	//WindowTest4 = FUNCTIONEX("findwin.dll","getpid")
+	
+	//Returns the taskbar for Winamp, Steam, Discord/Chrome,Notepad++... not Firefox or Pale Moon though. Maybe because two of them are open at once? But that didn't happen with Discord and Chrome... hmm... he's having trouble noticing Sai as well. Well, he notices it, but he doesn't read the caption properly. He doesn't seem to notice Pale Moon or Firefox running at all.
+	
+	//WindowTest3 = FUNCTIONEX("findwin.dll","getcaption","MozillaWindowClass")
+	
+	//Window Class names
+	//Calculator = CalcFrame
+	//Firefox = MozillaWindowClass
+	//Notepad++ = Notepad++
+	//Sai = sfl_window_class = 2368
+	//Sai2 = sflRootWindow
+	//Steam Chat = SDL_app
+	//Discord = Chrome_WidgetWin_1
+	//Chrome = Chrome_WidgetWin_1
+	//File Explorer = CabinetWClass
+	//iTunes = iTunes
+	//VLC Media Player = wxWindowClassNR
+	//Winamp = Winamp v1.x
+	//Undertale/Deltarune - YYGameMakerYY
+	
+	//Notepad++
+	
+	NotepadplusOpen = FUNCTIONEX("findwin.dll","find",,"Notepad++")
+	NotepadplusMin = FUNCTIONEX ("findwin.dll","count",,"Notepad++")
+	
+	if NotepadplusOpen == 1
+	{
+		if NotepadplusMin == 1
+		{
+			"\0\s[0]\f[bold,true]Hmm... \w5\s[3]NotepadPlus? \w8\w3Coding something?\f[bold,false]\e"
+			"\0\s[0]\i[76]\f[bold,true]Doing some coding in NotepadPlus? \w5\f[bold,false]\e"
+		}
+		else
+		{
+			"\0\s[0]\f[bold,true]Hm, I see NotepadPlus down there. \w5Are you working on something?\f[bold,false]\e"
+			"\0\s[0]\i[68]\i[93]\f[bold,true] That looks like NotepadPlus... \w5were you working on something?\f[bold,false]\e"
+		}
+		
+	}
+
+	//Clip Studio Paint
+	
+	ClipOpen = FUNCTIONEX("findwin.dll","find",,"5704E805-3428-4095-8D0D-77ED48B10F70")
+	ClipMin = FUNCTIONEX("findwin.dll","count",,"5704E805-3428-4095-8D0D-77ED48B10F70") 
+	
+	if ClipOpen == 1
+	{
+		if ClipMin == 1
+		{
+			"\0\s[0]\f[bold,true]Taking a break? its okay! Rest helps the creativity flow better!\f[bold,false]\e"
+		}
+		else
+		{
+			"\0\s[0]\f[bold,true]* \_q(He's eyeing Clip Studio...)\_q\f[bold,false]\e"
+			"\0\s[0]\f[bold,true]\_q* (He's peeking at your art program now and again... is he curious?)\_q\f[bold,false]\e"
+			"\0\s[21]\f[bold,true]Hey! Make sure you save! Don't let all your hard work disappear!\f[bold,false]\e"
+			"\0\s[4]\f[bold,true]Oooooh are you making something??\f[bold,false]\e"
+		}
+	}
+
+		
+	//Sai
+	
+	SaiOpen = FUNCTIONEX("findwin.dll","find",,"sfl_window_class")
+	SaiMin = FUNCTIONEX("findwin.dll","count",,"sfl_window_class")
+	
+	if SaiOpen == 1
+	{
+		if SaiMin == 1
+		{
+			"\0\s[14]\f[bold,true]Are you drawing something?\f[bold,false]\e"
+			"\0\s[4]\f[bold,true]Don't forget to save your work!!\f[bold,false]\e"
+			"\0\s[13]\f[bold,true]\_q* (He stares at Paint Tool Sai thoughtfully.)\_q\f[bold,false]\e"
+		}
+		else
+		{
+			"\0\s[5]\f[bold,true]Is that an art program you've got there...?\f[bold,false]\e"
+			"\0\s[0]\f[bold,true]You have Paint Tool Sai minimized... \w5\s[23]taking a break, then?\f[bold,false]\e"
+		}
+	}
+	
+	//FireAlpaca
+	
+//	FireAlpacaOpen = FUNCTIONEX("findwin.dll","find",,"Qt5QWindowIcon")
+//	FireAlpacaMin = FUNCTIONEX("findwin.dll","count",,"Qt5QWindowIcon")
+	
+//	if FireAlpacaOpen == 1
+//	{
+//		if FireAlpacaMin == 1
+//		{
+//			"\0\s[0]\f[bold,true]FireAlpaca? \w5Are you drawing something?\f[bold,false]\e"
+//			"\0\s[3]\f[bold,true]Oooh what's that?\f[bold,false]\e"
+//			"\0\s[5]\f[bold,true]Have you saved your project recently?\f[bold,false]\e"
+//			"\0\s[13]\f[bold,true]\_q* (He stares at FireAlpaca thoughtfully.)\_q\f[bold,false]\e"
+//		}
+//		else
+//		{
+//			"\0\s[9]\f[bold,true]Ohh.. FireAlpaca? i dont see that one usually... Neat!\f[bold,false]\e"
+//			"\0\s[8]\f[bold,true]Hmm... is that Firealpaca youre working in?\f[bold,false]\e"
+//		}
+//	}
+	
+	//Steam Chat
+	
+//	SteamOpen = FUNCTIONEX("findwin.dll","find",,"SDL_app")
+//	SteamMin = FUNCTIONEX("findwin.dll","count",,"SDL_app")
+	
+//	if SteamOpen == 1
+//	{
+//		if SteamMin == 1
+//		{
+//			"\0\s[0]\i[3]\i[91]Chatting with someone on that game client? \w5Are you talking about me? \w5\s[5]\i[38]\i[71]\i[88]\i[100]Of course, with my breadth of incredible work, it'd be hard not to...\e"
+//			"\0\s[0]\i[68]\i[93]Why is your chat client called Steam? \w5Human naming schemes are confusing to me. \w5\s[100]\i[39]\i[105]Although, I suppose it could be worse... \w5Asgore could have named it.\e"
+//		}
+//		else
+//		{
+//			"\0\s[0]\i[93]Hm, I see you have some conversations docked below in the taskbar... \w5\i[58]is that normal human behavior?\e"
+//			"\0\s[0]\i[68]Steamchat minimized... \w5\s[6]\i[68]\i[35]socializing is exhausting, isn't it?\e"
+//		}
+//	}
+	
+	
+	//Chrome or Discord - have to check the caption for this one to see which is which
+	
+	DiscordOpen = FUNCTIONEX("findwin.dll","find",,"Chrome_WidgetWin_1")
+	DiscordMin = FUNCTIONEX("findwin.dll","count",,"Chrome_WidgetWin_1")
+	DiscordorChrome = FUNCTIONEX("findwin.dll","getcaption","Chrome_WidgetWin_1")
+	
+	if DiscordOpen == 1
+	{
+		if "Discord" _in_ DiscordorChrome
+		{
+			if DiscordMin >= 1
+			{
+				"\0\s[3]\f[bold,true]Oh- are you talking to someone? \w5\s[14]Oh no no, dont worry, I wont look..\f[bold,false]\e"
+				"\0\s[20]\f[bold,true]Its nice to have friends to talk with... \w5\0\s[3]Is that... \n'Discord'? \w8\w4\s[23]Maybe Dream and Blue and I should set up a groupchat thing...\f[bold,false]\e"
+			}
+			else
+			{
+				"\0\s[8]\f[bold,true]Hm, you've minimized that chatting program... \w5\s[21]Time to focus?\f[bold,false]\e"
+				"\0\s[0]\f[bold,true]Tired of talking to people? \w5\s[0]It can be overwhelming sometimes...\f[bold,false]\e"
+			}
+		}
+		elseif "Google Chrome" _in_ DiscordorChrome
+		{
+			if DiscordMin == 1
+			{
+				"\0\s[4]\f[bold,true]Oooh are you looking for references?\f[bold,false]\e"
+				"\0\s[8]\f[bold,true]Would the internet be considerd a tiny version of the multiverse...?\f[bold,false]\e"
+				"\0\s[3]\f[bold,true]What's the internet like?\f[bold,false]\e"
+			}
+			else
+			{
+				"\0\s[3]\f[bold,true]Your internet browser is minimized- Focusing on something else?\f[bold,false]\e"
+			}
+		}	
+	}
+	
+	
+	//Itunes - seems to always read it as minimized?
+	
+//	ItunesOpen = FUNCTIONEX("findwin.dll","find",,"iTunes")
+//	ItunesMin = FUNCTIONEX("findwin.dll","count",,"iTunes")
+	
+//	if ItunesOpen == 1
+//	{
+//		if ITunesMin == 1
+//		{
+//			"\0\s[5]\i[58]\i[100]Hm, you have one of those human media programs open... \w5Alphys knows much more about these things than I do.\e"
+//		}
+//		else
+//		{
+//			"\0\s[5]\i[58]\i[100]\i[89]* (He's studying iTunes...)\e"
+//			"\0\s[0]\i[68]\i[75]\_q* (If he can hear your music from iTunes, he's not making it obvious...)\_q\e"
+//		}
+//	}
+	
+	//Spotify - seems to always read it as minimized?
+	
+	SpotifyOpen = FUNCTIONEX("findwin.dll","find",,"Chrome_WidgetWin_0")
+	SpotifyMin = FUNCTIONEX("findwin.dll","count",,"Chrome_WidgetWin_0")
+	SpotifyCheck = FUNCTIONEX("findwin.dll","getcaption","Chrome_WidgetWin_0")
+
+	if "Spotify" _in_ SpotifyCheck
+	{	
+		if SpotifyOpen == 1
+		{
+			if SpotifyMin == 1
+			
+			{
+			"\0\s[9]\f[bold,true]Hm, you have one of those music programs open... \w5\s[8]Dance knows much more about these things than I do.\f[bold,false]\e"
+			"\0\s[20]\f[bold,true] \_q(He seems to be trying to listen for music coming from Spotify...)\_q\f[bold,false]\e"
+			}
+			else
+			{
+			"\0\s[14]\f[bold,true]* \_q(He's listening to your Spotify...)\_q\f[bold,false]\e"
+			"\0\s[0]\f[bold,true]* \_q(If he can hear your music from Spotify, he's not making it obvious...)\_q\f[bold,false]\e"
+			}
+		}
+	}
+	
+
+//	//Winamp - this is probably just for me
+	
+//	WinampOpen = FUNCTIONEX("findwin.dll","find",,"Winamp v1.x")
+//	WinampMin = FUNCTIONEX("findwin.dll","count",,"Winamp v1.x")
+//	
+//	if WinampOpen == 1
+//	{
+//		if WinampMin == 1
+//		{
+//			"\0\s[0]\i[68]\i[92]That music program... \w5do you ever close it?\e"
+//			"\0\s[0]\i[68]\i[92]How much music can one human have...?\e"
+//		}
+//		else
+//		{
+//			"\0\s[0]\i[68]\i[93]Even if you minimize that music program, I can still hear it while it's playing, you know.\w8\n\n* (You know.)\e"
+//			"\0\s[0]\i[68]\i[75]* \_q(He's ignoring the music coming from Winamp in your taskbar.)\_q\e"
+//		}
+//	}
+	
+	//VCL Player
+	
+//	VCLOpen = FUNCTIONEX("findwin.dll","find",,"wxWindowClassNR")
+//	VCLMin = FUNCTIONEX("findwin.dll","count",,"wxWindowClassNR")
+	
+//	if VCLOpen == 1
+//	{
+//		if VCLMin == 1
+//		{
+//			"\0\s[0]\i[63]\i[91]Watching a movie, I see. \w5Or is it just a show?\e"
+//			"\0\s[0]\i[91]Using one of your human programs to watch something? \w6\i[68]Something important, no doubt.\e"
+//			"\0\s[3]* \_q(It's too bad he can't see what you're watching in VLC. \w5He doesn't seem very interested in it anyway though.)\_q\e"
+//		}
+//		else
+//		{
+//			"\0\s[0]\i[93]I see you minimized your video player. \w6\i[68]Was it boring you, or did you decide to get back to work?\e"
+//		}
+//	}
+	
+	//File Explorer
+	
+//	ExplorerOpen = FUNCTIONEX("findwin.dll","find",,"CabinetWClass")
+//	ExplorerMin = FUNCTIONEX("findwin.dll","count",,"CabinetWClass")
+//	
+//	if ExplorerOpen == 1
+//	{
+//		if ExplorerMin == 1
+//		{
+//			"\0\s[0]\i[62]\i[82]* \_q(He's using your open Explorer window to take notes on your computer.)\_q\e"
+//			"\0\s[0]\i[62]\i[76]* \_q(He watches you navigate around your computer in the Explorer window.)\_q\e"
+//		}
+//		else
+//		{
+//			"\0\s[0]\i[50]\i[50]\i[50]* \_q(He glances down at the minimized Explorer window in your taskbar.)\_q\e"
+//		}
+//	}
+	
+	//Undertale/Deltarune
+	
+//	UndertaleOpen = FUNCTIONEX("findwin.dll","find",,"YYGameMakerYY")
+//	UndertaleMin = FUNCTIONEX("findwin.dll","count",,"YYGameMakerYY")
+//	WhichGame = FUNCTIONEX("findwin.dll","getcaption","YYGameMakerYY")
+	
+//	if UndertaleOpen == 1
+//	{
+//		if "UNDERTALE" _in_ WhichGame
+//		{
+//			if UndertaleMin == 1
+//			{
+//			"\0\s[0]\i[68]\i[93]Undertale? \w5\i[80]You humans have such silly names for your video games.\w9\n\n* (You try to tell him what it is you're playing...) \w8\n\n\s[7]\i[87]\i[104]\i[69]\i[40]Humans really have no end to their self-importance, do they? \w5\s[8]\i[105]\i[51]\i[39]Spare me your ridiculous stories about my world. \w5\s[9]\i[105]\i[51]\i[39]Such a thing is impossible.\w8\n\n* (...Maybe it's better that he doesn't believe you about this.)\e"
+//			"\0\s[3]* (Playing Undertale while he's here... \w5it feels a little like playing with fire.)\e"
+//			}
+//			else
+//			{
+//			"\0\s[0]\i[68]\i[75]* (He looks like he's listening for something. \w5Is Undertale playing music from your taskbar...?)\e"
+//			}
+//		}
+//		elseif "DELTARUNE" _in_ WhichGame
+//		{
+//			if UndertaleMin == 1
+//			{
+//			"\0\s[0]\i[68]\i[93]The game you're playing is called Deltarune? \w5Hmmph. \w5\s[6]\i[6]\i[70]\i[97]\i[35]Is there anything humans haven't stolen from monsters? \w5Even your titles are derivative.\w8\n\n* (You think about telling him what Deltarune is... \w5but decide it's too complicated anyway. \w5He still doesn't really know what Undertale is...)\e"
+//			"\0\s[100]\i[51]\i[39]Deltarune... \w5hmph. \w5A poor imitation of a proper monster Delta Rune, no doubt.\e"
+//			}
+//			else
+//			{
+//			"\0\s[0]\i[68]\i[75]* (He's faintly humming along to the Deltarune music from your taskbar.)\e"
+//			}
+//		}
+//		else
+//		{
+//			if UndertaleMin == 1
+//			{
+//			"\0\s[0]\i[68]Playing a video game, I see. \w5\i[80]Such leisurely lives you humans lead...\e"
+//			}
+//			else
+//			{
+//			"\0\s[0]\i[68]Hmm, you minimized your game. \w5\i[91]Getting back to work, I take it? \w5\i[80]There are only so many hours in the day to get it done...\e"
+//			}
+//		}
+//	}
+	
+//	if UndertaleOpen == 0 && ExplorerOpen == 0 && VCLOpen == 0 && WinampOpen == 0 && ItunesOpen == 0 && DiscordOpen == 0 && SteamOpen == 0 && SaiOpen == 0 && NotepadPlusOpen == 0 && ClipOpen == 0
+//	{
+//		"\0\s[0]\i[56]\i[91]You could at least do something interesting for me to watch, human...\e"
+//	}
+}
+
+
+/*
+	WindowTest1 = FUNCTIONEX ("findwin.dll","count",,"CalcFrame")
+	WindowTest2 = FUNCTIONEX("findwin.dll","find",,"CalcFrame")
+	
+	if WindowTest2 == 0
+		{
+		"Calculator is not open."
+		}
+	elseif WindowTest2 == 1
+		{
+			if WindowTest1 == 0
+			{
+			"Calcuator is open, but minimized."
+			}
+			else
+			{
+			"Calculator is open."
+			}
+		}
+		*/
+		
+		

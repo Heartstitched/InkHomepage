@@ -1,0 +1,257 @@
+SakuraMenuGreetings : nonoverlap
+{
+	"\f[bold,true]Hello.\f[bold,false]"
+	"\f[bold,true]How can I help you?\f[bold,false]"
+}
+
+//Because there is an all modifier here, you don't need to write -- between menu options
+OnSakuraMenu : all
+{
+	"\0\s[0]\b2\![set,autoscroll,disable]"
+	if SHIORI3FW.Eventid == "OnMouseDoubleClick"; SakuraMenuGreetings //The check here is so they won't comment if you click the back button. Remove if you prefer
+	
+	"\n\n\_q"
+	
+	"\f[bold,true]\![*]\q[Talk to me,OnAiTalk]\f[bold,false]"
+	if LastTalk != ""; "\f[bold,true]  \n\![*]\q[Say that again,OnLastTalk]\f[bold,false]"
+	"\n\n"
+	"\f[bold,true]\![*]\q[Config,OnConfigMenu]\n\n\f[bold,false]"
+	
+	"\f[bold,true]\![*]\q[Tell Ink Something?,OnWhisperInYourEar]\f[bold,false]\n\n"
+	if username == "Heart"
+	{
+		"\f[bold,true](Do you want to reset your progress entirely?)\n\![*](\q[You do,OnYesReset]) \![*](\q[You don't,BACKTOMENU])\f[bold,false]\e"
+		"\f[bold,true]\![*]\q[test variable,testvariable]\f[bold,false]\n"
+		"\f[bold,true]\![*]\q['whatcha doin?',OnWhatchaDoing]\n\n\f[bold,false]"
+	}
+	
+	
+	"\f[bold,true]\![*]\q[Nevermind,blank]\f[bold,false]"	
+}
+
+OnLastTalk
+{
+	LastTalk
+}
+
+OnTalkRateMenu : all
+{	
+	//This is just setting up a label, you may need to add to it or tweak it if you change what rates are available
+	_talkrate = "Off"
+	if aitalkinterval == 30; _talkrate = "30 seconds"
+	elseif aitalkinterval == 60; _talkrate = "1 minute"
+	elseif aitalkinterval == 180; _talkrate = "3 minutes"
+	elseif aitalkinterval == 300; _talkrate = "5 minutes"
+	elseif aitalkinterval == 600; _talkrate = "10 minutes"
+	
+	"\f[bold,true]\0\s[0]\b2\![set,autoscroll,disable]\_q\f[bold,false]"
+	"\f[bold,true]Current interval: %(_talkrate)\n\n\f[bold,false]"
+	
+	"\f[bold,true]\![*]\q[Off,OnTalkRateChange,0]\n\f[bold,false]"
+	"\f[bold,true]\![*]\q[30 seconds,OnTalkRateChange,30]\n\f[bold,false]"
+	"\f[bold,true]\![*]\q[1 minute,OnTalkRateChange,60]\n\f[bold,false]"
+	"\f[bold,true]\![*]\q[3 minutes,OnTalkRateChange,180]\n\f[bold,false]"
+	"\f[bold,true]\![*]\q[5 minutes,OnTalkRateChange,300]\n\f[bold,false]"
+	"\f[bold,true]\![*]\q[10 minutes,OnTalkRateChange,600]\n\f[bold,false]"
+	"\n"
+	
+		--
+	"\f[bold,true]* (Do you want Ink to comment on what you're doing on your computer?\f[bold,false]"
+	--
+	if PeekingOkay == 1 || PeekingOkay == 0
+	{
+		"\f[bold,true] Right now you %(peekopinion).\f[bold,false]"
+	}
+	--
+	"\f[bold,true])\n(\![*]\q[Yes,OnPeekCheck] \![*]\q[No,peekoff])\n\n\f[bold,false]"
+	--
+	"\f[bold,true]\![*]\q[Back,OnSakuraMenu]  \![*]\q[Nevermind,blank]\f[bold,false]"
+}
+
+OnTalkRateChange
+{
+	aitalkinterval = TOINT(reference0)
+}
+
+
+OnWhatchaDoing
+{
+	if PeekingOkay != 1
+	{
+		OnPeekCheck
+	}
+	else
+	{
+	
+	
+		
+		"%(OverYourShoulder)\e"
+		
+	}
+}
+
+
+
+
+//Peeking
+OnPeekCheck
+{
+	"\b2\f[bold,true]\_q* (Notice: This feature only works on Windows machines! If you try to enable it on a Mac or Linux machine, you may encounter errors or Ink may not function properly! Are you sure you want to turn it on?)\_q\n\n\![*]\q[Yes,OnPeekConfirm]   \![*]\q[No,OnPeekOff]\f[bold,false]\e"	
+}	
+
+OnPeekConfirm
+{	peekopinion = "do"
+	PeekingOkay = 1
+}
+
+OnPeekOff
+{
+	peekopinion = "don't"
+	PeekingOkay = 0
+}
+
+//----------Config Menu----------
+//I moved changing name/pronouns/birthday over to Nameteach, because they're info about the user
+OnConfigMenu : all
+{
+	FixDefaultOptions
+	
+	_h = "\f[color,default.anchor]" //Highlight
+	_d = "\f[color,default]" //Default
+	
+	"\0\_q\b2\![set,autoscroll,disable]\![close,inputbox,%(reference0)]"
+	
+	"\f[bold,true]\f[align,center]—Config—\n\n\f[align,default]\f[bold,false]"
+	
+	"\f[bold,true]\![*]Your name: %(_h)\__q[OnChangeName]%(username)\__q%(_d)\n\f[bold,false]"
+	"\f[bold,true]\![*]Your pronouns: %(_h)\__q[OnChangePronoun]%(they)/%(them)/%(theirs)\__q%(_d)\n\f[bold,false]"
+	"\f[bold,true]\![*]Your birthday: %(_h)\__q[OnChangeBirthday]%(birthday[0])\__q%(_d)\n\f[bold,false]"
+	
+	"\f[bold,true]\![*]\q[Speech Settings,OnTalkRateMenu]\n\n\f[bold,false]\n\n"
+	
+
+	"\f[bold,true]\![*]\q[Back,OnSakuraMenu]  \![*]\q[Nevermind,blank]\f[bold,false]\n\n"
+
+}
+
+
+
+OnWhisperInYourEar 
+{
+
+	"\f[bold,true]\_q* ( You tell Ink you want to tell him something.)\_q\n\w5\f[bold,false]"	
+	
+	--
+	
+	{
+		"\0\s[8]\f[bold,true]\_q* ( He's listening...)\_q\f[bold,false]\w6"
+		"\0\s[3]\f[bold,true]What is it?\f[bold,false]\w6"
+	}
+	--
+	"\f[bold,true]\w6\w6\n\n\_q* ( You say...)\_q\![open,inputbox,OnTellStuff,-1]\f[bold,false]\n\n\e"
+}
+
+OnTellStuff
+{
+	reference0 = TOLOWER(reference0) //changes it to lowercase
+	
+	if reference0 == "i love you"
+	{
+	//if gasterpets + positiveact > 50
+	//{
+	//		"\0\s[8]\i[51]\i[103]\i[40]Yes yes, I already know that."
+	//	"\0\s[9]\i[2]\i[40]\i[51]* (He sighs.)"
+	//}
+//		else
+		{
+			"\0\s[0]\f[bold,true]Aw! I love you too!\f[bold,false]"
+			"\0\s[0]\f[bold,true]Oh- Ummm..... thank you!\f[bold,false]"
+		}
+	}
+	elseif reference0 == "i hate you"
+	{
+	//	if negativeact > 10
+	//	{
+	//		"\0\s[9]\i[40]I've gathered."
+	//		"\0\s[6]\i[68]* (He doesn't seem that surprised.)"
+	//	}
+//		else
+		{
+			"\0\s[24]\f[bold,true]\_q* ( He laughs...)\_q \w7\w7\w7\n \0\s[3]You know, \w7Error says the same thing!\f[bold,false]"
+			"\0\s[3]\f[bold,true]Why'd you ask for me,\w5 then?\f[bold,false]"
+		}
+	}
+	elseif reference0 == "kiapassword"
+	{
+
+		{
+			KiaMode += 1
+			"\0\s[3]\f[bold,true]Oh my gosh its you! \0\s[11]Hiiiiiii!!!\f[bold,false]"
+			"\0\s[1]\f[bold,true]Kia....?\f[bold,false]"
+		}
+	}
+	
+	elseif reference0 == "bluesillystring"
+	{
+
+		
+		if BoneJMode > 0
+		{
+			"\0\s[1]\f[bold,true] I'd ask if you like Fresh but.......\f[bold,false]"	
+		}
+		elseif BoneJMode == 0
+		{
+			BoneJMode += 1
+			"\0\s[3]\f[bold,true]You know.... I thought I saw Fresh around here... \s[1]Makes sense now\f[bold,false]"
+			"\0\s[9]\f[bold,true]Woah it really is you!! \s[17]Hi!!!\f[bold,false]"
+		}
+		
+	}
+	else
+		{
+			{
+				"\0\s[0]\f[bold,true]\_q* ( He listens quietly. \w5When you are done, \s[0]he nods in acknowledgment.)\f[bold,false]"
+				"\0\s[0]\f[bold,true]\_q* ( He listens attentively until you are done.)\f[bold,false]"
+				"\0\s[7]\f[bold,true]\_q* ( He doesn't say anything. \w5He just listens.)\f[bold,false]"
+				"\0\s[0]\f[bold,true]\_q* ( He seems a bit lost in thought.)\f[bold,false]"
+				"\0\s[7]\f[bold,true]\_q* ( He gives you his full attention.)\f[bold,false]"
+				"\0\s[0]\f[bold,true]\_q* ( Was he paying attention...?)\f[bold,false]"
+				"\0\s[0]\_q\f[bold,true]* ( He could've been listening more closely, you think.)\f[bold,false]"
+				"\0\s[0]\_q\f[bold,true]* ( It seems hard for him to focus on your words.)\f[bold,false]"
+				"\0\s[0]\_q\f[bold,true]* ( It seems like he was listening... \w6mostly.)\f[bold,false]"
+			}
+
+	
+		}
+}
+//This is here in case the variables get erased. The buttons will be set to default so the user has something to click in the config menu. This has happened to my users before and resetting them is a painful process. Do not remove these, you'll want to add in new ones for any toggle buttons you have in the config menu. This is also called in BootVars and UpdateVars, which is why it's separate from the config menu itself.
+FixDefaultOptions
+{
+	if username == ""; username = "User"
+	if birthday[0] == ""; birthday[0] = "???"
+	if hemisphere == ""; hemisphere = "Northern"
+	if talkrate == ""; {talkrate = "every 5 minutes"; aitalkinterval = 300}
+	if deletebutton == ""; deletebutton = "Off"
+	if AutoUpdates[0] == ""; AutoUpdates[0] = "On"
+	if HourNotifs == ""; HourNotifs = "On"
+}
+
+
+OnYesReset
+{
+	
+	if KiaMode > 0
+	{	
+		StuffToReset	
+		"\1\s[-1]\0\s[20]\f[bold,true]Done\f[bold,false]\e"
+	}
+	elseif BoneJMode > 0
+	{	
+		StuffToReset	
+		"\1\s[-1]\0\s[20]\f[bold,true]Done.\f[bold,false]\e"
+	}
+	else
+	{
+		"\1\s[-1]\0\s[3]\f[bold,true]There was nothing to reset!\f[bold,false]\e"
+	}
+}

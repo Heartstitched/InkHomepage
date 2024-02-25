@@ -1,0 +1,90 @@
+OnFirstBoot
+{
+	//If you add variables, make sure to initialize them here!
+	//Note - I haven't added anything about username or pronouns here because it's all handled by the SSP prefs
+	stroke = 0
+	LastTalk = ""
+	CreativeMode = 0
+	PeekingOkay = 0
+	KiaMode = 0
+	BoneJMode = 0
+	CurrentDressups = IARRAY
+	
+	
+	
+	
+
+
+	//Mind if I take a look around the place? \n\![*]\q[Yes,OnPeekConfirm]   \![*]\q[No,OnPeekOff]
+	
+	if reference0 == 0 //Very first boot - this dialogue finishes over in nameteach.dic after the user gives their name, make sure you check there.
+	{
+		//"\1\s[-1]\0\s[0]Hello!\w8\w8 My name is X. Template!\w8\w8\n\nThis ghost is a simple template meant for experienced ghost devs.\w8\w8 If you are interested in a ghost template that includes a walkthrough,\w4 you should try \_a[OnGTTemplateLink,(this function is in zzz_todo.dic because you shouldn't need it for your ghost)]Zarla's GT Template\_a!\w8\w8\n\nNow then,\w4 what should I call you,\w4 user?"
+		
+		"\0\s[-1]\f[bold,true]--Hup!..\w8\w8 \s[0]Ah-\w8 \n\0\s[8]Huh.\w4 This is weird.\w4\x \n\f[bold,true]\_q*(he scratches his skull)\f[bold,false]\_q\x \w8\w8 \c\0\s[0]\f[bold,true]Hey friend-\w4 \0\s[3]What AU is this?\w8\w8 Or-\w3 \0\s[22]hold on you probably wouldnt know....\f[bold,false]\x\c \f[bold,true]\s[0]Err.... Oh- \s[21]Let me introduce myself at least!\w8\w3 \s[14]Name's Ink! \s[0]Guardian to the.\w4.\w4.\w4.\w4 \s[8]\c\f[bold,true]ah\w4.\w4.\w8\w8\f[bold,false] \c\f[bold,true]what was it\w4.\w4.\w4.\w8\w8 \f[bold,false]\s[9]\c\f[bold,true]Oh!\w8 \s[4]The AU's! \f[bold,false]\x \c\f[bold,true]\s[0].\w8\w8.\w8\w8.\w8\w8.\w8\w8\w8\f[bold,false]\x\c \s[4]\f[bold,true]Neat place you have here!\w8\w8\s[3] Mind if I stick around?\n\w8\w4 Oh! And mind telling me how to refer to you??\f[bold,false]"
+	}
+	else //Reference0 is the number of times you've uninstalled the ghost, so this is if you're reinstalling them.
+	{
+		"\1\s[-1]\0\s[0]Hi there!\w8\w8 It's me again.\w8\w8 Tell me your name again please?"
+	}
+	--
+	"\![open,inputbox,OnNameTeach,-1,--reference=firstboot]\_l[-10000,-10000]\*\q[ ,__VERY_FIRST_BOOT__]"
+	//Don't erase the \q tag there! That prevents the box from being closed or timing out before the user inputs their name. If you make significant changes to the first boot, you may want to erase that. There are bits of code that deal with this in etc.dic, use ctrl F to find them. IF THIS GIVES YOU ISSUES PLEASE LET ME KNOW, but I think it should be a lot better than the variable solution I had previously.
+
+}
+
+nowshell
+{
+  SHIORI3FW.ShellName
+}
+
+OnInitialize
+{
+	//If you want some variables to reset on boot, put them here. This event will happen even if you add other events like OnGhostChanged
+	//OnInitialize is a NOTIFY event! That means it cannot return scripts. This event is only meant for things like variable changes. See this page on Ukadoc for more info: https://ukagakadreamteam.github.io/ukadoc/manual/spec_shiori3.html
+	
+	//If you add new variables in updates, I recommend initializing them like so:
+	//if !ISVAR("NewVariable"); NewVariable = 0
+	//This means that it will only set the new variable if the user doesn't already have it, so that their variables don't get overwritten
+	
+	if reference0 != "reload" //For things you want to reset EXCEPT when just reloading; a convenience for you the dev, basically
+	{
+		LastTalk = ""
+	}
+}
+
+OnBoot
+{
+	_temp = SHIORI3FW.UserBirthday
+	_user_birthday = "%(_temp[1])/%(_temp[2])" //M/D, if you want it D/M you can switch it around
+	_today = "%(month)/%(day)" //Again, switch this around if using D/M
+	
+	"\1\s[10]\0\s[0]"
+	--
+	if _today == _user_birthday
+	{
+		"\0\s[0]It is %(username)'s birthday today.\w8 Happy birthday, %(username).\w8 Developer,\w4 you can add an interesting message here.\w8 It can be as long as you like.\w8 Or, you can remove it entirely."
+	}
+	elseif _today == "1/1" //You can add whatever cool dates you want with more elseifs here
+	{
+		"\0\s[0]It's new year's day.\w8 Happy %(year),\w4 %(username)."
+	}
+	elseif _today == "4/15" //Ink's Birthday!
+	{
+		"\0\s[0]Huh.. Today feels important for some reason.."
+	}
+	else //Normal boot
+	{
+		"\0\s[0]\f[bold,true]Hello %(username).\w8 Good to see you.\f[bold,false]"
+		"\0\s[0]\f[bold,true]Hey,\w8 ready to make something cool?\f[bold,false]"
+		"\0\s[0]\f[bold,true]You called?\f[bold,false]"
+	}
+}
+
+OnClose
+{
+	"\0\s[0]\f[bold,true]See you!\f[bold,false]"
+	"\0\s[0]\f[bold,true]Meet again later, maybe?\f[bold,false]"
+	--
+	"\w8\w8\-" //This is what makes the ghost close (after a short pause), do not remove the \- , and MAKE SURE you don't use a \e before this point or it won't work
+}

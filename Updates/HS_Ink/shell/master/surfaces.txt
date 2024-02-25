@@ -1,0 +1,425 @@
+//Some quick notes:
+//1: SERIKO does NOT support same line comments. If you want to write a comment, ALWAYS PUT IT ON ITS OWN LINE. If you put comments after other bits of code in the same line, it may seem to work at first, but it can cause cryptic errors down the line. Save yourself the trouble. Always put comments on their own lines in here. Additionally, it doesn't do block comments with /* and */
+//2: The example blink code is set up with the new definition, which I recommend you use. Here is my guide to what that means: https://zichqec.github.io/s-the-skeleton/olddef_vs_newdef
+//If you want to use old definition, make sure to erase that 'version,1' bit.
+//3: It is very common for people to feel stuck on how to start, because they don't know what expressions to make without having dialogue, but they don't know what dialogue to write without having expressions. If you're feeling that way, I highly suggest using emoji as substitutes just to get you started! That may sound weird if you're not fond of emoji, but seriously, just give it a try. I've found that just writing a few messages in Discord and using the emoji to signify surface changes is a great help to get me past that initial hump where it feels impossible.
+
+
+descript
+{
+	version,1
+}
+
+
+//—————————————————————————————— Sakura surfaces ——————————————————————————————
+
+surface0
+{
+
+}
+
+//—————————————————————————————— Silly Mode ——————————————————————————————
+surface1 \\ silly mode activate
+{
+	element0,overlay,surface1.png,0,0
+}
+
+//—————————————————————————————— Neutral ——————————————————————————————
+surface2
+{
+
+	element0,overlay,surface2.png,0,0
+
+
+}
+
+//—————————————————————————————— Curious ——————————————————————————————
+surface3
+{
+
+	element0,overlay,surface3.png,0,0
+
+}
+
+//—————————————————————————————— Determined ——————————————————————————————
+surface4
+{
+
+	element0,overlay,surface4.png,0,0
+
+}
+
+
+//—————————————————————————————— Bittersweet ——————————————————————————————
+surface5
+{
+
+	element0,overlay,surface5.png,0,0
+}
+
+
+//—————————————————————————————— Sad ——————————————————————————————
+surface6
+{
+
+	element0,overlay,surface6.png,0,0
+
+}
+
+
+//—————————————————————————————— Angy ——————————————————————————————
+surface7
+{
+
+	element0,overlay,surface7.png,0,0
+
+}
+
+//—————————————————————————————— Confused ——————————————————————————————
+surface8
+{
+
+	element0,overlay,surface8.png,0,0
+
+}
+
+
+//—————————————————————————————— Surprised ——————————————————————————————
+surface9
+{
+
+	element0,overlay,surface9.png,0,0
+
+}
+
+
+//—————————————————————————————— Smiley Blush ——————————————————————————————
+surface11
+{
+
+	element0,overlay,surface11.png,0,0
+}
+
+
+//—————————————————————————————— Surprised Blush ——————————————————————————————
+surface12
+{
+
+	element0,overlay,surface12.png,0,0
+
+}
+
+//—————————————————————————————— No-Blush Neutral ——————————————————————————————
+surface13
+{
+	element0,overlay,surface13.png,0,0
+
+}
+
+//—————————————————————————————— Closed Eyes Happy ——————————————————————————————
+surface14
+{
+	
+	element0,overlay,surface14.png,0,0
+
+}
+
+
+//—————————————————————————————— Closed Eyes Happy Blush ——————————————————————————————
+surface15
+{
+	
+	element0,overlay,surface15.png,0,0
+
+}
+
+
+//—————————————————————————————— Bashful ——————————————————————————————
+surface16
+{
+	
+	element0,overlay,surface16.png,0,0
+
+}
+
+
+//—————————————————————————————— Bashful Blush ——————————————————————————————
+surface17
+{
+
+	element0,overlay,surface17.png,0,0
+
+}
+
+//—————————————————————————————— Pensive ——————————————————————————————
+surface18
+{
+	
+	element0,overlay,surface18.png,0,0
+
+}
+
+//—————————————————————————————— Closed Eyes Neutral ——————————————————————————————
+surface19
+{
+
+	element0,overlay,surface19.png,0,0
+
+}
+
+//—————————————————————————————— Peaceful ——————————————————————————————
+surface20
+{
+
+	element0,overlay,surface20.png,0,0
+
+}
+
+//—————————————————————————————— Annoyed ——————————————————————————————
+surface21
+{
+	
+	element0,overlay,surface21.png,0,0
+
+}
+
+//—————————————————————————————— Thoughtful ——————————————————————————————
+surface22
+{
+
+	element0,overlay,surface22.png,0,0
+
+}
+
+//—————————————————————————————— Impish Grin ——————————————————————————————
+surface23
+{
+
+	element0,overlay,surface23.png,0,0
+
+}
+
+//—————————————————————————————— Snicker ——————————————————————————————
+surface24
+{
+
+	element0,overlay,surface24.png,0,0
+
+}
+
+//—————————————————————————————— Kero surfaces ——————————————————————————————
+
+
+surface10
+{
+
+}
+
+
+//—————————————————————————————— Eyelights ——————————————————————————————
+surface0,2,13
+{
+
+//Left eyelight 0
+	animation100.interval,never
+	animation100.pattern0,overlay,100,0,0,0
+
+//Left eyelight 1
+	animation101.interval,never
+	animation101.pattern0,overlay,101,0,0,0
+
+//Left eyelight 2
+	animation102.interval,never
+	animation102.pattern0,overlay,102,0,0,0
+
+//Left eyelight 3
+	animation103.interval,never
+	animation103.pattern0,overlay,103,0,0,0
+
+//Left eyelight 4
+	animation104.interval,never
+	animation104.pattern0,overlay,104,0,0,0
+	
+//Left eyelight 5
+	animation105.interval,never
+	animation105.pattern0,overlay,105,0,0,0
+
+//Right eyelight 0
+	animation200.interval,never
+	animation200.pattern0,overlay,200,0,0,0
+
+//Right eyelight 1
+	animation201.interval,never
+	animation201.pattern0,overlay,201,0,0,0
+
+//Right eyelight 2
+	animation202.interval,never
+	animation202.pattern0,overlay,202,0,0,0
+
+//Right eyelight 3
+	animation203.interval,never
+	animation203.pattern0,overlay,203,0,0,0
+
+//Right eyelight 4
+	animation204.interval,never
+	animation204.pattern0,overlay,204,0,0,0
+	
+//Right eyelight 5
+	animation205.interval,never
+	animation205.pattern0,overlay,205,0,0,0
+
+
+
+//Animation that calls a random pair (it's separate so that it can be runonce so that you have eyelights immediately. I don't know if this will work as intended? You may have to copy this into the blinking animation and just update both of them if you ever add more)
+	animation1000.interval,runonce
+	animation1000.pattern0,parallelstop,(100,101,102,103,104,105,200,201,202,203,204,205)
+	animation1000.pattern1,alternativestart,(100,101,102,103,104,105)
+	animation1000.pattern2,alternativestart,(200,201,202,203,204,205)
+
+//Blinking animation, controls the randomization of eyelights
+	animation1001.interval,random,4
+	animation1001.pattern0,overlay,1000,0,0,0
+	animation1001.pattern2,overlay,1001,100,0,0
+	animation1001.pattern1,start,1000
+	animation1001.pattern3,overlay,-1,70,0,0
+}
+
+
+
+//—————————————————————————————— Talking Animation ——————————————————————————————
+
+surface0,3-5,11,14-18,20,21,23,24
+{
+//Smiley
+	animation1.interval,talk,4
+	animation1.pattern0,alternativestart,(2,3,4)
+	
+	animation2.interval,never
+	animation2.pattern0,overlay,2100,0,0,0
+	animation2.pattern1,overlay,2101,100,0,0
+	animation2.pattern2,overlay,-1,100,0,0
+	
+	animation3.interval,never
+	animation3.pattern0,overlay,2102,0,0,0
+	animation3.pattern1,overlay,-1,100,0,0
+	
+	animation4.interval,never
+	animation4.pattern0,overlay,2102,0,0,0
+	animation4.pattern1,overlay,2101,100,0,0
+	animation4.pattern2,overlay,-1,100,0,0
+}
+
+surface2,6-9,12,13,19,22
+{	
+//Neutral
+	animation1.interval,talk,4
+	animation1.pattern0,alternativestart,(2,3,4)
+	
+	animation2.interval,never
+	animation2.pattern0,overlay,2103,0,0,0
+	animation2.pattern1,overlay,2104,100,0,0
+	animation2.pattern2,overlay,-1,100,0,0
+	
+	animation3.interval,never
+	animation3.pattern0,overlay,2105,0,0,0
+	animation3.pattern1,overlay,-1,100,0,0
+	
+	animation4.interval,never
+	animation4.pattern0,overlay,2104,0,0,0
+	animation4.pattern1,overlay,2103,100,0,0
+	animation4.pattern2,overlay,-1,100,0,0
+}
+	
+//—————————————————————————————— Float Animation ——————————————————————————————
+	
+surface.append0-9,11-24
+{	  
+    animation2999.interval,always
+    animation2999.pattern0,move,-1,0,0,0
+    animation2999.pattern1,move,-1,800-1000,0,-1
+    animation2999.pattern2,move,-1,400,0,-2
+    animation2999.pattern3,move,-1,500,0,-3
+    animation2999.pattern4,move,-1,1000-2000,0,-2
+    animation2999.pattern5,move,-1,500,0,-1
+    animation2999.pattern6,move,-1,400,0,0
+    animation2999.option,shared-index
+}
+
+//—————————————————————————————— Base Collision ——————————————————————————————
+surface.append0-9,11-24
+
+{
+	collisionex0,Head,region,collisionbody.png,243,236,230
+//	collisionex8,Arms,region,collisionbody.png,56,33,31
+
+	
+}
+
+
+//----------------------------------Dressup----------------------------------
+
+surface0-9,11-24
+{
+//--Clothes---------------------------------------------------------
+
+
+//Original Outfit
+animation910.interval,bind
+animation910.pattern0,add,3000,20,0,0
+	
+	animation910.collisionex1,Scarf,region,collisionmain.png,119,70,53
+	animation910.collisionex2,Broomie,region,collisionmain.png,60,49,53
+	animation910.collisionex3,Hands,region,collisionmain.png,255,217,178
+	animation910.collisionex4,Suspenders,region,collisionmain.png,105,196,165
+	animation910.collisionex5,Sash,region,collisionmain.png,255,186,83
+	animation910.collisionex6,Vials,region,collisionmain.png,67,150,253
+	animation910.collisionex7,Sleeve,region,collisionmain.png,166,31,0
+	
+	
+
+//Niji Outfit
+animation911.interval,bind
+animation911.pattern0,add,3001,20,0,0
+	animation911.collisionex1,Scarf,region,collisionniji.png,119,70,53
+	animation911.collisionex2,Broomie,region,collisionniji.png,60,49,53
+	animation911.collisionex3,Hands,region,collisionniji.png,255,217,178
+	animation911.collisionex4,Vials,region,collisionniji.png,67,150,253
+	animation911.collisionex5,Sleeve,region,collisionniji.png,166,31,0
+
+
+//Treehouse Outfit
+animation912.interval,bind
+animation912.pattern0,add,3002,20,0,0
+
+
+
+//Casual Outfit
+animation913.interval,bind
+animation913.pattern0,add,3003,20,0,0
+
+
+//--Head---------------------------------------------------------
+
+//Heart Shades
+animation920.interval,bind
+animation920.pattern0,add,4000,20,0,0
+	animation920.collisionex1,Heartshades,region,collisionheartshades.png,231,13,0
+
+//Error's Glasses
+animation921.interval,bind
+animation921.pattern0,add,4001,20,0,0
+	animation921.collisionex1,RedGlasses,region,collisionredglasses.png,255,113,101
+
+}
+
+-----------
+sakura.cursor
+{
+mouseup0,Head,system:hand
+mousedown0,Head,system:hand
+mouseup1,Suspenders,system:grip
+mousedown1,Suspenders,system:grip
+mouseup2,Sleeve,system:arrow
+mousedown2,Sleeve,system:arrow
+}
+
