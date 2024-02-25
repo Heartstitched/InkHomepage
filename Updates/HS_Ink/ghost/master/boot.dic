@@ -25,7 +25,7 @@ OnFirstBoot
 	}
 	else //Reference0 is the number of times you've uninstalled the ghost, so this is if you're reinstalling them.
 	{
-		"\1\s[-1]\0\s[0]Hi there!\w8\w8 It's me again.\w8\w8 Tell me your name again please?"
+		"\1\s[-1]\0\s[0]\f[bold,true]Hi there!\w8\w8 It's me again.\w8\w8 Tell me your name again please?\f[bold,false]"
 	}
 	--
 	"\![open,inputbox,OnNameTeach,-1,--reference=firstboot]\_l[-10000,-10000]\*\q[ ,__VERY_FIRST_BOOT__]"
@@ -63,15 +63,15 @@ OnBoot
 	--
 	if _today == _user_birthday
 	{
-		"\0\s[0]It is %(username)'s birthday today.\w8 Happy birthday, %(username).\w8 Developer,\w4 you can add an interesting message here.\w8 It can be as long as you like.\w8 Or, you can remove it entirely."
+		"\0\s[4]\f[bold,true]It's your birthday today!!\w8 Happy birthday, %(username)!\f[bold,false]"
 	}
 	elseif _today == "1/1" //You can add whatever cool dates you want with more elseifs here
 	{
-		"\0\s[0]It's new year's day.\w8 Happy %(year),\w4 %(username)."
+		"\0\s[14]\f[bold,true]It's new year's day.\w8 Happy %(year),\w4 %(username).\f[bold,false]"
 	}
 	elseif _today == "4/15" //Ink's Birthday!
 	{
-		"\0\s[0]Huh.. Today feels important for some reason.."
+		"\0\s[3]\f[bold,true]Huh.. Today feels important for some reason..\f[bold,true]"
 	}
 	else //Normal boot
 	{

@@ -3,4 +3,4 @@ type,ghost
 
 name,Ink Sans
 directory,HS_Ink
-balloon.directory,x_template_Ink
+balloon.directory,HS_Ink_Scribbles

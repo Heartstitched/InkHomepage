@@ -181,13 +181,17 @@ OnTellStuff
 			"\0\s[3]\f[bold,true]Why'd you ask for me,\w5 then?\f[bold,false]"
 		}
 	}
-	elseif reference0 == "kiapassword"
+	elseif reference0 == "treehousereal"
 	{
-
+		if KiaMode > 0
+		{
+			"\0\s[1]\f[bold,true]Kia....?\f[bold,false]"	
+		}
+		elseif KiaMode == 0
 		{
 			KiaMode += 1
-			"\0\s[3]\f[bold,true]Oh my gosh its you! \0\s[11]Hiiiiiii!!!\f[bold,false]"
-			"\0\s[1]\f[bold,true]Kia....?\f[bold,false]"
+			"\0\s[3]\f[bold,true]Oh my gosh! \0\s[11]Hiiiiiii!!!\f[bold,false]"
+			"\0\s[1]\f[bold,true]Well, well, well.....\f[bold,false]"
 		}
 	}
 	
