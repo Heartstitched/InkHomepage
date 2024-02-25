@@ -97,6 +97,8 @@ RandomTalk : nonoverlap_pool
 				
 			  "\0\s[1]h e h."
 			
+			  "\0\s[0]\f[bold,true]Make sure you drink some water- \s[22]it wont do to get dehydrated....\f[bold,false]"
+
 
 		//	 "\0\s[0]\f[bold,true]Hey.\w8\w8 \nJust pick up your pencil, crayons, whatever youve got- \w8\nAnd stay colorful. \w8\w8\w8\n\n You see? This world is wonderful!\f[bold,false]"
 
