@@ -15,6 +15,9 @@ OnTranslate
 	_talk = REPLACE(_talk,"FreshChitChat","\_a[OnFriend.Fresh]Fresh\_a")
 	
 	
+	
+	//_talk = REPLACE(_talk,"FreshChitChat","\_a[OnFriend.Fresh]Fresh\_a")
+	
     TOSTR(_talk)
 }
 
@@ -109,7 +112,7 @@ On_sakura.recommendsites
 recommendsites_sakura : array
 {
 	"Comyet, Ink's creator!";	"https://comyet.tumblr.com"
-	"The silly lady who put this dude together";	"https://www.tumblr.com/monster-kind"
+	"The silly little lady who put this dude together";	"https://www.tumblr.com/monster-kind"
 	"Let Ink know your stuff! He might talk about it :)";	"https://www.tumblr.com/inks-inbox"
 }
 
@@ -132,6 +135,7 @@ portalsites_sakura : array
 	"SSP";	"http://ssp.shillest.net/"
 	"Crow + SSP Reference (J)"; 	"http://crow.aqrs.jp/reference/all/index.html"
 	"Ghost Documentation (J)";	"http://usada.sakura.vg/contents/specification.html"
+	"UkaDoc (EN)";	"https://ukagakadreamteam.github.io/ukadoc/manual/index.html"
 	"Disc-2 (J)";	"http://disc2.s56.xrea.com/"
 	"Ukagaka Dream Team Wiki";  "https://ukagakadreamteam.com/wiki/home"
 }

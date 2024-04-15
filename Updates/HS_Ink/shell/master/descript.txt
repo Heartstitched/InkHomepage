@@ -53,6 +53,15 @@ sakura.bindgroup920.default,0
 sakura.bindgroup921.name,Accessories,Red Glasses
 sakura.bindgroup921.default,0
 
+//Party hat
+sakura.bindgroup922.name,Accessories,Party Hat
+sakura.bindgroup922.default,0
+
+//Taped Pencil
+sakura.bindgroup923.name,Accessories,Pencil
+sakura.bindgroup923.default,0
+
+
 //--Clothes---------------------------------------------------------
 
 //Original Outfit

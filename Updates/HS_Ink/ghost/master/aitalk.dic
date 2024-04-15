@@ -29,6 +29,8 @@ RandomTalk : nonoverlap_pool
 			"\0\s[2]\f[bold,true]Do you think my story will be finished?\f[bold,false]"
 			
 			"\0\s[3]\f[bold,true]Do you have any works in progress that need some love?\f[bold,false]"
+				
+			"\0\s[0]\f[bold,true]Make sure you drink some water- \s[22]it wont do to get dehydrated....\f[bold,false]"
 			if PeekingOkay == 1
 			{
 				"%(OverYourShoulder)\e"
@@ -40,32 +42,20 @@ RandomTalk : nonoverlap_pool
 	}
 	else
 	{
-		//	"\0\s[0]\f[bold,true]Fill this with lots of random dialogue.\f[bold,false]"
+		if PeekingOkay == 1
+			{
+				"%(OverYourShoulder)\e"
 			
-			//Some writing advice/inspo, since aitalk can be tough!
-		//	"\f[bold,true]\0\s[0]Consider what sort of angle you want to go with for your ghost?\w8 What sort of genre, if you will?\w8 Is your character on the user's desktop?\w8 Are they aware they're on a computer or have they been dragged to a strange place?\w8 What if the user is meeting them somewhere instead?\w8 What if they're visiting your ghost at home?\w8 At the office?\w8\n\nWhat if they know the user already?\w8 What if they are coworkers?\w8 Siblings?\w8 What if they're protecting you from something?\w8 There are \f[italics,1]so\f[italics,0] many possibilities for ways to go with this!\w8 Think about what's fun and interesting to do with your character!\f[bold,false]"
+				"%(OverYourShoulder)\e"
 			
-		//	"\0\s[0]\f[bold,true]Content is the top priority!\w8 That's what this template is all about.\w8 Randomtalk is the heart and soul of your ghost, so make it count!\w8 You should be able to ignore almost everything else in the template if you want to.\w8 That being said, though, not all ghosts have randomtalk.\w8 If you're doing something else interesting or useful, that's great, and don't be afraid to cut this if it isn't what your ghost needs!\f[bold,false]"
-
-		//	"\0\s[0]\f[bold,true]How's your character feel about the user?\w8 Is the user a stranger to them?\w8 If so, do they like talking to strangers and learning about them/sharing with them?\w8 Or are they a loner that doesn't want to talk much?\f[bold,false]"
-
-		//	"\0\s[0]\f[bold,true]Do you want a narrator, or no?\w8 If you're going with a narrator, consider carefully how you use it!\w8 Many users don't like having their actions dictated to them too much, especially in randomtalk.\w8 But you could use it in other ways, to describe the environment and such.\f[bold,false]"
-
-		//	"\0\s[0]\f[bold,true]If you're going to comment on things like months and seasons, think about what they mean to the character and what they'd have to say about them.\w8 It'd be kinda weird to be hanging out with someone and just say ""It's July"", right?\w8 Do they feel something strongly enough about July to talk about anything specific in July at all, much less call it out by name?\w8 Don't feel obligated to add dialogues about the months and such if you don't have anything you want to say about them!\f[bold,false]"
-
-		//	"\0\s[0]\f[bold,true]Ghosts don't need a ton of fancy functions to be cool and wonderful!\w8 If you really think about the idle dialogues and nail them, you'll have a fun ghost on your hands.\w8 So spend some time on this, and think about what you want to do!\f[bold,false]"
-
-		//	"\0\s[0]\f[bold,true]Figuring out what expressions to make for your ghost can be difficult.\w8 Something that you may find helpful is to find a \_a[https://emojipedia.org/twitter/]list of emoji\_a, and pick out expressions that you think might suit your character.\w8 Try writing a couple of tester dialogues with those emoji just to get a feel for it, and you might soon find you're thinking of other expressions you want to have.\w8 Keep track of which emoji you're using, and soon you'll have a list of expressions to make for your shell!\f[bold,false]"
-
-		//	"\0\s[0]\f[bold,true]If you're stuck on what kind of expressions and poses to draw for your shell, try flipping through a few other ghosts that you like the shells of, and study why they work so well.\w8 What kind of expressions do they have?\w8 Do they have multiple poses for different body language?\w8 What makes it so interesting to you?\w8 Really take time to look it over and think about it, and make notes!\f[bold,false]"
+				"%(OverYourShoulder)\e"
+			}
 			
-		//	"\0\s[0]\f[bold,true]A quick overview of the built in ways to address the user in this template, which are all decided through the SSP preferences:\w8\n%(username) %(they) %(them) %(their) %(theirs) %(themself)\w8\nAnd an example of the " + '%(p)' + " function: %(they) %(p('are','is')) working on a ghost\f[bold,false]"
-				
 				"\0\s[4]\f[bold,true]Make something cool, %(username)!\w8 You've got this!\f[bold,false]"
 			
 				"\0\s[8]\f[bold,true]You know...\w8 I was gonna say somthing- \n\w8\w8\w8but..\w8\w8 now I cant remember what it was... \n\n\w8\w8\w8\s[0]oh well.\f[bold,false]"
 				
-				"\0\s[20]\f[bold,true]\_q* (He hums a tune.)\_q \w8\w3\n\n\s[14]You paint the world and I'll play my melodii-\w8ies!\f[bold,false]"
+				"\0\s[20]\f[bold,true]\_q* (He hums a tune.)\_q \w8\w3\n\n\s[14]You \_a[https://www.youtube.com/watch?v=Rmea5ET_n9g]paint\_a the world and I'll play my melodii-\w8ies!\f[bold,false]"
 			
 				"\0\s[3]\f[bold,true]Do you have any works in progress that need some love?\f[bold,false]"
 			
@@ -99,12 +89,41 @@ RandomTalk : nonoverlap_pool
 		
 			  "\0\s[0]\f[bold,true]Make sure you drink some water- \s[22]it wont do to get dehydrated....\f[bold,false]"
 
-			  "\0\s[3]\f[bold,true]What's your favorite color?\f[bold,false]"
+			  "\0\s[3]\f[bold,true]I'm gonna give you a couple colors, pick one!!\f \n\n%(choicecolors)%(choicecolors)%(choicecolors)\x"
 			  
-			  // checking an update thingy
+			  "\0\s[3]\f[bold,true]Mistakes are there to learn from, you know. \w5It's okay to make them!\n\w8\w8It's a great way to get better!\f[bold,false]"
+			   
+			  "\0\s[3]\f[bold,true]Do you prefer digital or traditional crafts? I'm a big fan of both myself... they each have their own unique charms!\f[bold,false]"
+				
+			  "\0\s[20]\f[bold,true]'Exhale the\_a[https://www.youtube.com/watch?v=9NuZjhlNwPk] stress,\_a \w6so you dont come unglued....' \n\n\_q*(he's humming along to a song)\_q\f[bold,false]"
 
-		//	 "\0\s[0]\f[bold,true]Hey.\w8\w8 \nJust pick up your pencil, crayons, whatever youve got- \w8\nAnd stay colorful. \w8\w8\w8\n\n You see? This world is wonderful!\f[bold,false]"
+			  "\0\s[0]\f[bold,true]\_q*(He sings along to a tune.)\_q \n\_qHey,\w8\w8 just pick up your pencil- crayons, \w8\nand be \_a[https://www.youtube.com/watch?v=oHQUUAcB0io]colorful.\_a \w8\w8\w8\nI'm sure this world is wonderful!\f[bold,false]"
+			  
+			  "\0\s[3]\f[bold,true]What are your favorite stories like?\w8 Your favorite characters?\w8 Are there any recurring themes?\f[bold,false]"
+			  
+			  "\0\s[3]\f[bold,true]Do you have a favorite type of media?\f[bold,false]"
+			  
+			  "\0\s[0]\f[bold,true]What makes an enticing AU to you? A well written character? \f[bold,false]"
+			  
+			  "\0\s[0]\f[bold,true]Do you have a specific creative process?\f[bold,false]"
 
+			  "\0\s[0]\f[bold,true]Y'know... the color %(rainbowcolors) reeealy reminds me of this AU I visted one time... \s[3]\w8\w8Hmm.. \f[bold,false]"
+			  
+			  "\0\s[4]\f[bold,true]Keep practicing, you'll get there!! \f[bold,false]"
+			  
+			  "\0\s[5]\f[bold,true]Hey %(username), how are you doing? \n\n\![*]\q[I'm good!,OnDoinGood]\n\![*]\q[Kinda Meh?,OnDoinMeh]\n\![*]\q[Not great..,OnDoinBad]\f[bold,false]"
+			   
+//			   "\0\s[0]\f[bold,true] \f[bold,false]"
+
+		
+			if inkbirthday == 1//Ink's Birthday!
+			{
+			"\0\s[3]\f[bold,true]Blue and Dream are being extra nice to me today... what for?\f[bold,true]"
+			"\0\s[3]\f[bold,true]People keep giving me gifts today...?\f[bold,true]"
+			"\0\s[3]\f[bold,true]The best way to celebrate my birthday...? \w8\w4\n\s[17]Make something!\f[bold,true]"
+			"\0\s[0]\f[bold,true]Happy birthday to me!\f[bold,true]"
+			"\0\s[0]\f[bold,true]H\w2a\w2a\w2a\w2a\w2a\w2ppy birthday to me!\w8 H\w2a\w2a\w2a\w2a\w2a\w2ppy birthday to me!\w8\w5 Happy birthday d\w2e\w2e\w2e\w2ar...\n\n\w8\s[9]uh...\s[3] \n\w8\w8Who was it again?\f[bold,true]"
+			}
 			if PeekingOkay == 1
 			{
 				"%(OverYourShoulder)\e"
@@ -117,11 +136,62 @@ RandomTalk : nonoverlap_pool
 			if KiaMode > 0
 			{
 				"\f[bold,true]\0\s[13]So........ how's Hotarubitale?\s[5] Is there anything new..?\f[bold,false]\e"
+				
+				 "\0\s[13]\f[bold,true]I wonder what Kin's been up to....\f[bold,false]"
+				 
+				 "\0\s[5]\f[bold,true]I really should pay Hotarubitale another visit sometime....\f[bold,false]"
+				  
+				 "\0\s[6]\f[bold,true]I... Miss Gin.\f[bold,false]"
 			}
+			
 			if BoneJMode > 0
 			{
 				"\f[bold,true]\0\s[3]Y'know...\w5 I'm surprised Fresh isnt around here somewhere.....\f[bold,false]\e"
+				
+				 "\0\s[0]\f[bold,true]Where'd you get those heart shades by the way?\f[bold,false]"
+				  
+				 "\0\s[0]\f[bold,true]Hey! Thanks for designing that outfit for me, it's real comfy!\f[bold,false]"
+				 
+				 "\0\s[0]\f[bold,true] \_q*(hes looking at some notes on his scarf)\_q \n\w8Hey, did you take your meds today?\w5\w5\nI got a note here for some reason to remind ya, \nso don't forget, pal! \f[bold,false]"
 			}
+			
+			if PlushTaleMode > 0
+			{
+				"\0\s[3]\f[bold,true] Sans does seem very cat like, doesnt he? \s[16]And pink just looks so cute on him! Good call %(username).\f[bold,false]\e"
+				
+				"\0\s[3]\f[bold,true] I'm really curious about Wisp and Roxx's story! What about their AU is different aside from appearences? Do they have some epic tale? Or maybe.. is there AU calm and quiet...? I gotta know!\f[bold,false]\e"
+				
+				"\0\s[3]\f[bold,true] Is Plushtale a comfort AU of yours? I see a lot of those, you know! I think it's really sweet that creators co out of their way to make somerthing comforting for themselves.....\f[bold,false]\e"
+				
+				"\0\s[3]\f[bold,true] Have you written or drawn anything for Plushtale today? \w8\w8\s[9]Oooh! Or- \s[0]regarding the theme of plushies, \w8\s[11]maybe you could sew something!! \w8\s[15]How exciting! \f[bold,false]\e"
+			
+				"\0\s[14]\f[bold,true]So..Wisp and Roxx.... \s[3]How'd they get so small?? \f[bold,false]"
+			}
+			
+			 if OniTaleMode > 0
+			 {
+				 "\0\s[5]\f[bold,true]It must be lonely for Oni, 300 years.... \f[bold,false]\e"
+				 
+				 "\0\s[5]\f[bold,true]Have you written more for Oni's Story? \f[bold,false]\e"
+				 
+				 "\0\s[16]\f[bold,true] like the Japanese theming of your AU, for some reason, it feels familiar! \f[bold,false]\e"
+				 
+				  "\0\s[3]\f[bold,true]I wonder what it would be like to live in the mountians..... \f[bold,false]\e"
+			 }
+			
+			 if BerryTaleMode > 0
+			 {
+				 "\0\s[3]\f[bold,true]Berrytale Sans... \s[8]ah.. \w8\w8\s[0]Jam was it? \w8What's he up to lately? \f[bold,false]\e"
+				 
+				 "\0\s[3]\f[bold,true]Would you consider Piper an artist?\w8 Cosidering his interest in makeup and all.....\f[bold,false]\e"
+				 
+				 "\0\s[0]\f[bold,true]What's going on with Berrytale nowadays?\f[bold,false]\e"
+				  
+				  "\0\s[0]\f[bold,true]Huh... \w8\s[3]I wonder what kind of flavor I'd be represented with if I were part of Berrytale..?\w8\w8 \s[15] What a fun thought!\f[bold,false]\e"
+				  
+				  "\0\s[3]\f[bold,true]What does being sweet themed do for the story of Berrytale?\w8 \s[9]I heard there were some dark secrets..?\w8 \s[4]Do tell!\f[bold,false]\e"
+			 }
+			
 			
 			if WearingDressup("Heart Shades")
 				{
@@ -131,6 +201,14 @@ RandomTalk : nonoverlap_pool
 				{
 					"\0\s[23]\f[bold,true]Lets...\w8\w3 just say I borrowed these glasses.......\n\w8\w8\s[1]and you dont tell the owner where they went.....\nyeah?\f[bold,False]"
 				}	
+			if WearingDressup("Party Hat")
+				{
+					"\0\s[3]\f[bold,true]Are we supposed to be celebrating something??\f[bold,false]"
+				}	
+			if WearingDressup("Pencil")
+				{
+					"\0\s[3]\f[bold,true]Have you seen my pencil..?\w8I could've sworn I just had it....\f[bold,false]"
+				}
 			if WearingDressup("Niji's Outfit")
 				{
 					"\0\s[2]\f[bold,true]Oh these clothes...? \s[5]They.. \w8\s[18]remind me of an \_a[https://siiversans.tumblr.com]old friend.\_a \f[bold,False]"
@@ -143,11 +221,6 @@ RandomTalk : nonoverlap_pool
 				{
 					"\0\s[4]\f[bold,true]Snazzy clothes yeah? My \_a[https://www.tumblr.com/bonejello]buddy\_a designed them!!\f[bold,False]"
 				}
-
-
-
-	}
-	
 //**************************************************- Anchors -***********************************************************************************
 	
 	"\0\s[0]\f[bold,true]Do you know about BlueChitChat and DreamChitChat?\w8\w8 \s[20]I work with them a lot... \w8\w8\s[24]what fun we get up to sometimes!\f[bold,false]"
@@ -155,7 +228,13 @@ RandomTalk : nonoverlap_pool
 	"\0\s[24]\f[bold,true]I wonder what ErrorChitChat's up to right now....?\w8\w8 \n\n\n \_q*(he snickers.)\_q\f[bold,false]"
 	
 
+
+
+	}
+	
+
 }
+
 
 
 
@@ -510,3 +589,18 @@ OverYourShoulder
 		*/
 		
 		
+
+
+OnDoinGood
+	{
+		"\0\s[4]\f[bold,true]I'm glad to hear, pal! Glad to see you happy and thriving! You can do anythiing you put your mind to, %(username). \f[bold,false]"
+	}
+
+OnDoinMeh
+	{
+		"\b2\0\s[2]\f[bold,true]Y'know, Dream always tells me\w8\w8 \n\n\_q*(He clears his throat\_q\w8 \_qin what seems like an attempt to mimic Dream's tone.\_q \w8\w8\_qOr..\_q\w8 \_qat least you think.)\_q\w8\w8 \n\n'this too shall pass..'\n or...\w8 something like that. \n so uh... don't let it get to ya too much, okay pal? You got this. \f[bold,false]"	
+	}
+OnDoinBad
+	{
+		"\0\s[5]\f[bold,true]I'm... Sorry to hear. I'm glad to keep you company if that's just what you need. And.. I hope you know, I'm always cheering you on, pal. No matter what's going on.\f[bold,false]"
+	}

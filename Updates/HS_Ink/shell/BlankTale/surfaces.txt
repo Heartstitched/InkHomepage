@@ -289,14 +289,27 @@ surface.append0-9,11-24
 
 {
 	collisionex0,Head,region,collisionbody.png,243,236,230
+//	collisionex8,Arms,region,collisionbody.png,56,33,31
+	collisionex10,Cheeks,region,collisionbody.png,206,132,0
+	collisionex3,Hands,region,collisionbody.png,255,217,178
+	collisionex9,Nose,region,collisionbody.png,174,2,199
+
 	
 }
 
+surface.append0-9,11-24
+{
 
+//Party Hat
+animation922.interval,bind
+animation922.pattern0,add,4002,20,0,0
+}
 -----------
 sakura.cursor
 {
 mouseup0,Head,system:hand
 mousedown0,Head,system:hand
+mouseup0,Cheeks,system:hand
+mousedown0,Cheeks,system:grip
 }
 

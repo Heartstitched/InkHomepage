@@ -39,4 +39,13 @@ menu.background.bitmap.filename,menu_background.png
 menu.foreground.bitmap.filename,menu_foreground.png
 menu.sidebar.bitmap.filename,menu_sidebar.png
 
-sakura.menu, auto
+//Party hat
+sakura.bindgroup922.name,Accessories,Party Hat
+sakura.bindgroup922.default,0
+
+
+
+sakura.menu, hidden
+
+
+

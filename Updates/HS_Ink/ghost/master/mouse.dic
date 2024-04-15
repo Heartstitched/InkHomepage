@@ -7,11 +7,30 @@ OnMouseDoubleClick
 		//If you want to add double click interactions, reference4 will be the name of the hitbox the mouse is over
 		if reference3 == 0
 		{
-			OnSakuraMenu
+		OnSakuraMenu
 		}
+		if reference4 == "Nose"
+		{
+		"\0\s[9]\f[bold,true]Boop!\f[bold,false]"
+		"\0\s[9]\f[bold,true]\_q*(You boop him.)\_q\f[bold,false]"
+		}
+		if reference4 == "Cheeks"
+		{	
+		"\0\s[12]\f[bold,true]Eeeeh- I know its tempting but-!\f[bold,false]"
+		"\0\s[9]\f[bold,true]Trying to pinch my cheeks?\f[bold,false]"
+		"\0\s[3]\f[bold,true]You sure do like your hands on my face, huh?\f[bold,false]"
+		"\0\s[18]\f[bold,true]Squishy......\f[bold,false]"
+		}
+		if reference4 == "Suspenders"
+		{
+		"\0\s[9]\f[bold,true]Wait- don't pull on those!!\f[bold,false]"
+		"\0\s[22]\f[bold,true]Heeey-\f[bold,false]"
+		"\0\s[22]\f[bold,true]What...\w8 do you think \nyou're doing?\f[bold,false]"
+		}
+		
 		else
 		{
-			OnKeroMenu
+		
 		}
 	}
 }
@@ -30,11 +49,22 @@ OnMouseMove
 	}
 }
 
+OnMouseWheel
+{
+	if reference4 == "Suspenders" 
+	{
+		"\0\s[9]\f[bold,true]Wait- don't pull on those!!\f[bold,false]"
+		"\0\s[22]\f[bold,true]Heeey-\f[bold,false]"
+		"\0\s[22]\f[bold,true]What...\w8 do you think \nyou're doing?\f[bold,false]"
+	}
+}
+
 OnMouseMove.Sakura
 {
 	if reference4 == "Head"
 	{
-		"\0\s[3]\f[bold,true]Petting??\f[bold,false]"
+		InkPets += 1
+		"\0\s[3]\f[bold,true]You're petting me??\f[bold,false]"
 		"\0\s[20]\f[bold,true]An affectionate one, arent you?\f[bold,false]"
 		"\0\s[14]\f[bold,true]Hehehe...\f[bold,false]"
 		"\0\s[16]\f[bold,true]Eheheh...\f[bold,false]"
@@ -43,15 +73,20 @@ OnMouseMove.Sakura
 	if reference4 == "Broomie"
 	{
 		"\0\s[22]\f[bold,true]What are you doing?\f[bold,false]"
+		"\0\s[22]\f[bold,true]I dont think you could lift that....\f[bold,false]"
+		
 	}
 	if reference4 == "Scarf"
 	{
 		"\0\s[8]\f[bold,true]What are you touching my scarf for?\f[bold,false]"
 		"\0\s[13]\f[bold,true]Be careful not to smudge my notes.....\f[bold,false]"
+		"\0\s[13]\f[bold,true]It's made of comfy fabric thats easy to write on! \s[0]I keep all my notes on it for later,\s[16] hehe.\f[bold,false]"
 	}
 	if reference4 == "Vials"
 	{
 		"\0\s[9]\f[bold,true]Be careful with those!\f[bold,false]"
+		"\0\s[13]\f[bold,true]They hold all my colors! Neat, right?\f[bold,false]"
+		"\0\s[13]\f[bold,true]Did you know that you help fill these up... just by creating things? How cool are you!\f[bold,false]"
 	}
 	if reference4 == "Sash"
 	{
@@ -72,6 +107,16 @@ OnMouseMove.Sakura
 	if reference4 == "Heartshades"
 	{
 	"\0\s[17]\f[bold,true]Cute, right?\f[bold,false]"
+	}
+	if reference4 == "The Beans"
+	{
+	"\0\s[8]\f[bold,true]...yeah?\f[bold,false]"
+	"\0\s[9]\f[bold,true]Uh....\f[bold,false]"
+	}
+	if reference4 == "Pillow"
+	{
+	"\0\s[14]\f[bold,true]Soft enough for a pillow fight!!\f[bold,false]"
+	"\0\s[4]\f[bold,true]Error doesnt stand a chance. \w8\w8Hehehe....\f[bold,false]"
 	}
 }
 

@@ -1,7 +1,10 @@
 SakuraMenuGreetings : nonoverlap
 {
-	"\f[bold,true]Hello.\f[bold,false]"
-	"\f[bold,true]How can I help you?\f[bold,false]"
+	"\f[bold,true]Hey!\f[bold,false]"
+	"\f[bold,true]What'cha got?\f[bold,false]"
+	"\f[bold,true]Hmmm??\f[bold,false]"
+	"\f[bold,true]Need something?\f[bold,false]"
+	"\f[bold,true]What's up, pal?\f[bold,false]"
 }
 
 //Because there is an all modifier here, you don't need to write -- between menu options
@@ -15,14 +18,14 @@ OnSakuraMenu : all
 	"\f[bold,true]\![*]\q[Talk to me,OnAiTalk]\f[bold,false]"
 	if LastTalk != ""; "\f[bold,true]  \n\![*]\q[Say that again,OnLastTalk]\f[bold,false]"
 	"\n\n"
-	"\f[bold,true]\![*]\q[Config,OnConfigMenu]\n\n\f[bold,false]"
+	"\f[bold,true]\![*]\q[Config,OnConfigMenu]\n\f[bold,false]"
 	
+//	"\f[bold,true]\![*]\q[Functions,OnFunctionMenu]\n\f[bold,false]\n"
 	"\f[bold,true]\![*]\q[Tell Ink Something?,OnWhisperInYourEar]\f[bold,false]\n\n"
 	if username == "Heart"
 	{
-		"\f[bold,true](Do you want to reset your progress entirely?)\n\![*](\q[You do,OnYesReset]) \![*](\q[You don't,BACKTOMENU])\f[bold,false]\e"
-		"\f[bold,true]\![*]\q[test variable,testvariable]\f[bold,false]\n"
-		"\f[bold,true]\![*]\q['whatcha doin?',OnWhatchaDoing]\n\n\f[bold,false]"
+		"\f[bold,true](Do you want to reset your progress entirely?)\n\n\![*](\q[You do,OnYesReset]) \![*](\q[You don't,BACKTOMENU])\f[bold,false]\n\n"
+		
 	}
 	
 	
@@ -157,12 +160,12 @@ OnTellStuff
 	
 	if reference0 == "i love you"
 	{
-	//if gasterpets + positiveact > 50
-	//{
-	//		"\0\s[8]\i[51]\i[103]\i[40]Yes yes, I already know that."
-	//	"\0\s[9]\i[2]\i[40]\i[51]* (He sighs.)"
-	//}
-//		else
+		if InkPets > 20
+		{
+				"\0\s[11]\f[bold,true]And you sure do show it!!\f[bold,false]"
+				"\0\s[11]\f[bold,true]Awwww! Really???\f[bold,false]"
+		}
+				else
 		{
 			"\0\s[0]\f[bold,true]Aw! I love you too!\f[bold,false]"
 			"\0\s[0]\f[bold,true]Oh- Ummm..... thank you!\f[bold,false]"
@@ -170,17 +173,58 @@ OnTellStuff
 	}
 	elseif reference0 == "i hate you"
 	{
-	//	if negativeact > 10
-	//	{
-	//		"\0\s[9]\i[40]I've gathered."
-	//		"\0\s[6]\i[68]* (He doesn't seem that surprised.)"
-	//	}
-//		else
+		if InkPets > 20
+		{
+				"\0\s[2]\f[bold,true]Youre not very good at showing it, then....\f[bold,false]"
+				"\0\s[8]\f[bold,true]Do you usually pet people that you hate that much?\f[bold,false]"
+		}
 		{
 			"\0\s[24]\f[bold,true]\_q* ( He laughs...)\_q \w7\w7\w7\n \0\s[3]You know, \w7Error says the same thing!\f[bold,false]"
 			"\0\s[3]\f[bold,true]Why'd you ask for me,\w5 then?\f[bold,false]"
 		}
 	}
+	elseif reference0 == "happy birthday!" || reference0 == "happy birthday ink!"
+	{
+		{
+			"\0\s[0]\f[bold,true]Aww thanks!!  \f[bold,false]"
+			"\0\s[0]\f[bold,true] \f[bold,false]"
+		}
+	}
+	elseif reference0 == "i'm glad you're here!" || reference0 == "i'm glad you're here"|| "im glad you're here" _in_ reference0
+	{
+		{
+			"\0\s[0]\f[bold,true]Glad to be here, pal! \f[bold,false]"
+			"\0\s[0]\f[bold,true]Well! I'm glad YOU'RE here! Without your support, me AND all the AU's you love would be sorely missing you, you know! \f[bold,false]"
+		}
+	}
+	elseif "doodlesphere" _in_ reference0
+	{
+		{
+			"\0\s[0]\f[bold,true]The doodlesphere? I guess you could say its the closest thing I've got to an AU of my own.... \f[bold,false]"
+			"\0\s[0]\f[bold,true]Ah, the doodlesphere! Its amazing how many AU's pop up there over time, I dont know if I can even count them all at this point! \f[bold,false]"
+		}
+	}
+	// elseif "error" _in_ reference0
+	// {
+		// {
+			// "\0\s[0]\f[bold,true] \f[bold,false]"
+			// "\0\s[0]\f[bold,true] \f[bold,false]"
+		// }
+	// }
+	// elseif "blue" _in_ reference0
+	// {
+		// {
+			// "\0\s[0]\f[bold,true] \f[bold,false]"
+			// "\0\s[0]\f[bold,true] \f[bold,false]"
+		// }
+	// }
+	// elseif "dream" _in_ reference0
+	// {
+		// {
+			// "\0\s[0]\f[bold,true] \f[bold,false]"
+			// "\0\s[0]\f[bold,true] \f[bold,false]"
+		// }
+	// }
 	elseif reference0 == "treehousereal"
 	{
 		if KiaMode > 0
@@ -195,10 +239,8 @@ OnTellStuff
 		}
 	}
 	
-	elseif reference0 == "bluesillystring"
-	{
-
-		
+	elseif reference0 == "benjibluesillystring"
+	{	
 		if BoneJMode > 0
 		{
 			"\0\s[1]\f[bold,true] I'd ask if you like Fresh but.......\f[bold,false]"	
@@ -211,23 +253,76 @@ OnTellStuff
 		}
 		
 	}
-	else
-		{
-			{
-				"\0\s[0]\f[bold,true]\_q* ( He listens quietly. \w5When you are done, \s[0]he nods in acknowledgment.)\f[bold,false]"
-				"\0\s[0]\f[bold,true]\_q* ( He listens attentively until you are done.)\f[bold,false]"
-				"\0\s[7]\f[bold,true]\_q* ( He doesn't say anything. \w5He just listens.)\f[bold,false]"
-				"\0\s[0]\f[bold,true]\_q* ( He seems a bit lost in thought.)\f[bold,false]"
-				"\0\s[7]\f[bold,true]\_q* ( He gives you his full attention.)\f[bold,false]"
-				"\0\s[0]\f[bold,true]\_q* ( Was he paying attention...?)\f[bold,false]"
-				"\0\s[0]\_q\f[bold,true]* ( He could've been listening more closely, you think.)\f[bold,false]"
-				"\0\s[0]\_q\f[bold,true]* ( It seems hard for him to focus on your words.)\f[bold,false]"
-				"\0\s[0]\_q\f[bold,true]* ( It seems like he was listening... \w6mostly.)\f[bold,false]"
-			}
 
-	
+
+	elseif reference0 == "onismountian"
+	{
+		if OniMode == 0
+		{
+			OniMode += 1
+			"\0\s[0]\f[bold,true]Oh- You created Oni, didn't you?\w8 \s[14]thanks for the reminder! \f[bold,false]"
 		}
-}
+		
+	}
+
+
+	elseif reference0 == "wispandroxx"
+	{
+		if PlushtaleMode == 0
+		{
+			PlushtaleMode += 1
+			"\0\s[0]\f[bold,true]Hm! Plushtale, was it? Soft and comfy... That sounds about right. \f[bold,false]"
+		}
+		
+	}
+	
+	
+	elseif reference0 == "blueberrytale"
+	{
+
+		if BerryTaleMode == 0
+		{
+			templatepassword += 1
+			"\0\s[0]\f[bold,true]A fan of sweets, are you?  \f[bold,false]"
+		}
+		
+	}
+	
+	// elseif reference0 == "templatepassword"
+	// {
+		// if templatepassword > 0
+		// {
+			// "\0\s[0]\f[bold,true] \f[bold,false]"	
+			// "\0\s[0]\f[bold,true] \f[bold,false]"
+			// "\0\s[0]\f[bold,true] \f[bold,false]"
+		// }
+		// elseif templatepassword == 0
+		// {
+			// templatepassword += 1
+			// "\0\s[0]\f[bold,true] \f[bold,false]"
+
+		// }
+		
+	// }
+	
+	
+	else
+	{
+		{
+			"\0\s[0]\f[bold,true]\_q* ( He listens quietly. \w5When you are done, \s[0]he nods in acknowledgment.)\f[bold,false]"
+			"\0\s[0]\f[bold,true]\_q* ( He listens attentively until you are done.)\f[bold,false]"
+			"\0\s[0]\f[bold,true]\_q* ( He doesn't say anything. \w5He just listens.)\f[bold,false]"
+			"\0\s[0]\f[bold,true]\_q* ( He seems a bit lost in thought.)\f[bold,false]"
+			"\0\s[0]\f[bold,true]\_q* ( He gives you his full attention.)\f[bold,false]"
+			"\0\s[0]\f[bold,true]\_q* ( Was he paying attention...?)\f[bold,false]"
+			"\0\s[0]\_q\f[bold,true]* ( He could've been listening more closely, you think.)\f[bold,false]"
+			"\0\s[0]\_q\f[bold,true]* ( It seems hard for him to focus on your words.)\f[bold,false]"
+			"\0\s[0]\_q\f[bold,true]* ( It seems like he was listening... \w6mostly.)\f[bold,false]"
+			"\0\s[9]\_q\f[bold,true] Woooooow..... \n \_q*( He...\w5wasnt listening... \w6was he?)\_q\f[bold,false]"
+		}
+	}
+ }
+
 //This is here in case the variables get erased. The buttons will be set to default so the user has something to click in the config menu. This has happened to my users before and resetting them is a painful process. Do not remove these, you'll want to add in new ones for any toggle buttons you have in the config menu. This is also called in BootVars and UpdateVars, which is why it's separate from the config menu itself.
 FixDefaultOptions
 {
@@ -254,8 +349,124 @@ OnYesReset
 		StuffToReset	
 		"\1\s[-1]\0\s[20]\f[bold,true]Done.\f[bold,false]\e"
 	}
+	elseif PlushtaleMode > 0
+	{	
+		StuffToReset	
+		"\1\s[-1]\0\s[20]\f[bold,true]Done.\f[bold,false]\e"
+	}
+	elseif OniMode > 0
+	{	
+		StuffToReset	
+		"\1\s[-1]\0\s[20]\f[bold,true]Done.\f[bold,false]\e"
+	}
+	elseif BerryTaleMode > 0
+	{	
+		StuffToReset	
+		"\1\s[-1]\0\s[20]\f[bold,true]Done.\f[bold,false]\e"
+	}
 	else
 	{
 		"\1\s[-1]\0\s[3]\f[bold,true]There was nothing to reset!\f[bold,false]\e"
 	}
+}
+
+
+//----------Function Menu----------
+OnFunctionMenu : all
+{
+	"\0\b2"
+	
+	//This will make the opening dialogue random (ignoring the all modifier) with a nonoverlap modifier, if you add more dialogues
+	nonoverlap:/
+	{ 
+		"\f[bold,true]sure,\w4 what do you need?\f[bold,false]"
+	}
+	"\n\n\_q"
+	
+	"\f[bold,true]\![*]\q[Check Email,script:\![biff\]]\n\f[bold,false]"
+//	"\![*]\q[Fix the Clock,script:\![execute,sntp\]]\n"
+	"\f[bold,true]\![*]\q[Open Calendar,OnOpenCalendar]\n\f[bold,false]"
+	"\f[bold,true]\![*]\q[Open SSP Preferences,OnSSPPrefs]\n\f[bold,false]"
+	"\f[bold,true]\![*]\q[Empty Recycle Bin,OnRecycleBin]\n\f[bold,false]"
+//	"\f[bold,true]\![*]\q[Show System Information,OnSystemInformation]\n\f[bold,false]"
+	"\f[bold,true]\![*]\q[Report a bug,OnBugReport]\n\f[bold,false]"
+	"\f[bold,true]\![*]\q[Check for updates,UpdateCheck]\n\n\f[bold,false]"
+	
+	"\f[bold,true]\![*]\q[Back to main menu,OnMenuRun]\e\f[bold,false]"
+}
+
+OnOpenCalendar
+{
+	"\0\s[0]\f[bold,true]Make sure to mark it down so you dont forget!\f[bold,false]"
+	--
+	"\![open,calendar]\e"
+}
+
+OnSSPPrefs
+{
+	"\f[bold,true]\0\s[0]sure,\w4 here you go!\f[bold,false]"
+	--
+	"\![open,configurationdialog]\e"
+}
+
+OnRecycleBin
+{
+	_gomicheck = FUNCTIONEX("saori/gomi.dll", "-n") //Gets the number of items in the recycle bin
+	
+	"\f[bold,true]Ok,\w4 I'll go empty the recycle bin!\w8\w8\s[-1]\w8\w8\w8\w8\n\n\f[bold,false]"
+	--
+	if _gomicheck > 0 //If there was something to empty
+	{
+		_gomi = FUNCTIONEX("saori/gomi.dll", "-f") //Calling the Saori to empty the recycle bin
+		_s = ""; if _gomicheck != 1; _s = "s" //Plural check
+		
+		"\s[0]Done!\w8\w8 %(_gomicheck) item%(_s) cleared."
+	}
+	else //If it's empty
+	{
+		"\f[bold,true]\s[0]It was empty.\f[bold,false]"
+	}
+	--
+	"\f[bold,true]\n\n\![*]\q[Back to functions menu,OnFunctionMenu]\n\![*]\q[I'm done,cancelnodialogue]\e\f[bold,false]"
+}
+
+OnBugReport
+{
+	
+		
+	"\0\s[4]\f[bold,true]You can report bugs to me over on\w4 on\_a[https://inks-inbox.tumblr.com] Tumblr!\f[bold,false]"
+		
+}
+
+OnSystemInformation : all
+{
+	_os_name = FUNCTIONEX("saori_cpuid.dll","os.name")
+	_os_version = FUNCTIONEX("saori_cpuid.dll","os.version")
+	_cpu_name = FUNCTIONEX("saori_cpuid.dll","cpu.name")
+	_cpu_clockex = FUNCTIONEX("saori_cpuid.dll","cpu.clockex")
+	_free_mem = FUNCTIONEX("saori_cpuid.dll","mem.phya")
+	
+	"\0"
+	"\f[bold,true]\b[2]\_q\![no-autopause]\f[anchorstyle,none]\f[anchorvisitedfontcolor,default.anchor]\f[bold,false]"
+
+	"\f[bold,true]OS: ==%(_os_name) %(_os_version)==\n\f[bold,false]"
+	"\f[bold,true]Memory Load: ==%(memoryload)%==\n\f[bold,false]"
+	"\f[bold,true]Physical Memory: ==%(memoryavailphys)== KB\n\f[bold,false]"
+	"\f[bold,true]CPU: ==%(_cpu_name) %(_cpu_clockex)==MHz\n\f[bold,false]"
+	"\f[bold,true]Uptime: ==%(systemuphour):%(systemupminute):%(systemupsecond)==\n\n\f[bold,false]"
+	"\f[bold,true]Ukagaka: ==%property[baseware.version]==\n\n\f[bold,false]"
+	"\f[bold,true]Local IP: \_a[OnCopySelect,%(IP[0])]%(IP[0])\_a\n\f[bold,false]"
+	if reference0 == "Show IPv6"; "\f[bold,true]IPv6:%(br)\_a[OnCopySelect,%(IP[1])]%(IP[1])\_a\n\n\f[bold,false]"
+	else; "\f[bold,true]IPv6: \_a[OnSystemInformation,Show IPv6](Show)\_a%(br)\n\n\f[bold,false]"
+	
+	//I think this is in mb...
+	//"Free Memory: %(_free_mem)\n\n"
+	"\f[bold,true]\![*]\q[Back to functions,Onbacktofunctions]\n\f[bold,false]"
+	--
+	"\f[bold,true]\![*]\q[I'm done,cancelnodialogue]\e\f[bold,false]"
+}
+
+OnUpdateCheck
+{
+	"\![updatebymyself]\e"
 }

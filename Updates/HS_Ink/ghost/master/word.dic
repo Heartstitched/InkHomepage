@@ -26,4 +26,152 @@ favoredcolors
 }
 
 
+rainbowcolors
+{
+	"blue"
+	"red"
+	"yellow"
+	"green"
+	"orange"
+	"purple"
+	"gray"
+	"violet"
+	"black"
+	"white"
+	"indigo"
+	"aqua"
+	"lavender"
+	"pink"
+	"gold"
+	"silver"
+	"mint"
+	"peach"
+	"brown"
+	"teal"
+	"navy"
+} 
+
+
+choicecolors
+{
+	"\![*]\q[blue,OnColorBlue]\n"
+	"\![*]\q[red,OnColorRed]\n"
+	"\![*]\q[yellow,OnColorYellow]\n"
+	"\![*]\q[green,OnColorGreen]\n"
+	"\![*]\q[orange,OnColorOrange]\n"
+	"\![*]\q[purple,OnColorPurple]\n"
+	"\![*]\q[grey,OnColorGrey]\n"
+	"\![*]\q[violet,OnColorViolet]\n"
+	"\![*]\q[black,OnClorBlack]\n"
+	"\![*]\q[white,OnColorWhite]\n"
+	"\![*]\q[magenta,OnColorMagenta]\n"
+	"\![*]\q[indigo,OnColorIndigo]\n"
+	"\![*]\q[aqua,OnColorCyan]\n"
+	"\![*]\q[lavender,OnColorLavender]\n"
+	"\![*]\q[pink,OnColorPink]\n"
+	"\![*]\q[gold,OnColorGold]\n"
+	"\![*]\q[silver,OnColorSilver]\n"
+	"\![*]\q[mint,OnColorMint]\n"
+	"\![*]\q[peach,OnColorPeach]\n"
+	"\![*]\q[brown,OnColorBrown]\n"
+	"\![*]\q[teal,OnColorTeal]\n"
+	"\![*]\q[navy,OnColorNavy]\n"
+	"\![*]\q[cream,OnColorCream]\n"
+}
+
+//Color Chatter  
+
+	OnColorBlue
+		{
+		"\0\s[18]\f[bold,true]Nice and cool.. \w8\w8..\s[5]But blue also holds some sadness to it, huh pal?\f[bold,false]"
+		}
+	OnColorRed
+		{
+		"\0\s[4]\f[bold,true]Red? \w8That one's so bold and passionate! \w8\w8\n\s[14]I like it!!\f[bold,false]"
+		}
+	OnColorYellow
+		{
+		"\0\s[14]\f[bold,true]Yellow is such an uplifting color... \w8\s[9]But it can also show alarm and alertness! \w8\s[8]Is that why you picked it?\f[bold,false]"
+		}
+	OnColorGreen
+		{
+		"\0\s[20]\f[bold,true]Cool and natural... \w8\s[0]Did you know green was one of the first colors I ever got to experience? \n\w8\s[17]It's dear to me for that reason...\f[bold,false]"
+		}
+	OnColorOrange
+		{
+		"\0\s[18]\f[bold,true]Warm and inviting, orange is! \w8Like the feeling of a cozy fireplace. \s[3]Or maybe you were thinking something more refreshing?\f[bold,false]"
+		}
+	OnColorPurple
+		{
+		"\0\s[9]\f[bold,true]I've heard somewhere thatpurple was used to represent royalty! How interesting....\f[bold,false]"
+		}
+	OnColorGrey
+		{
+		"\0\s[0]\f[bold,true]Oh, grey? It feels like such a neutral color, but the shade can portray so much, you know?\f[bold,false]"
+		}
+	OnColorViolet
+		{
+		"\0\s[20]\f[bold,true]Violet feels like.. a sleepy color, you know what I mean?\f[bold,false]"
+		}
+	OnColorBlack
+		{
+		"\0\s[0]\f[bold,true]Black,\w3 huh?\w8 Void of color...\w8 or all colors at once?\f[bold,false]"
+		}
+	OnColorWhite
+		{
+		"\0\s[20]\f[bold,true]White makes such a nice canvas for other colors!\w8 \s[2]But at the same time... \w8\s[5]it feels kinda lonely, yeah?\f[bold,false]"
+		}
+	OnColorMagenta
+		{
+		"\0\s[0]\f[bold,true]Magenta is one of the common colors for printed inks, yeah? \w8\s[8]I hear you have to export artworks in a certain color format for the colors to print right.....\f[bold,false]"
+		}
+	OnColorIndigo
+		{
+		"\0\s[19]\f[bold,true]Deep indigo....It's got a nice calm feeling to it, huh?\f[bold,false]"
+		}
+	OnColorCyan
+		{
+		"\0\s[0]\f[bold,true]Cyan! Its one of the cooler tones, but its so bright! It almost feels like it's got an electric vibe to it, hehe.\f[bold,false]"
+		}
+	OnColorLavender
+		{
+		"\0\s[14]\f[bold,true]Lavender is a nice soft ue of purple.. it reminds me of the flowers similarly named... \f[bold,false]"
+		}
+	OnColorPink
+		{
+		"\0\s[14]\f[bold,true]Pink is such a fun color! \n\w8\w4Its bright and cheery, \w8\s[3]but depending on the hue it could give an entirely different vibe!\f[bold,false]"
+		}
+	OnColorGold
+		{
+		"\0\s[0]\f[bold,true]Gold's a neat one! The brightness of yellow, tinted with the warmth of oranges and reds... \s[14]I hear a lot of people like this color!\f[bold,false]"
+		}
+	OnColorSilver
+		{
+		"\0\s[0]\f[bold,true]Silver is a very nice color,\w5 very cool and...\w8 \s[3]is it weird to say smooth? \w8\w8\w8\s[22]Hmm...\w8\w8 Whenever I think of silver though..\w8 \s[5]I cant help but think of Hotarubitale....\f[bold,false]"
+		}
+	OnColorMint
+		{
+		"\0\s[0]\f[bold,true]The cool toned mint is very cute! I can just imagine all the colors that compliment it nicely!\f[bold,false]"
+		}
+	OnColorPeach
+		{
+		"\0\s[16]\f[bold,true]Peach feels warm and sweet... it also makes me think of sunsets!\f[bold,false]"
+		}
+	OnColorBrown
+		{
+		"\0\s[0]\f[bold,true]Brown, hm? \nBrown reminds me of warm coffee and cookies.. \w8\nSoft blankets and the mixture of every color...\f[bold,false]"
+		}
+	OnColorTeal
+		{
+		"\0\s[0]\f[bold,true]Teal? I like that one too, it makes me think of the ocean.. Speaking of the ocean, have you heard of Leviathantale? An interesting AU, that one! \f[bold,false]"
+		}
+	OnColorNavy
+		{
+		"\0\s[0]\f[bold,true]Navy..\w8 That one actully kinda reminds me of the skies of outertale..\w8 Navy blue dotted and lit with hundreds of thousands of stars....\w8 \nDo you think there's just as many AU's?\f[bold,false]"
+		}
+	OnColorCream
+		{
+		"\0\s[20]\f[bold,true]Cream is another cozy color... It reminds me of how Blue describes vanilla... It's also easy on the eyes! \f[bold,false]"
+		}
+
 //And if you're not interested in making word lists like this at all, you can just remove this whole file! Or use it for something else, you do you

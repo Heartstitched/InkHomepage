@@ -1,14 +1,14 @@
 Charset,UTF-8
 __system_settings_version__,2
-char0.bind.savearray,920=1 910=0 911=1
-balloon,D:\E Drive\Desktop\Ukagaka Stuff\Ukagaka\SSP\balloon\x_template_Ink\
+char0.bind.savearray,922=1
+balloon,D:\E Drive\Desktop\Ukagaka Stuff\Ukagaka\SSP\balloon\HS_Ink_Scribbles\
 Char1.balloon.isleft,1
-balloon0.offset,118.37
+balloon0.offset,105.-252
 scriptbox.left,960
-Char0.centery,958
-Char0.balloon.isleft,0
+Char0.centery,716
+Char0.balloon.isleft,1
 Char.VirtualDesktop,00000000-0000-0000-0000-000000000000
-Char0.center,773
+Char0.center,1285
 scriptbox.top,566
 Char1.centery,1032
 Char1.center,1375

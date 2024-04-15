@@ -98,3 +98,46 @@ OnUpdateFailure //If the update fails
 		"\0\s[0]\f[bold,true]Error while updating:\w4 ""%(reference0)"".\f[bold,false]"
 	}
 }
+
+
+OnBIFFBegin
+ {
+	"\0\s[0]\f[bold,true]Oh.. you want me to check your email?\f[bold,false]\e"
+	
+	"\0\s[0]\f[bold,true]Oh! are you waiting for mail?\f[bold,false]\e"
+ }
+OnBIFFComplete
+ {
+	if reference0 == 0 
+ 	{
+ 		"\0\s[0]\f[bold,true]\w4\w4Ahh.. its empty, sorry!\f[bold,false]\e"
+	}
+	elseif reference0 == 1
+ 	{
+ 		"\0\s[0]\f[bold,true]There is one new email. Only one, huh?\f[bold,false]\e"
+	}
+	elseif reference0 > 1 && reference0 < 11 
+	{
+		"\0\s[0]\f[bold,true]There are %(reference0) emails. Oh,\w4 thats a few!\f[bold,false]\e"
+	}
+	elseif reference0 > 100 
+	{
+		"\0\s[0]\f[bold,true]There are %(reference0) emails unread.\w8\0\s[9]You've got so many!\f[bold,false]\e"
+	}
+ 	else 
+	{
+		"\0\s[0]\f[bold,true]There are %(reference0) emails.\f[bold,false]\e"
+ 	}
+}
+
+OnBIFFFailure
+{
+   _reason = ""
+if reference0 == "timeout"; _reason = "timed out"
+elseif reference0 == "kick"; _reason = "can't access account"
+elseif reference0 == "defect"; _reason = "POP settings incorrect"
+elseif reference0 == "artificial"; _reason = "canceled by user"
+else; _reason = reference0
+
+"\f[bold,true]Could not get emails: %(_reason)\f[bold,false]"
+}

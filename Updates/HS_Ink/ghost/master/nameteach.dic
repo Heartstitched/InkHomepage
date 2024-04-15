@@ -24,7 +24,7 @@ OnNameTeach
 	{
 		"\0\s[0]\f[bold,true]Oh,\w4 did you change your mind?\f[bold,false]"
 	}
-	elseif _name == "Ink" || TOLOWER(_tempname) == "x." //Checking with _tempname because 'X.' has a period, which would be removed. I don't want to stop someone putting in just X
+	elseif _name == "Ink"
 	{
 		"\0\s[0]\f[bold,true]That's my name!\w8\w8 I can't call you that!\w8\w8 Try again.\f[bold,false]"
 		--

@@ -1,0 +1,102 @@
+OnOtherGhostTalk
+{
+	LOGGING("====================================================================")
+	LOGGING("reference0: %(reference0)")
+	LOGGING("reference1: %(reference1)")
+	LOGGING("reference2: %(reference2)")
+	LOGGING("reference3: %(reference3)")
+	LOGGING("reference4: %(reference4)")
+	LOGGING("reference5: %(reference5)")
+	
+	/*
+	
+	reference0 - the ghost name
+	reference1 - sakura name of the ghost
+	reference2 - some misc stuff we're probably not worried about
+	reference3 - the ID of the event that made the other ghost talk
+	reference4 - the script from the other ghost
+	reference5 - the references passed to the other ghost, delimited by C_BYTE1
+	
+	*/
+	
+	if reference0 == "Needle"
+	{
+		_talk = reference4
+		
+		if reference3 == "OnOtherOverlap" && "OnNeedlePoke" _in_ _talk //Special case for needle poking
+		{
+			
+			"\0\s[4]What're you poking them for?"
+			--
+		}
+		elseif reference3 == "OnMouseDoubleClick"
+		{
+			
+			"\0\s[4]Ah- what if we didnt though.... "
+			--
+			
+		}
+		else //Just reacting to normal convos
+//		{
+			// if "Crabs crabs CRABS crabs " _in_ _talk
+				// "\0\b[4]crabs on the beach~~ crabs on the beach~~"
+				
+			// elseif "stop ASKING for DISCOUNTS" _in_ _talk
+				// "\0\b[4]price on the tag~~ stop asking~~"
+			
+			// // elseif "" _in_ _talk
+				// // "\0\b[4]"
+		// }
+	}
+}
+
+
+
+
+//—————————————————————————————— This bit below handles turning this mode on and off ——————————————————————————————
+OnSecondChange
+{
+	if NeedleIsOpen && !ListenForNeedle
+	{
+		"\![raise,OnListenForNeedle,start]"
+	}
+	elseif !NeedleIsOpen && ListenForNeedle
+	{
+		"\![raise,OnListenForNeedle,end]"
+	}
+}
+
+OnListenForNeedle
+{
+	LOGGING("====================================================================")
+	LOGGING("OnListenForNeedle")
+	LOGGING("reference: %(reference)")
+	LOGGING("ListenForNeedle before: %(ListenForNeedle)")
+	LOGGING("NeedleIsOpen: %(NeedleIsOpen)")
+	if reference0 == "start"
+	{
+		ListenForNeedle = 1
+		"\![set,otherghosttalk,after]"
+	}
+	else
+	{
+		ListenForNeedle = 0
+		"\![set,otherghosttalk,false]"
+	}
+	LOGGING("ListenForNeedle after: %(ListenForNeedle)")
+	LOGGING
+}
+
+NeedleIsOpen
+{
+	ASEARCH("Needle",ghostexlist) != -1
+}
+
+On_otherghostname
+{
+	ghostexlist = ""
+	foreach reference; _ghost
+	{
+		ghostexlist ,= _ghost[0,C_BYTE1]
+	}
+}

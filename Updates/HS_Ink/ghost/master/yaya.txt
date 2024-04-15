@@ -17,6 +17,7 @@ dic, sakura_menu.dic
 dic, word.dic
 dic, nameteach.dic
 dic, tools.dic
+dic, commu.dic
 
 
 msglang,english

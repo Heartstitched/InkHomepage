@@ -351,6 +351,12 @@ surface.append0-9,11-24
 {
 	collisionex0,Head,region,collisionbody.png,243,236,230
 //	collisionex8,Arms,region,collisionbody.png,56,33,31
+	collisionex10,Cheeks,region,collisionbody.png,206,132,0
+	collisionex3,Hands,region,collisionmain.png,255,217,178
+	collisionex9,Nose,region,collisionbody.png,174,2,199
+
+	
+
 
 	
 }
@@ -369,11 +375,11 @@ animation910.pattern0,add,3000,20,0,0
 	
 	animation910.collisionex1,Scarf,region,collisionmain.png,119,70,53
 	animation910.collisionex2,Broomie,region,collisionmain.png,60,49,53
-	animation910.collisionex3,Hands,region,collisionmain.png,255,217,178
 	animation910.collisionex4,Suspenders,region,collisionmain.png,105,196,165
 	animation910.collisionex5,Sash,region,collisionmain.png,255,186,83
 	animation910.collisionex6,Vials,region,collisionmain.png,67,150,253
 	animation910.collisionex7,Sleeve,region,collisionmain.png,166,31,0
+	animation910.collisionex9,The Beans,region,collisionbody.png,0,2,109
 	
 	
 
@@ -382,9 +388,10 @@ animation911.interval,bind
 animation911.pattern0,add,3001,20,0,0
 	animation911.collisionex1,Scarf,region,collisionniji.png,119,70,53
 	animation911.collisionex2,Broomie,region,collisionniji.png,60,49,53
-	animation911.collisionex3,Hands,region,collisionniji.png,255,217,178
 	animation911.collisionex4,Vials,region,collisionniji.png,67,150,253
 	animation911.collisionex5,Sleeve,region,collisionniji.png,166,31,0
+	animation911.collisionex9,The Beans,region,collisionbody.png,0,2,109
+	
 
 
 //Treehouse Outfit
@@ -396,6 +403,8 @@ animation912.pattern0,add,3002,20,0,0
 //Casual Outfit
 animation913.interval,bind
 animation913.pattern0,add,3003,20,0,0
+
+animation913.collisionex9,The Beans,region,collisionbody.png,0,2,109
 
 
 //--Head---------------------------------------------------------
@@ -410,6 +419,14 @@ animation921.interval,bind
 animation921.pattern0,add,4001,20,0,0
 	animation921.collisionex1,RedGlasses,region,collisionredglasses.png,255,113,101
 
+//Party Hat
+animation922.interval,bind
+animation922.pattern0,add,4002,20,0,0
+
+//Pencil
+animation923.interval,bind
+animation923.pattern0,add,4003,20,0,0
+
 }
 
 -----------
@@ -417,9 +434,11 @@ sakura.cursor
 {
 mouseup0,Head,system:hand
 mousedown0,Head,system:hand
-mouseup1,Suspenders,system:grip
+mouseup1,Suspenders,system:hand
 mousedown1,Suspenders,system:grip
 mouseup2,Sleeve,system:arrow
 mousedown2,Sleeve,system:arrow
+mouseup3,Cheeks,system:hand
+mousedown3,Cheeks,system:grip
 }
 
