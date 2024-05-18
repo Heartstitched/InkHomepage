@@ -81,5 +81,10 @@ sakura.bindgroup912.default,0
 sakura.bindgroup913.name,Clothes,Casual Outfit
 sakura.bindgroup913.default,0
 
+//Classic Wear
+sakura.bindgroup914.name,Clothes,Classic Wear
+sakura.bindgroup914.default,0
+
+
 
 sakura.menu, auto

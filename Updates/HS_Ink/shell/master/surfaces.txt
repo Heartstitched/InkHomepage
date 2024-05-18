@@ -403,9 +403,12 @@ animation912.pattern0,add,3002,20,0,0
 //Casual Outfit
 animation913.interval,bind
 animation913.pattern0,add,3003,20,0,0
-
 animation913.collisionex9,The Beans,region,collisionbody.png,0,2,109
 
+
+//Classic Wear
+animation914.interval,bind
+animation914.pattern0,add,3004,20,0,0
 
 //--Head---------------------------------------------------------
 
