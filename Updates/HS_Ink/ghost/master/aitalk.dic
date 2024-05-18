@@ -40,6 +40,7 @@ RandomTalk : nonoverlap_pool
 				"%(OverYourShoulder)\e"
 			}
 	}
+	
 	else
 	{
 		if PeekingOkay == 1
@@ -97,17 +98,17 @@ RandomTalk : nonoverlap_pool
 				
 			  "\0\s[20]\f[bold,true]'Exhale the\_a[https://www.youtube.com/watch?v=9NuZjhlNwPk] stress,\_a \w6so you dont come unglued....' \n\n\_q*(he's humming along to a song)\_q\f[bold,false]"
 
-			  "\0\s[0]\f[bold,true]\_q*(He sings along to a tune.)\_q \n\_qHey,\w8\w8 just pick up your pencil- crayons, \w8\nand be \_a[https://www.youtube.com/watch?v=oHQUUAcB0io]colorful.\_a \w8\w8\w8\nI'm sure this world is wonderful!\f[bold,false]"
+			  "\0\s[0]\f[bold,true]\_q*(He sings along to a tune.)\_q \n Hey,\w8\w8 just pick up your pencil- crayons, \w8\nand be \_a[https://www.youtube.com/watch?v=oHQUUAcB0io]colorful.\_a \w8\w8\w8\nI'm sure this world is wonderful!\f[bold,false]"
 			  
 			  "\0\s[3]\f[bold,true]What are your favorite stories like?\w8 Your favorite characters?\w8 Are there any recurring themes?\f[bold,false]"
 			  
 			  "\0\s[3]\f[bold,true]Do you have a favorite type of media?\f[bold,false]"
 			  
-			  "\0\s[0]\f[bold,true]What makes an enticing AU to you? A well written character? \f[bold,false]"
+			  "\0\s[0]\f[bold,true]What makes an enticing AU to you? What makes a well written character? \f[bold,false]"
 			  
 			  "\0\s[0]\f[bold,true]Do you have a specific creative process?\f[bold,false]"
 
-			  "\0\s[0]\f[bold,true]Y'know... the color %(rainbowcolors) reeealy reminds me of this AU I visted one time... \s[3]\w8\w8Hmm.. \f[bold,false]"
+			  "\0\s[0]\f[bold,true]Y'know... the color %(rainbowcolors) reeeally reminds me of this AU I visted one time... \s[3]\w8\w8Hmm.. \f[bold,false]"
 			  
 			  "\0\s[4]\f[bold,true]Keep practicing, you'll get there!! \f[bold,false]"
 			  
@@ -227,7 +228,7 @@ RandomTalk : nonoverlap_pool
 
 	"\0\s[24]\f[bold,true]I wonder what ErrorChitChat's up to right now....?\w8\w8 \n\n\n \_q*(he snickers.)\_q\f[bold,false]"
 	
-
+	"\0\s[3]\f[bold,true] Yknow...\w8 Somehow FreshChitChat shows up in my Doodlesphere from time to time.... \w8\w8\n \s[8]How does he even get there?? \w8\w8 \f[bold,false]"
 
 
 	}
@@ -235,6 +236,28 @@ RandomTalk : nonoverlap_pool
 
 }
 
+OnHourTimeSignal : nonoverlap
+{
+	if HourNotifs == "On" && minute <= 5
+	{
+		"\f[bold,true]\0\b[0]\f[bold,f]"
+		--
+		if hour == 0
+		{
+			"\f[bold,true]\0\s[9]Ohh... Midnight, huh?\w4 You must be what Dream calls a night owl!\w8\w8\f[bold,false]"
+		}
+		elseif hour == 12
+		{
+			"\f[bold,true]\0\s[9]Blue usually says it should be lunchtime about now!\w4 If we're not busy we usually take a break to \w8\w8uh....\w8\s[3] recover? \s[0]Blue usally eats something too. \w8\w8\f[bold,false]"
+		}
+		else
+		{
+			"\f[bold,true]\0\s[9]Oh hey, my timer says\w4 it's %(hour12ex) o'clock!\w8\w8\f[bold,false]"
+			"\f[bold,true]\0\s[0]By the way, it looks like\w4 it's %(hour12ex) o'clock..\w8\w8\f[bold,false]"
+			"\f[bold,true]\0\s[0]It's %(hour12ex) o'clock, \s[3]did you need to do anything now?\w8\w8\f[bold,false]"
+		}
+	}
+}
 
 
 
@@ -593,7 +616,7 @@ OverYourShoulder
 
 OnDoinGood
 	{
-		"\0\s[4]\f[bold,true]I'm glad to hear, pal! Glad to see you happy and thriving! You can do anythiing you put your mind to, %(username). \f[bold,false]"
+		"\0\s[4]\f[bold,true]I'm glad to hear, pal! Glad to see you happy and thriving! You can do anything you put your mind to, %(username). \f[bold,false]"
 	}
 
 OnDoinMeh

@@ -56,7 +56,8 @@ OnNameTeach
 			"\n\n\t\*"
 			"\f[bold,true]\![*]\q[He/Him/His,OnPronouns,masc,firstboot]\f[bold,false]\n"
 			"\f[bold,true]\![*]\q[She/Her/Hers,OnPronouns,fem,firstboot]\f[bold,false]\n"
-			"\f[bold,true]\![*]\q[They/Them/Their,OnPronouns,undef,firstboot]\f[bold,false]"
+			"\f[bold,true]\![*]\q[They/Them/Their,OnPronouns,undef,firstboot]\f[bold,false]\n"
+			"\f[bold,true]\![*]\q[Custom,OnPronouns,custom]\f[bold,false]\n\n"
 		}
 	}
 }
@@ -72,42 +73,187 @@ EnterNameAgain
 	"\![open,inputbox,OnNameTeach,-1,--reference=firstboot]\e"
 }
 
-//Envelope names are the same as the GT template, since I figured most people will be used to them.
-OnChangePronoun
+
+OnChangePronoun //Envelope names are the same as the GT template, since I figured most people will be used to them.
 {
-	"\0\s[0]\f[bold,true]How should I refer to you?\f[bold,false]"
+	"\0\s[0]\f[bold,true]How should I refer to you?\f[bold,false]\w5"
 	--
-	all:/
-	{
-		"\n\n\_q"
-		"\f[bold,true]\![*]\q[He/Him/His,OnPronouns,masc]\n\f[bold,false]"
-		"\f[bold,true]\![*]\q[She/Her/Hers,OnPronouns,fem]\n\f[bold,false]"
-		"\f[bold,true]\![*]\q[They/Them/Their,OnPronouns,undef]\n\n\f[bold,false]"
-		"\f[bold,true]\![*]\q[Cancel,OnConfigMenu]\f[bold,false]\e"
+	all:{
+	"\n\n\_q"
+	"\f[bold,true]\![*]\q[He/Him/His,OnPronouns,hehimhis]\f[bold,false]\n"
+	"\f[bold,true]\![*]\q[She/Her/Hers,OnPronouns,sheherhers]\f[bold,false]\n"
+	"\f[bold,true]\![*]\q[They/Them/Their,OnPronouns,theythemtheirs]\f[bold,false]\n"
+	"\f[bold,true]\![*]\q[Custom,OnPronouns,custom]\f[bold,false]\n\n"
+	
+	"\f[bold,true]\![*]\q[Cancel,OnConfigMenu]\f[bold,false]\e"
 	}
 }
 
-
+//custom pronouns code adapted from SmokyCinnamonRoll#7652 on the ukgk discord 
 OnPronouns
 {
-	pronouns = reference0
+
+    if reference0 == "custom" {
+
+		"\![raise,OnSubjectPronounTeach,%(reference1)]\e"
+
+    }  	
+	else { //one of the boilerplate pronouns picked
+	
+		if reference0 == "hehimhis" {
+		
+			pronounsArray = IARRAY 
+			pronounsArray[0] = "singular"
+			pronounsArray[1] = "he"
+			pronounsArray[2] = "him"
+			pronounsArray[3] = "his"
+			pronounsArray[4] = "his"
+			pronounsArray[5] = "himself"
+		
+		}
+		elseif reference0 == "sheherhers" {
+		
+			pronounsArray = IARRAY 
+			pronounsArray[0] = "singular"
+			pronounsArray[1] = "she"
+			pronounsArray[2] = "her"
+			pronounsArray[3] = "her"
+			pronounsArray[4] = "hers"
+			pronounsArray[5] = "herself"
+		
+		} 
+		elseif reference0 == "theythemtheirs" {
+		
+			pronounsArray = IARRAY 
+			pronounsArray[0] = "plural"
+			pronounsArray[1] = "they"
+			pronounsArray[2] = "them"
+			pronounsArray[3] = "their"
+			pronounsArray[4] = "theirs"
+			pronounsArray[5] = "themself"
+		
+		} else { //reference0 is singular or plural
+			pronounsArray[0] = reference0
+		}
+		
+
+	}
 	--
 	if reference1 == "firstboot" //This is the end of the firstboot dialogue
 	{
-		"\0\s[0]\f[bold,true]Sounds good!\f[bold,false]\e"
+		"\f[bold,true]\0\s[0]Alright.\w8 I will use %(subjectP), %(objectP), %(possessiveD), %(possessiveP), and %(reflexiveP) for you.\w8 You can double click me to open my menu, and access additional options under config!\f[bold,false]\e"
 	}
-	else //This is if the user is changing their pronouns through the menu
-	{
-		"\0\s[0]\f[bold,true]Ok,\w4 I'll use %(heshe) %(himher) and %(hisher).\f[bold,false]"
-		--
-		"\n\n\f[bold,true]\![*]\q[Back to config,OnConfigMenu]\n\![*]\q[I'm done,cancelnodialogue]\f[bold,false]\e"
-	}
+	--
+	"\f[bold,true]\0\s[0]Ok,\w4 I'll use %(subjectP), %(objectP), %(possessiveD), %(possessiveP), and %(reflexiveP) for you.\f[bold,false]"
+	--
+	"\f[bold,true]\n\n\![*]\q[Back to config,OnConfigMenu]\n\![*]\q[I'm done,cancelnodialogue]\f[bold,f]\e"
+	
 }
+
+OnSubjectPronounTeach{
+
+	LOGGING(reference0+", "+reference1+", "+reference2+", " + reference3)
+	"\0\s[0]\f[bold,true]\![set,balloontimeout,-1]Please enter the subject pronoun such as:\n\n\f[bold,false]They\f[bold,true] have a dog.\f[bold,false] \![open,inputbox,OnObjectPronounTeach,-1,--reference=%(reference0)]\_q\e"
+
+}
+
+OnObjectPronounTeach{
+
+	LOGGING(reference0+", "+reference1+", "+reference2+", " + reference3)
+	
+	if reference0 == "" {
+	
+		"\0\s[0]\f[bold,true]\![set,balloontimeout,-1]Did you forget to enter something?\w8 Please enter the subject pronoun such as:\n\n\f[bold,false]They\f[bold,true] have a dog.\f[bold,true]"
+		--
+		"\![open,inputbox,OnObjectPronounTeach,-1,--reference=%(reference2)]\_q\e"
+	
+	}
+	--
+	pronounsArray[1] = reference0
+
+	"\0\s[0]\f[bold,true]\![set,balloontimeout,-1]Please enter the object pronoun such as:\n\nI gave \f[bold,false]them\f[bold,true] a dog.\f[bold,false] \![open,inputbox,OnPossessiveDeterminerTeach,-1,--reference=%(reference2)]\_q\e"
+
+}
+
+OnPossessiveDeterminerTeach{
+
+
+	if reference0 == "" {
+	
+		"\0\s[0]\f[bold,true]\![set,balloontimeout,-1]Did you forget to enter something?\w8 Please enter the object pronoun such as:\n\nI gave \f[bold,false]them\f[bold,true] a dog.\f[bold,false]"
+		--
+		"\![open,inputbox,OnPossessiveDeterminerTeach,-1,--reference=%(reference2)]\_q\e"
+	
+	}
+	--
+	pronounsArray[2] = reference0
+
+	"\0\s[0]\f[bold,true]\![set,balloontimeout,-1]Please enter the posessive determiner such as:\n\nThat is \f[bold,false]their\f[bold,true] dog.\f[bold,false] \![open,inputbox,OnPossessivePronounTeach,-1,--reference=%(reference2)]\_q\e"
+
+}
+
+OnPossessivePronounTeach{
+
+	if reference0 == "" {
+	
+		"\0\s[0]\f[bold,true]\![set,balloontimeout,-1]Did you forget to enter something?\w8 Please enter the posessive determiner such as:\n\nThat is \f[bold,false]their\f[bold,true] dog.\f[bold,false] "
+		--
+		"\![open,inputbox,OnPossessivePronounTeach,-1,--reference=%(reference2)]\_q\e"
+	
+	}
+	--
+	pronounsArray[3] = reference0
+
+	"\0\s[0]\f[bold,true]\![set,balloontimeout,-1]Please enter the posessive pronoun such as:\n\nThe dog is \f[bold,false]theirs. \![open,inputbox,OnReflexivePronounTeach,-1,--reference=%(reference2)]\_q\e"
+
+}
+
+OnReflexivePronounTeach{
+
+	if reference0 == "" {
+	
+		"\0\s[0]\f[bold,true]\![set,balloontimeout,-1]Did you forget to enter something?\w8 Please enter the posessive pronoun such as:\n\nThe dog is \f[bold,false]theirs. "
+		--
+		"\![open,inputbox,OnReflexivePronounTeach,-1,--reference=%(reference2)]\_q\e"
+	
+	}
+	--
+	pronounsArray[4] = reference0
+
+	"\0\s[0]\f[bold,true]\![set,balloontimeout,-1]Please enter the reflexive pronoun such as:\n\nThey bought the dog \f[bold,false]themself. \![open,inputbox,OnSingularPluralTeach,-1,--reference=%(reference2)]\_q\e"
+
+}
+
+OnSingularPluralTeach{
+
+	LOGGING(reference0+", "+reference1+", "+reference2+", " + reference3)
+	
+	if reference0 == "" {
+	
+		"\0\s[0]\f[bold,true]\![set,balloontimeout,-1]Did you forget to enter something?\w8 Please enter the reflexive pronoun such as:\n\nThey bought the dog \f[bold,false]themself. "
+		--
+		"\![open,inputbox,OnSingularPluralTeach,-1,--reference=%(reference2)]\_q\e"
+	
+	}
+	--
+	pronounsArray[5] = reference0
+	
+	all:{	
+		"\f[bold,true]\0\s[0]\![set,balloontimeout,-1]Is this a singular or plural pronoun?\n\nSingular: She \f[bold,false]is\f[bold,true] kind.\nPlural: They \f[bold,false]are\f[bold,true] kind.\f[bold,false]\n\n"	
+		"\f[bold,true]\![*]\q[Singular,OnPronouns,singular,%(reference2)]\f[bold,false]\n"
+		"\f[bold,true]\![*]\q[Plural,OnPronouns,plural,%(reference2)]\n\f[bold,false]\e"
+	}
+
+}
+
+
 //Pronoun examples for my own sake:
-//"%(heshe) left that there."
-//"%(hisher) work is really cool."
-//"I'll ask %(himher) later."
-//"%(hesshes) really good at it."
+//subject: they
+//object: them
+//possessive determiner: their
+//possessive pronoun: theirs 
+//reflexive pronoun: themselves
+
 
 OnChangeBirthday //Pulled a lot of this from the GT template, but I also modified it a lot
 {

@@ -62,11 +62,11 @@ choicecolors
 	"\![*]\q[purple,OnColorPurple]\n"
 	"\![*]\q[grey,OnColorGrey]\n"
 	"\![*]\q[violet,OnColorViolet]\n"
-	"\![*]\q[black,OnClorBlack]\n"
+	"\![*]\q[black,OnColorBlack]\n"
 	"\![*]\q[white,OnColorWhite]\n"
 	"\![*]\q[magenta,OnColorMagenta]\n"
 	"\![*]\q[indigo,OnColorIndigo]\n"
-	"\![*]\q[aqua,OnColorCyan]\n"
+	"\![*]\q[cyan,OnColorCyan]\n"
 	"\![*]\q[lavender,OnColorLavender]\n"
 	"\![*]\q[pink,OnColorPink]\n"
 	"\![*]\q[gold,OnColorGold]\n"
@@ -103,7 +103,7 @@ choicecolors
 		}
 	OnColorPurple
 		{
-		"\0\s[9]\f[bold,true]I've heard somewhere thatpurple was used to represent royalty! How interesting....\f[bold,false]"
+		"\0\s[9]\f[bold,true]I've heard somewhere that purple was used to represent royalty! How interesting....\f[bold,false]"
 		}
 	OnColorGrey
 		{
@@ -135,7 +135,7 @@ choicecolors
 		}
 	OnColorLavender
 		{
-		"\0\s[14]\f[bold,true]Lavender is a nice soft ue of purple.. it reminds me of the flowers similarly named... \f[bold,false]"
+		"\0\s[14]\f[bold,true]Lavender is a nice soft hue of purple.. it reminds me of the flowers similarly named... \f[bold,false]"
 		}
 	OnColorPink
 		{
@@ -163,7 +163,7 @@ choicecolors
 		}
 	OnColorTeal
 		{
-		"\0\s[0]\f[bold,true]Teal? I like that one too, it makes me think of the ocean.. Speaking of the ocean, have you heard of Leviathantale? An interesting AU, that one! \f[bold,false]"
+		"\0\s[0]\f[bold,true]Teal? I like that one too, it makes me think of the ocean.. Speaking of the ocean, have you heard of Mermaidtale? An interesting AU, that one! \f[bold,false]"
 		}
 	OnColorNavy
 		{
@@ -175,3 +175,72 @@ choicecolors
 		}
 
 //And if you're not interested in making word lists like this at all, you can just remove this whole file! Or use it for something else, you do you
+
+
+
+//-----pronounin-----
+subjectP //subject
+{
+   pronounsArray[1]
+
+}
+
+objectP //object
+{
+   pronounsArray[2]
+
+}
+
+possessiveD //possessive determiner
+{
+   pronounsArray[3]
+
+}
+
+possessiveP //possessive pronoun
+{
+	pronounsArray[4]
+
+}
+
+reflexiveP {
+
+	pronounsArray[5]
+
+}
+
+contraction
+{
+	if pronounsArray [0] == "singular"; pronounsArray[1] + "'s"
+	else; pronounsArray[1] + "'re"
+}
+
+isare 
+{
+	if pronounsArray [0] == "singular"; "is"
+	else; "are"
+}
+
+hashave
+{
+	if pronounsArray [0] == "singular"; "has"
+	else; "have"
+}
+
+verbS //tack onto end of verb, like run%(verbS)
+{
+	if pronounsArray [0] == "singular"; "s"
+	else; ""
+}
+
+verbES //tack onto end of verb, like catch%(verbS)
+{
+	if pronounsArray [0] == "singular"; "es"
+	else; ""
+}
+
+verbYIES //tack onto end of verb, like worr%(verbS) -> worries or worry
+{
+	if pronounsArray [0] == "singular"; "ies"
+	else; "y"
+}

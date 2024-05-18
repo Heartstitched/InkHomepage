@@ -3,7 +3,8 @@ OnFirstBoot
 	//If you add variables, make sure to initialize them here!
 	//Note - I haven't added anything about username or pronouns here because it's all handled by the SSP prefs
 	stroke = 0
-	passmin = 0 
+	passmin = 0
+	pronouns = "undef"	
 	passsec = 0 // These two keep track of the time.
 	LastTalk = ""
 	CreativeMode = 0
@@ -16,7 +17,7 @@ OnFirstBoot
 	CurrentDressups = IARRAY 
 	inkbirthday = 0
 	InkPets = 0
-	
+	HourNotifs = "Off"
 	
 
 
@@ -190,7 +191,7 @@ OnBoot
 			
 			"\0\s[3]\f[bold,true]Are you usually up late like this?\f[bold,false]\e"
 			
-			"\0\s[24]\f[bold,true]Aww! Wanted to spend the nght wth lil' ol' me?\f[bold,false]\w8\e"
+			"\0\s[24]\f[bold,true]Aww! Wanted to spend the night wth lil' ol' me?\f[bold,false]\w8\e"
 		}
 	}
 }
@@ -254,7 +255,7 @@ OnClose
  				{	
 					"\0\s[5]\f[bold,true]Heading off late, huh? Be sure to get some rest, okay?\w8\f[bold,false]\w8"
 						
-					"\0\s[20]\f[bold,true]Have a goodnight %(username)!\f[bold,false]\w8"
+					"\0\s[20]\f[bold,true]Have a good night %(username)!\f[bold,false]\w8"
 					
 					"\0\s[5]\f[bold,true]Dont's stay up too late, okay?\w8\f[bold,false]\w8"
 				}

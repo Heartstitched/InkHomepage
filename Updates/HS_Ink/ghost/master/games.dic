@@ -1,0 +1,1986 @@
+// -------------------------------- Word Jumble -------------------------------- 
+
+	//Written by Zichqec https://ukagaka.zichqec.com/
+	//v1.0.0
+	
+	/*
+	This is an improved version of my original Junior Jumble game. In this version of the game, the user is prompted with a category for the words they will be solving, because as it turns out unscrambling words is hard when you have no idea what they might be!
+
+	By default, the user is asked to solve 5 words before they win. You can adjust this at the top of the OnWordJumble.Start function.
+
+	To start the game, call the event OnWordJumble.Start in a menu option/raise tag/etc. Example: \![*]\q[Play Word Jumble,OnWordJumble.Start]
+	*/
+
+
+	//——————————————— Dialogue ———————————————
+	//I set these up to display the final words at the end. If you'd rather have your ghost say something about the user winning, you can replace it with simple dialogue or what have you.
+	/*
+	Quick reference for the local variables in the following functions, in case you want to change things up.
+	In particular, you might be interested in _word and _scrambled, but the rest you can probably ignore.
+
+	_guess - only available if the user loses. Their incorrect guess, with sakurascript tags escaped
+	_category_name - the name of the current category
+	_word_list - a list of all the words yet to be guessed, delimited by C_BYTE1
+	_word - the current word that is being guessed
+	_correct_guesses - words that have been guessed correctly so far, delimited by WordJumble.Delimiter (set to "||" by default)
+	_scrambled - the scrambled version of the word to be guessed
+	*/
+
+	OnWordJumble.Win : all
+	{
+		_category_name = reference2
+		_word_list = reference3
+		_word = SPLIT(_word_list,C_BYTE1)[0]
+		_correct_guesses = reference4
+		_scrambled = reference5
+		
+		"\f[bold,true]\0\b[2]\![set,autoscroll,disable]\_q\f[bold,false]"
+		"\f[bold,true]You win!\f[bold,false]\n"
+		"\f[bold,true]\nCategory:\_w[] %(_category_name)\f[bold,false]"
+		"\n\n"
+		"\f[bold,true]\![*]\__q[OnWordJumble.Start]Play again\__q  \![*]\__q[OnBlank]Done\__q\f[bold,false]"
+		"\n\n"
+		
+		WordJumble.MakeDisplay(_correct_guesses)
+	}
+
+	OnWordJumble.Lose : all
+	{
+		_guess = SHIORI3FW.EscapeAllTags(reference0)
+		_category_name = reference2
+		_word_list = reference3
+		_word = SPLIT(_word_list,C_BYTE1)[0]
+		_correct_guesses = reference4
+		_scrambled = reference5
+		
+		"\f[bold,true]\0\b[2]\![set,autoscroll,disable]\_q\f[bold,false]"
+		"\f[bold,true]Game over: the correct word was %(_word)\f[bold,false]\n"
+		"\f[bold,true]\nCategory: %(_category_name)\f[bold,false]"
+		"\n\n"
+		"\f[bold,true]\![*]\__q[OnWordJumble.Start]Play again\__q  \![*]\__q[OnBlank]Done\__q\f[bold,false]"
+		"\n\n"
+		
+		if _correct_guesses != ""; WordJumble.MakeDisplay(_correct_guesses)
+		
+		"\f[bold,true]\f[color,disable]%(_scrambled)\f[color,default]\n\f[bold,false]"
+		"\f[bold,true]\f[strike,1]%(_guess)\f[strike,default]\n\n\f[bold,false]"
+	}
+
+	OnWordJumble.Quit : all
+	{
+		_category_name = reference2
+		_word_list = reference3
+		_word = SPLIT(_word_list,C_BYTE1)[0]
+		_correct_guesses = reference4
+		_scrambled = reference5
+		
+		"\0\b[2]\_q"
+		//\![set,autoscroll,disable]
+		"\![close,inputbox,OnWordJumble.Guess]"
+		"\f[bold,true]Game over: quit\f[bold,false]\n"
+		"\f[bold,true]\nCategory: %(_category_name)\f[bold,false]"
+		"\n\n"
+		"\f[bold,true]\![*]\__q[OnWordJumble.Start]Play again\__q  \![*]\__q[OnBlank]Done\__q\f[bold,false]"
+		"\n\n"
+		
+		if _correct_guesses != ""; WordJumble.MakeDisplay(_correct_guesses)
+		
+		"\f[bold,true]\f[color,disable]%(_scrambled)\f[color,default]\n\f[bold,false]"
+		"\f[bold,true]\f[strike,1]%(_word)\f[strike,default]\n\n\f[bold,false]"
+	}
+
+
+	//——————————————— Categories / Words ———————————————
+	//You can write as many categories as you want. Just copy one of these, and pick a new name.
+	//The name of the function after the "WordJumble.Category." part doesn't matter, but for simplicity's sake, I'd make it the name of the category (minus any special characters/spaces)
+	//The first string in each array should be the name of the category.
+
+	//The more categories and words in each category you have, the better! But mind that anagrams can be mean. Also, be mindful of things that can scramble into profanity, etc.
+
+	// WordJumble.Category.Fruit : array
+	// {
+		// "Fruit"
+		
+		// "Apple"
+		// "Apricot"
+		// "Banana"
+		// "Canteloupe"
+		// "Cherry"
+		// "Dragonfruit"
+		// "Kiwi"
+		// //"Lemon" - this is an anagram with "melon"!
+		// "Lime"
+		// "Lychee"
+		// "Mandarin"
+		// "Mango"
+		// "Orange"
+		// "Persimmon"
+		// "Pineapple"
+		// "Plum"
+		// "Tomato"
+		// "Watermelon"
+	// }
+
+	// WordJumble.Category.Noodles : array
+	// {
+		// "Noodles"
+		
+		// "Bucatini"
+		// "Cavatappi"
+		// "Conchiglie"
+		// "Farfalle"
+		// "Fettucine"
+		// "Lasagna"
+		// "Linguine"
+		// "Macaroni"
+		// "Penne"
+		// "Ravioli"
+		// "Rigatoni"
+		// "Rotini"
+		// "Spaghetti"
+		// "Ziti"
+	// }
+
+	// WordJumble.Category.Winter : array
+	// {
+		// "Winter"
+		
+		// "Snow"
+		// "Snowman"
+		// "Icicle"
+		// "Thawing"
+		// "Melting"
+		// "Freezing"
+		// "Slush"
+		// "Shoveling"
+		// "Slippery"
+		// "Frosty"
+		// "Quiet"
+		// "Dazzling"
+	// }
+
+WordJumble.Category.Art : array
+	{
+		"Art"
+		
+		"Oil"
+		"Acrylic"
+		"Gouache" 
+		"Paint"
+		"Inkwell"
+		"Stencil"
+		"Stamp"
+		"Chalk"
+		"Marker"
+		"Pencil"
+		"Eraser"
+		"Charcoal"
+		"Watercolor"
+	}
+	
+	
+	WordJumble.Category.UTMV : array
+	{
+		"UTMV"
+		
+		"Gaster"
+		"XEvent"
+		"Cross"
+		"Overwrite"
+		"Possession"
+		"Universe"
+		"Multiverse"
+		"Underswap"
+		"Underfell"
+		"Outertale"
+		"Undertale"
+		"Underverse"
+		"Classic"	
+		"Underfresh"
+		"Inktale"
+		"Error"
+		
+	}
+	
+	WordJumble.Category.Undertale : array
+	{
+		"Undertale"
+		
+		"Snowfall"
+		"Snowdrake"
+		"Waterfall"
+		"Snowdin"
+		"Hotland"
+		"Temperate"
+		"Astigmatism"
+		"LooxEyewalker"
+		"Froggit"
+		"Whimsum"
+		"Vegetoid"
+		"Napstablook"
+		"Mettaton"
+		"Alphys"
+		"Sans"
+		"Papyrus"
+		"Undyne"
+		"Grillby"
+		"Muffet"
+		"Toriel"
+		"Asgore"
+		"Chara"
+		"Frisk"
+		"Asriel"
+		"Flowey"
+		"Aaron"
+		"Woshua"
+		"Determination"
+		"Patience"
+		"Justice"
+		"Bravery"
+		"Integrity"
+		"Kindness"
+		"Perseverance"
+		"TobyFox"
+		"Temmie"
+		"AnnoyingDog"
+	}
+
+	//——————————————— Game logic ———————————————
+	OnWordJumble.Start
+	{
+		//The maximum number of words that you want the user to have to guess before they win.
+		//Note that if there are not this many words in the category, it will simply use all the available words once.
+		_max_words = 5
+		
+		
+		//Picking a category
+		_categories = GETFUNCLIST("WordJumble.Category.")
+		_category = EVAL("%(ANY(_categories))")
+		_category_name = _category[0]
+		_category[0] = IARRAY
+		
+		_word_list = ""
+		for _i = 0; _i < _max_words && ARRAYSIZE(_category) > 0; _i++
+		{
+			if _i != 0; _word_list += C_BYTE1
+			_word_list += ANY(_category)
+			_category[LSO] = IARRAY
+		}
+		
+		"\![close,inputbox,OnWordJumble.Guess]\![raise,OnWordJumble.Display,start,,""%(_category_name)"",""%(_word_list)""]"
+	}
+
+	//Main game window
+	OnWordJumble.Display : all
+	{
+		_category_name = reference2
+		_word_list = SPLIT(reference3,C_BYTE1)
+		_correct_guesses = reference4
+		
+		if !(reference0 == "start"); _word_list[0] = IARRAY
+		if _word_list[0] == ""
+		{
+			"\C\![raise,OnWordJumble.Win,,,""%(_category_name)"",""%(_word_list)"",""%(_correct_guesses)"",""%(_scrambled)""]"
+			return
+		}
+		
+		_word = _word_list[0]
+		_scrambled = WordJumble.Scramble(_word)
+		
+		_word_list = WordJumble.MakeMultiArray(,_word_list)
+		
+		"\C\![lock,balloonrepaint]\c"
+		"\0\b[2]\_q\*\t"
+	//	"\![no-markdown]" //TODO I'm silly and testing this in a ghost with markdown
+		"\![open,inputbox,OnWordJumble.Guess,--reference=""%(_category_name)"",--reference=""%(_word_list)"",--reference=""%(_correct_guesses)"",--reference=""%(_scrambled)""]"
+		
+		"\f[bold,true]Unscramble the words!\f[bold,false]"
+		"\n"
+		"\n\f[bold,true]Category: %(_category_name)\f[bold,false]"
+		"\n\n"
+		"\f[bold,true]\![*]\__q[OnWordJumble.Quit,,,""%(_category_name)"",""%(_word_list)"",""%(_correct_guesses)"",""%(_scrambled)""]Give up\__q\f[bold,false]"
+		"\n\n"
+		
+		if _correct_guesses != ""; WordJumble.MakeDisplay(_correct_guesses)
+		
+		"\f[bold,true]%(_scrambled)\f[bold,true]"
+		"\![unlock,balloonrepaint]"
+	}
+
+	OnWordJumble.Guess
+	{
+		_category_name = reference2
+		_word_list = reference3
+		_word = SPLIT(_word_list,C_BYTE1)[0]
+		_word = SHIORI3FW.EscapeAllTags(_word)
+		_correct_guesses = reference4
+		_scrambled = reference5
+		
+		if reference0 == ""; "\C\![open,inputbox,OnWordJumble.Guess,--reference=""%(_category_name)"",--reference=""%(_word_list)"",--reference=""%(_correct_guesses)"",--reference=""%(_scrambled)""]"
+		elseif TOLOWER(reference0) == TOLOWER(_word) //Correct guess, game continues
+		{
+			if _correct_guesses != ""; _correct_guesses += WordJumble.Delimiter
+			_correct_guesses += "%(_word)%(C_BYTE1)%(_scrambled)"
+			
+			"\C\![raise,OnWordJumble.Display,,,""%(_category_name)"",""%(_word_list)"",""%(_correct_guesses)"",""%(_scrambled)""]"
+		}
+		else //Lose
+		{	
+			"\C\![raise,OnWordJumble.Lose,""%(reference0)"",,""%(_category_name)"",""%(_word_list)"",""%(_correct_guesses)"",""%(_scrambled)""]"
+		}
+	}
+
+
+	//——————————————— Utility functions ———————————————
+
+	//If for some reason the double pipe doesn't work as a delimiter for you, you can pick something else here
+	WordJumble.Delimiter
+	{
+		"||"
+	}
+
+	//Scrambles whatever word is input
+	WordJumble.Scramble
+	{
+		_word = TOLOWER(_argv[0])
+		_output = ""
+		//Try up to 100 times to scramble the word without just outputting the original word again.
+		//There is a chance someone puts in a word that can't be scrambled, like if they just put "aaa". So this stops after 100 tries so as not to potentially crash SSP
+		for _i = 0; _i < 100; _i++
+		{
+			_output = ""
+			while STRLEN(_word) > 0
+			{
+				_n = RAND(STRLEN(_word))
+				_output += SUBSTR(_word,_n,1)
+				_word = ERASE(_word,_n,1)
+			}
+			
+			if _output != _word; break
+		}
+		_output
+	}
+
+	//Make a general purpose array into a simple array
+	//The first argument is the delimiter. YOU MUST INCLUDE THIS ARGUMENT.
+	//If you want to use C_BYTE1, you may leave the argument blank. But it MUST exist, even if it's empty.
+	//All other arguments are elements of the array that will be made into a simple array
+	WordJumble.MakeMultiArray
+	{
+		//I hate this
+		_delimiter = C_BYTE1
+		if _argv[0] != ""; _delimiter = _argv[0]
+		_argv[0] = IARRAY
+		
+		_output = ""
+		foreach _argv; _arg
+		{
+			if _output != ""; _output += _delimiter
+			_output += _arg
+		}
+		_output
+	}
+
+	WordJumble.MakeDisplay : all
+	{
+		_correct_guesses = _argv[0]
+		_correct_guesses = SPLIT(_correct_guesses,WordJumble.Delimiter)
+		foreach _correct_guesses; _guess
+		{
+			_w = _guess[0,C_BYTE1]
+			_w = SHIORI3FW.EscapeAllTags(_w)
+			_s = _guess[1,C_BYTE1]
+			"\f[bold,true]\f[color,disable]%(_s)\f[bold,false]\n"
+			"\f[bold,true]\f[color,default.anchor]%(_w)\f[color,default]\n\n\f[bold,false]"
+		}
+	}
+
+
+
+
+
+// -------------------------------- Tic Tac Toe -------------------------------- 
+
+//Written by Zichqec https://ukagaka.zichqec.com/
+//v1.0.0
+/*
+To run this game in your ghost, call the event OnTTT.Start from a menu choice, raise tag, etc. Example: \![*]\q[Play Tic Tac Toe,OnTTT.Start]
+
+There is dialogue to customize towards the bottom of the OnTTT.Display event.
+
+If you want to adjust how often the ghost tries to make a smart move, you can do so at the bottom of the TTT.GhostMovePick function.
+
+Note that this *requires* a monospace font to work. I've set it to courier new for this purpose.
+
+This game isn't nearly as smart as the older implementation of Tic Tac Toe that I've seen floating around, but that's by design! My hope with this version is that it feels more natural and gives the user a chance to win, plus you can adjust the difficulty a bit based on your character. Also, I really wanted the ability to have comments from the ghost during the game.
+*/
+
+OnTTT.Start
+{
+	TTT.Board = ("0","0","0","0","0","0","0","0","0")
+	"\![raise,OnTTT.Display]"
+}
+
+OnTTT.Display : all
+{
+	//You can change these to be things besides Xs and Os if you want, or you could set it up to let the user pick or what have you.
+	_usertoken = "O"
+	_ghosttoken = "X"
+	
+	_win = TTT.WinCheck
+	_who_won = _win[0]
+	_win[0] = IARRAY
+	
+	"\C\![lock,balloonrepaint]\c"
+	"\0\b[2]\![set,autoscroll,disable]\![quicksection,1]"
+	if _who_won == 0; "\*\t"
+	
+	
+	"\f[name,courier new]\f[height,+20]\f[bold,1]\f[cursorstyle,none]\f[align,center]"
+	//Board
+	" | | \n \n[-100]_____\n"
+	" | | \n \n[-100]_____\n"
+	" | | \n \n[-300]"
+	
+	_i = 0
+	foreach TTT.Board; _space
+	{
+		if _who_won != 0 && ASEARCH("%(_i)",_win) != -1; "\f[color,default.anchor]"
+		
+		if _space == "1"; _usertoken
+		elseif _space == "2"; _ghosttoken
+		else
+		{
+			if reference0 != 1 && _who_won == 0 //It's the user's turn to move
+			{
+				"\__q[OnTTT.Move,1,%(_i)] \__q"
+			}
+			else; " "
+		}
+		
+		"\f[color,default]"
+		_i++
+		if _i % 3 == 0; "\n"
+		else; " "
+	}
+	"\f[default]\f[align,left]"
+	"\n\n"
+	if _who_won != 0 //If someone won or it was a draw
+	{
+		"\f[bold,true]\![*]\__q[OnTTT.Start]Play again\__q  \![*]\__q[OnBlank]Done\__q\f[bold,false]"
+	}
+	else
+	{
+		"\f[bold,true]\![*]\__q[OnTTT.Quit]Give up\__q\f[bold,false]"
+	}
+	//"\n\![*]\__q[OnTTT.Display,1]Skip turn\__q" //For debugging
+	"\![unlock,balloonrepaint]\![quicksection,0]\n\n"
+	
+	if _who_won == 0 && reference0 == 1 //Ghost's turn
+	{
+		_play = TTT.GhostMovePick
+		_type = _play[0]
+		_move = _play[1]
+		
+		//Each type is a different move that the ghost will take. You can have responses to all of these if you want, or you can cut out the ones you don't care for and just keep the else statement. Or snip them all if you don't want the ghost to talk!
+		if _type == "win" //Taking a winning move
+		{
+			nonoverlap :/
+			{
+				"\f[bold,true]Aha, I've got you now!\f[bold,false]"
+				"\f[bold,true]Looks like this game's mine!\f[bold,false]"
+			}
+		}
+		elseif _type == "block" //Blocking the user from winning
+		{
+			nonoverlap :/
+			{
+				"\f[bold,true]Not so fast!\f[bold,false]"
+				"\f[bold,true]No you don't!\f[bold,false]"
+			}
+		}
+		elseif _type == "build" //Playing in the same row/column as one of its previous moves
+		{
+			nonoverlap :/
+			{
+				"\f[bold,true]And then I'll put one here...\f[bold,false]"
+				"\f[bold,true]Maybe here?\f[bold,false]"
+				"\f[bold,true]Ohh how about this..?\f[bold,false]"
+				"\f[bold,true]Haha!\f[bold,false]"
+			}
+		}
+		elseif _type == "middle" //Taking the middle if the user has not
+		{
+			nonoverlap :/
+			{
+				"\f[bold,true]Haha, the middle is mine!\f[bold,false]"
+				"\f[bold,true]I want the middle!\f[bold,false]"
+			}
+		}
+		else //Picking a random space
+		{
+			nonoverlap :/
+			{
+				"\f[bold,true]Hmm... Let's see...\f[bold,false]"
+				"\f[bold,true]Mmm...\f[bold,false]"
+			}
+		}
+		"\_w[300]"
+		"\![raise,OnTTT.Move,2,%(_move)]"
+	}
+	elseif _who_won == 1 //Player win
+	{
+		nonoverlap :/
+		{
+			"\f[bold,true]Oh, you won!\f[bold,false]"
+			"\f[bold,true]You're pretty good at this!\f[bold,false]"
+		}
+	}
+	elseif _who_won == 2 //Ghost win
+	{
+		nonoverlap :/
+		{
+			"\f[bold,true]Haha, I win!\f[bold,false]"
+		}
+	}
+	elseif _who_won == 3 //Draw
+	{
+		nonoverlap :/
+		{
+			"\f[bold,true]Lookit that, it's a draw!\f[bold,false]"
+		}
+	}
+}
+
+//Quitting the game
+OnTTT.Quit
+{
+	"\f[bold,true]\0\b[0]Aw, ok.\f[bold,false]"
+}
+
+OnTTT.Move
+{
+	TTT.Board[reference1] = TOSTR(reference0)
+	"\C\![lock,balloonrepaint]\![raise,OnTTT.Display,%(reference0)]"
+}
+
+//Determine if there is a smart move to be played, and if so, whether it will be taken. Outputs what type of play it picked and what index it picked
+TTT.GhostMovePick
+{
+	_open = ASEARCHEX(0,TTT.Board)
+	
+	_win_positions = ( /
+		"0,1,2", /
+		"3,4,5", /
+		"6,7,8", /
+		
+		"0,3,6", /
+		"1,4,7", /
+		"2,5,8", /
+		
+		"0,4,8", /
+		"2,4,6" /
+	)
+	
+	_positions_to_win = IARRAY
+	_positions_to_block = IARRAY
+	_positions_to_build = IARRAY
+	_who_won = 0
+	foreach _win_positions; _position
+	{
+		_pos0 = TOINT(_position[0])
+		_pos1 = TOINT(_position[1])
+		_pos2 = TOINT(_position[2])
+		
+		_space = TTT.Board[_pos0] + TTT.Board[_pos1] + TTT.Board[_pos2]
+		
+		if _space == "220" || _space == "202" || _space == "022"
+		{
+			if TTT.Board[_pos0] == 0; _positions_to_win ,= _pos0
+			elseif TTT.Board[_pos1] == 0; _positions_to_win ,= _pos1
+			elseif TTT.Board[_pos2] == 0; _positions_to_win ,= _pos2
+		}
+		elseif _space == "110" || _space == "101" || _space == "011"
+		{
+			if TTT.Board[_pos0] == 0; _positions_to_block ,= _pos0
+			elseif TTT.Board[_pos1] == 0; _positions_to_block ,= _pos1
+			elseif TTT.Board[_pos2] == 0; _positions_to_block ,= _pos2
+		}
+		elseif _space == "002" || _space == "020" || _space == "200"
+		{
+			if TTT.Board[_pos0] == 0; _positions_to_build ,= _pos0
+			if TTT.Board[_pos1] == 0; _positions_to_build ,= _pos1
+			if TTT.Board[_pos2] == 0; _positions_to_build ,= _pos2
+		}
+	}
+	
+	_play_index = ANY(_open)
+	_play_type = "random"
+	
+	_rand = RAND(100)
+	
+	
+	//You can adjust the smartness of the ghost by changing the values at the ends of these checks. They're a percentage out of 100, so setting one of them to 80 means an 80 percent chance, plus it increases the more options are available to it (so if there are multiple moves that will win, it has an increased chance to pick one)
+	if ARRAYSIZE(_positions_to_win) > 0 && _rand - (ARRAYSIZE(_positions_to_win) * 10) <= 80
+	{
+		_play_type = "win"
+		_play_index = ANY(_positions_to_win)
+	}
+	elseif ASEARCH(4,_open) != -1 && _rand <= 80
+	{
+		_play_type = "middle"
+		_play_index = 4
+	}
+	elseif ARRAYSIZE(_positions_to_block) > 0 && _rand - (ARRAYSIZE(_positions_to_block) * 10) <= 80
+	{
+		_play_type = "block"
+		_play_index = ANY(_positions_to_block)
+	}
+	elseif ARRAYSIZE(_positions_to_build) > 0 && _rand - (ARRAYSIZE(_positions_to_build) * 10) <= 70
+	{
+		_play_type = "build"
+		_play_index = ANY(_positions_to_build)
+	}
+	
+	(_play_type,_play_index)
+}
+
+//Check if there is a win on the board, and if so, list which indices are part of the win
+TTT.WinCheck
+{
+	//0 1 2
+	//3 4 5
+	//6 7 8
+	
+	_win_positions = ( /
+		"0,1,2", /
+		"3,4,5", /
+		"6,7,8", /
+		
+		"0,3,6", /
+		"1,4,7", /
+		"2,5,8", /
+		
+		"0,4,8", /
+		"2,4,6" /
+	)
+	
+	_found_positions = IARRAY
+	_who_won = 0
+	foreach _win_positions; _position
+	{
+		_pos0 = TOINT(_position[0])
+		_pos1 = TOINT(_position[1])
+		_pos2 = TOINT(_position[2])
+		
+		_space = TTT.Board[_pos0] + TTT.Board[_pos1] + TTT.Board[_pos2]
+		
+		if _space == "111" || _space == "222"
+		{
+			if _space == "111"; _who_won = 1
+			elseif _space == "222"; _who_won = 2
+			_found_positions ,= _position
+		}
+	}
+	
+	_win_indices = IARRAY
+	foreach _found_positions; _pos
+	{
+		foreach SPLIT(_pos,","); _index
+		{
+			if ASEARCH(_index,_win_indices) == -1; _win_indices ,= _index
+		}
+	}
+	
+	//Draw
+	if _who_won == 0 && ASEARCH("0",TTT.Board) == -1; _who_won = 3
+	
+	//Outputs who won, and then any and all winning index numbers
+	(_who_won,_win_indices)
+}
+
+
+
+
+// -------------------------------- Higher or lower -------------------------------- 
+
+//code by yuyudev @ twitter
+
+/*
+//A simple minigame where the ghost pulls from a deck of cards, and the user guesses whether the next card will be higher or lower from the top card. Call it using something like 
+//\![*]\q[Play HOL,holgame]
+
+//HOLPoints are used to give the player money, if your ghost has a money system. Take them out if you aren’t using one. Also, you’ll need to adjust the back menu portions of the code.
+
+//I also used two envelopes to keep the code a little neater. Add these to your word dic.
+
+*/
+
+oldcarddisp{
+
+    "\f[color,%(oldcard[3])]%(oldcard[2])%(oldcard[0])\f[color,default]"
+
+}
+
+newcarddisp {
+
+    "\f[color,%(card[3])]%(card[2])%(card[0])\f[color,default]"
+
+}
+
+
+
+
+OnHolGame{
+
+    //initialize deck of cards
+    //single card: disp value, actual value for hol, suit icon, color
+    deck = ("A,50,♠,gray","2,2,♠,gray","3,3,♠,gray","4,4,♠,gray","5,5,♠,gray","6,6,♠,gray","7,7,♠,gray","8,8,♠,gray","9,9,♠,gray","10,10,♠,gray","J,11,♠,gray","Q,12,♠,gray","K,13,♠,gray",/
+            "A,50,♥,red","2,2,♥,red","3,3,♥,red","4,4,♥,red","5,5,♥,red","6,6,♥,red","7,7,♥,red","8,8,♥,red","9,9,♥,red","10,10,♥,red","J,11,♥,red","Q,12,♥,red","K,13,♥,red",/
+            "A,50,♣,gray","2,2,♣,gray","3,3,♣,gray","4,4,♣,gray","5,5,♣,gray","6,6,♣,gray","7,7,♣,gray","8,8,♣,gray","9,9,♣,gray","10,10,♣,gray","J,11,♣,gray","Q,12,♣,gray","K,13,♣,gray",/
+            "A,50,♦,red","2,2,♦,red","3,3,♦,red","4,4,♦,red","5,5,♦,red","6,6,♦,red","7,7,♦,red","8,8,♦,red","9,9,♦,red","10,10,♦,red","J,11,♦,red","Q,12,♦,red","K,13,♦,red",);
+            
+    card = ""
+    HOLPoints = 0
+    HOLGuesses = 0 //correct guesses
+    OnPlayHOL
+
+}
+
+OnPlayHOL {
+
+    if reference0 == "rules" {
+        "\s[0]\0\f[bold,true]The rules for this game are simple.\w8 I'll show you a card, and you guess if the next card in the deck is higher or lower. Aces are the highest, and 2's are the lowest. Got it?\w8\f[bold,false]\x"
+    } else {
+        //pick a random card, keep old card for comparison
+        oldcard = card
+        _rand = RAND(ARRAYSIZE(deck)-1)
+        card = deck[_rand]
+        //remove card from deck
+        deck[_rand] = IARRAY
+    }
+    --
+    if ARRAYSIZE(deck) == 0 {//if user gets through the whole deck
+        HOLComplete
+    }
+
+    if reference0 == "higher"{
+     
+        //new card lower than old card
+        if TOINT(oldcard[1]) > TOINT(card[1])  {
+          "\0\![set,autoscroll,disable]"
+			--
+            "\s[5]\f[bold,true]Oh no...\n\w4%(newcarddisp) is lower \nthan %(oldcarddisp).\w8 Sadly, that means you lose...\w8\n\n\f[bold,false]"
+            
+            --
+            "\f[bold,true]\_q\![*]\q[Play again?,OnHolGame] or...\n\n[half]\f[bold,false]"
+            --
+            "\f[bold,true]\0\s[0]Back to...\n\n[half]\f[bold,false]"
+            --
+            "\f[bold,true]\![*]\q[Games menu,OnGamesMenu]\n/
+            \![*]\q[Main menu,OnBACKTOMENU]\e\f[bold,false]"
+            
+            
+        
+        } elseif TOINT(oldcard[1]) < TOINT(card[1]) { //new card higher than old card
+          "\0\![set,autoscroll,disable]"
+			--
+            //increase winnings
+            HOLPoints +=2
+            HOLGuesses++
+        
+            "\f[bold,true]\s[14]Yep!\w8 %(newcarddisp) is higher \nthan %(oldcarddisp) !\w8 Next card!\f[bold,false]\x"
+            
+            --
+            
+            "\f[bold,true]\s[0]Top Card: %(newcarddisp)\n\n\f[bold,false]"
+            
+            --
+            
+            "\f[bold,true]\_qDo you think the next card is:\n/
+            \![*]\q[Higher?,OnPlayHOL,higher]\n/
+            \![*]\q[Lower?,OnPlayHOL,lower]\n\n[half]\f[bold,false]"
+            
+            --
+            
+            "\f[bold,true]\![*]\q[View rules,OnPlayHOL,rules]\n/
+            \![*]\q[Stop and collect %(HOLPoints) AP,OnHOLOver]\e\f[bold,false]"
+    
+        } else { //same value
+          "\0\![set,autoscroll,disable]"
+			--
+            "\f[bold,true]\s[8]Huh.\w8%(newcarddisp) has the same value as %(oldcarddisp).\w8 Let's try that again...\f[bold,false]\x"
+            
+            --
+            
+            "\f[bold,true]\s[0]Top Card: %(newcarddisp)\n\n\f[bold,false]"
+            
+            --
+            
+            "\f[bold,true]\_qDo you think the next card is:\n/
+            \![*]\q[Higher?,OnPlayHOL,higher]\n/
+            \![*]\q[Lower?,OnPlayHOL,lower]\n\n[half]\f[bold,false]"
+            
+            --
+            
+            "\f[bold,true]\![*]\q[View rules,OnPlayHOL,rules]\n/
+            \![*]\q[Stop and collect %(HOLPoints) AP,OnHOLOver]\e\f[bold,false]"
+        
+        }
+    
+    } elseif reference0 == "lower" {
+    "\0\![set,autoscroll,disable]"
+	--
+            //new card higher than old card
+        if TOINT(oldcard[1]) < TOINT(card[1])  {
+        
+            "\f[bold,true]\s[3]Oh no...\n\w4%(newcarddisp) is higher \nthan %(oldcarddisp).\w8 Sadly, that means you lose...\w8\n\n\f[bold,false]"
+            
+            --
+            "\f[bold,true]\_q\![*]\q[Play again?,OnHolGame] or...\n\n[half]\f[bold,false]"
+            --
+            "\f[bold,true]\0\s[0]Back to...\n\n[half]\f[bold,false]"
+            --
+            "\f[bold,true]\![*]\q[Games menu,OnGamesMenu]\n/
+            \![*]\q[Main menu,OnBACKTOMENU]\f[bold,false]\e"
+            
+            
+        
+        } elseif TOINT(oldcard[1]) > TOINT(card[1]) { //new card lower than old card
+          "\0\![set,autoscroll,disable]"
+			--
+            //increase winnings
+            HOLPoints +=2
+            HOLGuesses++
+        
+            "\f[bold,true]\s[14]Yep!\w8 %(newcarddisp) is lower \nthan %(oldcarddisp) !\w8 Next card!\f[bold,false]\x"
+            
+            --
+            
+            "\f[bold,true]\s[0]Top Card: %(newcarddisp)\n\n\f[bold,false]"
+            
+            --
+            
+            "\f[bold,true]\_qDo you think the next card is:\n/
+            \![*]\q[Higher?,OnPlayHOL,higher]\n/
+            \![*]\q[Lower?,OnPlayHOL,lower]\n\n[half]\f[bold,false]"
+            
+            --
+            
+            "\f[bold,true]\![*]\q[View rules,OnPlayHOL,rules]\n/
+            \![*]\q[Stop and collect %(HOLPoints) AP,HOLOver]\e\f[bold,false]"
+    
+        } else { //same value
+          "\0\![set,autoscroll,disable]"
+			--
+            "\f[bold,true]\s[8]Huh.\w8%(newcarddisp) has the same value as %(oldcarddisp).\w8 Let's try that again...\f[bold,false]\x"
+            
+            --
+            
+            "\f[bold,true]\s[0]Top Card: %(newcarddisp)\n\n\f[bold,false]"
+            
+            --
+            
+            "\f[bold,true]\_qDo you think the next card is:\n/
+            \![*]\q[Higher?,OnPlayHOL,higher]\n/
+            \![*]\q[Lower?,OnPlayHOL,lower]\n\n[half]\f[bold,false]"
+            
+            --
+            
+            "\f[bold,true]\![*]\q[View rules,OnPlayHOL,rules]\n/
+            \![*]\q[Stop and collect %(HOLPoints) AP,OnHOLOver]\f[bold,false]\e"
+        
+        }
+    
+    
+    } else {
+        "\0\![set,autoscroll,disable]"
+		--  
+        "\f[bold,true]\s[0]\0Top Card: %(newcarddisp)\n\n\f[bold,false]"
+        
+        --
+        
+        "\f[bold,true]\_qDo you think the next card is:\n/
+        \![*]\q[Higher?,OnPlayHOL,higher]\n/
+        \![*]\q[Lower?,OnPlayHOL,lower]\n\n[half]/
+        \![*]\q[View rules,OnPlayHOL,rules]\f[bold,false]\e"
+        
+    }
+
+
+}
+
+OnHOLOver {
+  "\0\![set,autoscroll,disable]"
+	--
+    AP += HOLPoints //add winnings to players wallet
+    
+    "\f[bold,true]\0You got %(HOLPoints) AP and had a streak of %(HOLGuesses) ^_^\w8 Want to try again?\n\n\f[bold,false]"
+    
+    --
+
+    "\f[bold,true]\![*]\q[Yah,OnHolGame]\n\n[half]\f[bold,false]"
+
+    --
+    "\f[bold,true]Nah, back to...\n\n[half]\f[bold,false]"
+    --
+    "\f[bold,true]\![*]\q[Games menu,OnGamesMenu]\n/
+    \![*]\q[Main menu,OnBACKTOMENU]\e\f[bold,false]"
+
+}
+
+HOLComplete {
+  "\0\![set,autoscroll,disable]"
+	--
+    "\f[bold,true]\0\s[2]Whoa!!\w8 You really got through the whole deck?\w8 That's incredibly lucky...\w8 Maybe you should go buy a lotto ticket now, LOL.\w8\n\n\f[bold,false]"
+    --
+    "\f[bold,true]\_q\![*]\q[Play again?,OnHolGame] or...\n\n[half]\f[bold,false]"
+    
+    --
+    "\f[bold,true]\0\s[0]Back to...\n\n[half]\f[bold,false]"
+    --
+    "\f[bold,true]\![*]\q[Games menu,OnGamesMenu]\n/
+    \![*]\q[Main menu,OnBACKTOMENU]\f[bold,false]\e"
+
+}
+
+
+
+
+// -------------------------------- Hangman -------------------------------- 
+
+
+	//Written by Zichqec https://zichqec.github.io/s-the-skeleton/
+
+OnStartHangman //Sets up starting variables
+{
+	HMword = hangmanwords //Pulls the word to guess from a pool of words
+	HMlet = IARRAY //HMlet[0] is guessed letters, HMlet[1] is incorrect letters
+	OnHangman
+}
+
+OnHangman //Main game window
+{
+	_maxwrong = 6 //Maximum incorrect guesses - set to whatever you like
+	_word = ""
+	_left = 0
+	for _i = 0; _i < STRLEN(HMword); _i++
+	{
+		_let = TOLOWER(SUBSTR(HMword,_i,1)) //Get the current letter and make it lowercase
+		if _let _in_ HMlet[0] || _let == " "
+		{
+			_word += "%(SUBSTR(HMword,_i,1))"
+		}
+		else
+		{
+			_word += "_ "
+			_left++
+		}
+	}
+	--
+	if (STRLEN(HMlet[1]) / 2) >= _maxwrong //If the number of incorrect letters is equal to or greater than the number of max tries
+	{
+		"\f[bold,true]\0\s[0]Nope, you're all out of guesses! The word was %(HMword). Better luck next time!\f[bold,false]"
+	}
+	elseif _left > 0 //If there are still letters to guess
+	{
+		_mistakes = (_maxwrong - (STRLEN(HMlet[1]) / 2))
+		_marker = ""
+		
+		"\0\_q\*%(bb)\![set,balloontimeout,-1]\![set,autoscroll,disable]\![open,inputbox,OnGuessNormal,-1]"
+		--
+		"\f[bold,true]%(_word)\n\nGuessed so far: %(HMlet[1])\n\nTries left: \f[bold,false]"
+		--
+		for _i = 0; _i < _mistakes; _i++
+		{
+			_marker += "\![*]"
+		}
+		--
+		"%(_marker)"
+		--
+		if _left > 1
+		{
+			"\f[bold,true]\n\n\![*]\q[Guess the whole word,OnHangmanGuessWhole]\f[bold,false]"
+		}
+		--
+		"\f[bold,true]\n\![*]\q[Open the input box again,OnHangmanInput]\n\n\![*]\q[Give up,OnHangmanQuit]\f[bold,false]\e"
+	}
+	else //If _left is still 0, the user has guessed all letters correctly
+	{
+		HangmanWin
+		--
+		"\f[bold,true]\0\s[0]You got it! It was %(HMword).\f[bold,false]"
+	}
+	--
+	HangmanBack
+}
+
+OnGuessNormal
+{
+	if TOSTR(reference0) == "0.0" || TOSTR(reference0) == "0.000000"; reference0 = "." //Unlikely to come up, but periods are handled strangely, and also differently between aya and yaya because screw you lol
+	if STRLEN(reference0) > 1 //The user has put in more than 1 letter
+	{
+		"\f[bold,true]\0\s[0]Single letters only, please.\f[bold,false]\x"
+	}
+	elseif TOLOWER(reference0) _in_ TOLOWER(HMlet[0]) //The user has already guessed that letter
+	{
+		"\f[bold,true]\f[bold,true]\0\s[0]You already guessed %(reference0)! Try something new.\f[bold,true]\f[bold,false]\x"
+	}
+	elseif TOLOWER(reference0) _in_ TOLOWER(HMword) //The letter is in the word
+	{
+		HMlet[0] += reference0
+	}
+	else //The letter is not in the word
+	{
+		HMlet[0] += reference0
+		HMlet[1] += "%(TOLOWER(reference0)) "
+	}
+	--
+	OnHangman
+}
+
+OnHangmanGuessWhole
+{
+	_word = ""
+	_left = 0
+	for _i = 0; _i < STRLEN(HMword); _i++
+	{
+		_let = TOLOWER(SUBSTR(HMword,_i,1)) //Get the current letter and make it lowercase
+		if _let _in_ HMlet[0] || _let == " "
+		{
+			_word += "%(SUBSTR(HMword,_i,1))"
+		}
+		else
+		{
+			_word += "_ "
+			_left++
+		}
+	}
+	"\0\*%(b)\![set,balloontimeout,-1]\![set,autoscroll,disable]\![close,inputbox,OnGuessNormal]\![open,inputbox,OnGuessWhole,-1]"
+	--
+	"\f[bold,true]\0\s[0]Feeling brave? Alright, the word so far is %(_word)\n\nYou've guessed these letters so far: %(HMlet[1])\n\nWhat do you think it is?\f[bold,false]"
+	--
+	"\f[bold,true]\n\n\n\![*]\q[Open the input box again,OnWholeInput]\n\n\![*]\q[Give up,OnHangmanQuit]\f[bold,false]\e"
+}
+
+OnGuessWhole
+{
+	_word = ""
+	_left = 0
+	for _i = 0; _i < STRLEN(HMword); _i++
+	{
+		_let = TOLOWER(SUBSTR(HMword,_i,1)) //Get the current letter and make it lowercase
+		if _let _in_ HMlet[0] || _let == " "
+		{
+			_word += "%(SUBSTR(HMword,_i,1))"
+		}
+		else
+		{
+			_word += "_ "
+			_left++
+		}
+	}
+	if TOLOWER(reference0) == TOLOWER(HMword) //Correct guess, instant win
+	{
+		HangmanWin
+		--
+		"\f[bold,true]\0\s[0]Wow, that's right, it was %(HMword)! You guessed it with %(_left) letters still blank!\f[bold,false]"
+	}
+	else //Incorrect guess, instant lose
+	{
+		"\f[bold,true]\0\s[0]Nope, it was %(HMword)! Better luck next time!\f[bold,false]"
+	}
+	--
+	HangmanBack
+}
+
+OnHangmanInput
+{
+	"\C\f[bold,true]\![close,inputbox,OnGuessNormal]\![open,inputbox,OnGuessNormal,-1]\_l[0,0]\f[bold,false] "
+}
+
+OnWholeInput
+{
+	"\C\![close,inputbox,OnGuessWhole]\![open,inputbox,OnGuessWhole,-1]\_l[0,0] "
+}
+
+OnHangmanQuit
+{
+	"\0\![close,inputbox,OnGuessNormal]\![close,inputbox,OnGuessWhole]%(b)"
+	--
+	"\f[bold,true]\0\s[0]Aw, alright. The word was '%(HMword)'. Better luck next time!\f[bold,false]"
+	--
+	HangmanBack
+}
+
+HangmanBack
+{
+	"\f[bold,true]\n\n\![*]\q[Another!,OnStartHangman]\n\![*]\q[I'm done,cancelnodialogue]\f[bold,false]\e"
+}
+
+HangmanWin //This function is called every time the user wins hangman. You can use it to easily add friendship/money/whatever in one easy place. This does not include dialogue, it's just for variable changes. The ones I've left in here are examples.
+{
+	//friendship++
+	//money++
+}
+
+hangmanwords : nonoverlap //Words it can choose - add lots of these!
+{
+	"Paintbrush"
+	"Project"
+	"Timeline"
+	"Undertale"
+	"Doodlesphere"
+	"Antivoid"
+	"Underverse"
+	"Error"
+	"Dream"
+	"Blue"
+	"Music"
+	"Game"
+	"Paint"
+	"Fangame"
+	"Fanart"
+	"Fanfiction"
+	"Vials"
+	"Ink"
+	"Watercolor"
+	"Sketch"
+	"Doodle"
+	"Monsters"
+	"Humans"
+	"Skeletons"
+	"Elementals"
+}
+
+
+
+// -------------------------------- Rock Paper Scissors -------------------------------- 
+
+//Written by Zichqec https://zichqec.github.io/s-the-skeleton/
+
+OnStartRPS
+{
+	"\f[bold,true]\0\s[0]Alright,\w4 here we go.\f[bold,false]"
+	"\f[bold,true]\0\s[0]You're on!\f[bold,false]"
+	--
+	"\f[bold,true]\w8\w8 Rock,\w4 paper,\w4 scissors...\f[bold,false]"
+	--
+	"\f[bold,true]\_q\n\n/
+	\![*]\q[Rock,OnRPS,rock,%(reference1),%(reference2),%(reference3),%(reference4)]\n/
+	\![*]\q[Paper,OnRPS,paper,%(reference1),%(reference2),%(reference3),%(reference4)]\n/
+	\![*]\q[Scissors,OnRPS,scissors,%(reference1),%(reference2),%(reference3),%(reference4)]\n\n/
+	\![*]\q[Nevermind,cancelnodialogue]\e\f[bold,false]"
+}
+
+OnRPS
+{
+	//If these values are empty, set them to 0. These count the number of matches, number of wins, number of losses, and number of draws, respectively
+	if reference1 == ""; reference1 = 0
+	if reference2 == ""; reference2 = 0
+	if reference3 == ""; reference3 = 0
+	if reference4 == ""; reference4 = 0
+	
+	_userthrow = reference0 //Gets the user's pick
+	_ghostthrow = ANY("rock,paper,scissors") //Gets the ghost's pick. ANY chooses randomly from the comma-separated list
+	
+	//Figures out who won
+	_winlose = ""
+	if _userthrow == _ghostthrow; _winlose = "tie"
+	elseif _userthrow == "rock" && _ghostthrow == "scissors"; _winlose = "win"
+	elseif _userthrow == "paper" && _ghostthrow == "rock"; _winlose = "win"
+	elseif _userthrow == "scissors" && _ghostthrow == "paper"; _winlose = "win"
+	else; _winlose = "lose"
+	
+	//Figures out what surface the ghost should be using. Put your surfaces in here.
+	_pose = ""
+	if _winlose == "lose" //If the ghost won
+	{
+		if _ghostthrow == "rock"; _pose = "\s[0]"
+		elseif _ghostthrow == "paper"; _pose = "\s[0]"
+		else; _pose = "\s[0]" //Scissors
+	}
+	else //If the user won or it's a tie. You can make another elseif if you want these to be different.
+	{
+		if _ghostthrow == "rock"; _pose = "\s[0]"
+		elseif _ghostthrow == "paper"; _pose = "\s[0]"
+		else; _pose = "\s[0]" //Scissors
+	}
+	
+	//Gets the throw that won. If it's a draw, it'll default to the ghost, but that won't matter because it won't be called.
+	_winthrow = _ghostthrow
+	if _winlose == "win"; _winthrow = _userthrow
+	
+	//Phrases to add extra spice to dialogue
+	_winreason = ""
+	if _winthrow == "rock"; _winreason = "rock smashes scissors"
+	elseif _winthrow == "paper"; _winreason = "paper covers rock"
+	else; _winreason = "scissors cuts up paper"
+	
+	//Note - If you want to have the winreason or the throws be capitalized, you can use my capitalize function like so: %(Capitalize(_winreason))
+	"\0%(_pose)" //Sets up the appropriate pose
+	--
+	reference1++ //Count of matches
+	if _winlose == "win" //If the user won
+	{
+		reference2++ //Count of wins
+		"\f[bold,true]%(_userthrow) beats %(_ghostthrow),\w4 you got me!\f[bold,false]"
+		"\f[bold,true]Oh,\w4 %(_winreason),\w4 I lost!\f[bold,false]"
+	}
+	elseif _winlose == "tie" //If it was a tie
+	{
+		reference4++ //Count of ties
+		"\f[bold,true]Oh,\w4 we both picked %(_userthrow).\w8\w8 It's a draw.\f[bold,false]"
+		"\f[bold,true]Oh,\w4 we picked the same thing,\w4 it's a draw.\f[bold,false]"
+	}
+	else //If the ghost won
+	{
+		reference3++ //Count of losses
+		"\f[bold,true]%(_ghostthrow) beats %(_userthrow)!\w8\w8 I win!\f[bold,false]"
+		"\f[bold,true]Got you!\w8\w8 %(_winreason)!\f[bold,false]"
+	}
+	--
+	"\w8\w8 " //A pause and space between the dialogues. Remove or change if you like.
+	--
+	//You can use _winlose to make special comments for specific outcomes, if you want. It's 'win' if the user won, 'lose' if the ghost won, and 'tie' if it was a draw
+	"\f[bold,true]\s[0]Lets go again!\f[bold,false]"
+	"\f[bold,true]\s[0]Want to try again?\f[bold,false]"
+	if _winlose == "win"; "\f[bold,true]\s[0]Let's do another round,\w4 I want to beat you!\f[bold,false]"
+	--
+	"\f[bold,true]\_q\n\n/
+	Matches: %(reference1)  Won: %(reference2)  Lost: %(reference3)  Ties: %(reference4)\n/
+	\![*]\q[Another round!,OnStartRPS,Dummy value,%(reference1),%(reference2),%(reference3),%(reference4)]\n/
+	\![*]\q[Close,cancelnodialogue]\f[bold,false]\e"
+}
+
+
+
+
+
+// -------------------------------- Word Search -------------------------------- 
+
+//Written by Zichqec https://zichqec.github.io/s-the-skeleton/
+
+//If this all looks scary to you, no worries! All you need to do is set a few options in OnStartWordSearch, set up dialogue in WordSearchDialogue, and then add your own pool of words for it to choose from in WordSearchWords. If it gives you any trouble, let me know!
+
+//Use this to start a new word search game: "\![*]\q[Word Search,OnStartWordSearch]"
+OnStartWordSearch
+
+{
+	_rightadjust = 0 //Don't touch these ones
+	_highlightcolor = ""
+	
+	//---Options. Feel free to set these however you like.---
+	
+	//_defaultballoon: Set this to the name of your balloon, as seen in the right click menu. This lets you adjust the color and positioning specifically to your balloon, without breaking it completely for other balloons!
+	//_debug: Hides all letters that are not a part of words, so you can test and see how well your words are being distributed
+	//_gridsize: The dimensions of your word search. I created this based on a 10x10 grid, but you can play around with it if you like.
+	//_fontsize: Font size of the grid. Adjust to your liking. The bigger the better, this game can be hard on the eyes.
+	//_maxwords: How many words it will attempt to add to the grid. Note: Sometimes adding a word fails, so you may end up with less words!
+	//_attempts_to_place: How many times it will attempt to add a single word to the grid. If you put this higher you'll probably end up with the max amount of words in the puzzle more often, but it may impact performance.
+	//_rightadjust: You can use this to center the word search in your balloon (this is in pixels). Since people can use whatever balloon they want, though, I put a check to check if they're in your default balloon. Make sure to put your balloon's name there. Note: Only works in YAYA, you might need a different setup using OnBalloonChange if you're using AYA.
+	//_backwardsallowed:  1 if you want words to be able to appear backwards, 0 if you don't.
+	//_highlightinverted: Words that are found are highlighted using your balloon's anchor color. If you would prefer for everything to be the anchor color, and for found words to be the color of menu choices, you can set that here.
+	//_highlightcolor: Color you want for highlighting, as an R,G,B value. If you want the default color used by your balloon, put "default.anchor" instead
+	
+	//Note: If you want to change the anchor color that's used in the grid, you can do so by adding a \f[anchorcolor,(R),(G),(B)] tag in the part of the Word Search code that displays the grid. You can also use similar tags to change the color of \__q tags, I believe. Ukadoc will have more info.
+	
+	_defaultballoon = "Your Balloon's Name here"
+	_debug = 0
+	_gridsize = 10
+	_fontsize = 16
+	_maxwords = 10
+	_attempts_to_place = 15
+	if SHIORI3FW.BalloonName == _defaultballoon; _rightadjust = 0
+	_backwardsallowed = 0
+	_highlightinverted = 1
+	if SHIORI3FW.BalloonName == _defaultballoon; _highlightcolor = "255,255,255"
+	else; _highlightcolor = "default.anchor"
+	
+	//Don't touch these
+	WSOpts = (_fontsize,_rightadjust,_highlightinverted,_highlightcolor)
+	CreateWordSearch(_debug,_gridsize,_maxwords,_attempts_to_place,_backwardsallowed)
+	WordsLeft = WordList
+	OnWordSearch
+}
+
+
+
+//All your dialogue goes here. Don't add \e to the end of any of these.
+WordSearchDialogue
+{  
+
+	if _argv[0] == "Menu During Play" //Menu option at the bottom while the game is being played, such as a button to give up/quit
+	{
+		"\f[bold,true]\![*]\q[View rules,OnWordSearchRules] \n\![*]\q[Give up,OnWordSearchQuit]\e\f[bold,false]\n"
+	}
+	elseif _argv[0] == "Invalid Word" //If the user puts in a word that isn't on the word list or was already guessed - _argv[1] is the word the user guessed
+	{
+		"\f[bold,true]%(_argv[1]) is not valid.\f[bold,false]\n"
+	}
+	elseif _argv[0] == "Invalid Move" //If the user tried an illegal diagonal move
+	{
+		"\f[bold,true]You can't move like that.\w8\w8 Moves have to be straight lines;\w4 up,\w4 down,\w4 left,\w4 right,\w4 or diagonal.\f[bold,false]\n"
+	}
+	elseif _argv[0] == "Found Word" //If the user found a word - _argv[1] is the word that was found
+	{
+		"\f[bold,true]You found the word %(_argv[1]).\f[bold,false]\n"
+	}
+	elseif _argv[0] == "Finished Puzzle" //If the user completed the puzzle - _argv[1] is the last word the user found. Might be a good idea to add menu buttons here.
+	{
+		"\f[bold,true]%(_argv[1]) was the last word,\w4 good job!\f[bold,false]\n"
+		--
+		"\f[bold,true]\_q\n\![*]\q[Play again,OnStartWordSearch]  \n\![*]\q[Play something else,OnGamesMenu]\n\![*]\q[I'm done,cancelnodialogue]\e\f[bold,false]"
+		
+		ERASEVAR("WordSearch")
+		ERASEVAR("WordList")
+		ERASEVAR("WordsLeft")
+		ERASEVAR("SearchHighlight")
+		ERASEVAR("WSOpts")
+	}
+}
+
+OnWordSearchRules
+  {
+        "\s[0]\0\f[bold,true]Oh,\w5 it's easy!\w8 Select the first and last letter of the word you spot.\w5 If it's correct,\w3 I'll strike the word out.\w8 When you clear all the words,\w3 you win! \f[bold,false]"
+		--
+		"\n\f[bold,true]\n\![*]\q[Back,OnStartWordSearch]\f[bold,false]"
+    } 
+	
+	
+//Words you want to be placed in the puzzle go here. Be mindful of how long your words are! Make sure they're not too long to fit the grid. Probably don't make them too short, either. I'd recommend at least 4 letters. And have plenty of words available, the more the better! This has to be an array, so if you're using my other games, you won't be able to share a word pool between them. (Unless you get clever and have those word pools read from here using something like ANY(WordSearchWords)
+WordSearchWords : array
+{
+	"Hellyeah"
+	"Dreams"
+	"Hopes"
+	"Monsters"
+	"Humans"
+	"Skeletons"
+	"Elementals"
+	"Dust"
+	"Snowfall"
+	"Snowdrake"
+	"Waterfall"
+	"Snowdin"
+	"Hotland"
+	"Temperate"
+	"Loox"
+	"Froggit"
+	"Whimsum"
+	"Vegetoid"
+	"Napstablook"
+	"Hapstablook"
+	"Dummy"
+	"Mettaton"
+	"Alphys"
+	"Sans"
+	"Papyrus"
+	"Undyne"
+	"Grillby"
+	"Muffet"
+	"Toriel"
+	"Asgore"
+	"Chara"
+	"Frisk"
+	"Asriel"
+	"Flowey"
+	"Aaron"
+	"Woshua"
+	"Patience"
+	"Justice"
+	"Bravery"
+	"Integrity"
+	"Kindness"
+	"TobyFox"
+	"Temmie"
+	"Dog"
+	"Annoying"
+	"Mewmew"
+}
+
+OnWordSearch
+{
+	_highlightarray = SearchHighlight
+	_endRow = ""
+	_endCol = ""
+	_startRow = ""
+	_startCol = ""
+	_RowDist = ""
+	_ColDist = ""
+	
+	//Sets up some variables for the X and Y values, and also sets up variables to check that the user doesn't make an illegal diagonal move
+	if reference0 == "StartLetter"
+	{
+		_startRow = TOINT(reference1)
+		_startCol = TOINT(reference2)
+	}
+	elseif reference0 == "EndLetter"
+	{
+		_endRow = TOINT(reference1)
+		_endCol = TOINT(reference2)
+		_startRow = TOINT(reference3)
+		_startCol = TOINT(reference4)
+		
+		//These bits change the numbers to not be negatives, so they can be compared properly
+		_RowDist = _startRow - _endRow
+		if _RowDist < 0; _RowDist = -_RowDist
+		
+		_ColDist = _startCol - _endCol
+		if _ColDist < 0; _ColDist = -_ColDist
+	}
+	
+	_valid = 0
+	_direction = ""
+	_guessedword = ""
+	_start = ""
+	_end = ""
+	//If the user attempted a guess
+	if reference0 == "EndLetter"
+	{
+		if _startRow == _endRow //If this is a valid move (Horizontal)
+		{
+			_valid = 1
+			if _startCol > _endCol; {_direction = "Left"; _start = _endCol; _end = _startCol}
+			else; {_direction = "Right"; _start = _startCol; _end = _endCol}
+			
+			for _i = _start; _i <= _end; _i++
+			{
+				_guessedword += WordSearch[_startRow][_i]
+			}
+			
+			if _direction == "Left"
+			{
+				_guessedword = WSReverse(_guessedword)
+			}
+			
+			//Highlighting
+			for _i = 0; _i < STRLEN(_guessedword); _i++
+			{
+				_row = _highlightarray[_startRow]
+				_row[_start + _i] = "1" 
+				_highlightarray[_startRow] = _row
+			}
+		}
+		elseif _startCol == _endCol //Vertical
+		{
+			_valid = 1
+			if _startRow > _endRow; {_direction = "Up"; _start = _endRow; _end = _startRow}
+			else; {_direction = "Down"; _start = _startRow; _end = _endRow}
+			
+			for _i = _start; _i <= _end; _i++
+			{
+				_guessedword += WordSearch[_i][_startCol]
+			}
+			
+			if _direction == "Up"
+			{
+				_guessedword = WSReverse(_guessedword)
+			}
+			
+			//Highlighting
+			for _i = 0; _i < STRLEN(_guessedword); _i++
+			{
+				_row = _highlightarray[_start + _i]
+				_row[_startCol] = "1" 
+				_highlightarray[_start + _i] = _row
+			}
+		}
+		elseif _RowDist == _ColDist //Diagonal, if it's valid
+		{
+			_valid = 1
+			
+			if _startCol > _endCol && _startRow > _endRow //Going left and up
+			{
+				_direction = "Left Up"
+				_ii = _startCol
+				for _i = _startRow; _i >= _endRow; _i--
+				{
+					_guessedword += WordSearch[_i][_ii]
+					
+					//Highlighting
+					_row = _highlightarray[_i]
+					_row[_ii] = "1"
+					_highlightarray[_i] = _row
+					
+					_ii--
+				}
+			}
+			elseif _startCol > _endCol && _startRow < _endRow //going left and down
+			{
+				_direction = "Left Down"
+				
+				_ii = _startCol
+				for _i = _startRow; _i <= _endRow; _i++
+				{
+					_guessedword += WordSearch[_i][_ii]
+					
+					//Highlighting
+					_row = _highlightarray[_i]
+					_row[_ii] = "1"
+					_highlightarray[_i] = _row
+					
+					_ii--
+				}
+			}
+			elseif _startCol < _endCol && _startRow > _endRow //going right and up
+			{
+				_direction = "Right Up"
+				_ii = _startRow
+				for _i = _startCol; _i <= _endCol; _i++
+				{
+					_guessedword += WordSearch[_ii][_i]
+					
+					//Highlighting
+					_row = _highlightarray[_ii]
+					_row[_i] = "1"
+					_highlightarray[_ii] = _row
+					
+					_ii--
+				}
+			}
+			else //going right and down
+			{
+				_direction = "Right Down"
+				
+				_ii = _startCol
+				for _i = _startRow; _i <= _endRow; _i++
+				{
+					_guessedword += WordSearch[_i][_ii]
+					
+					//Highlighting
+					_row = _highlightarray[_i]
+					_row[_ii] = "1"
+					_highlightarray[_i] = _row
+					
+					_ii++
+				}
+			}
+		}
+		else //If it's an invalid move
+		{
+			_valid = 0
+		}
+		
+		
+	}
+	
+	//If the word is in the list of words to find, mark it, and also remove the word from the list of words that still need to be found
+	_find = ASEARCH(_guessedword,WordsLeft)
+	if _find != -1
+	{
+		_valid = 2
+		WordsLeft[_find] = IARRAY
+	}
+	
+	if _valid == 2; SearchHighlight = _highlightarray
+	else; _highlightarray = SearchHighlight
+	
+	//Set up the display of the grid
+	_fheight = 10
+	if WSOpts[0] > 0; _fheight = WSOpts[0]
+	
+	_rightadjust = 0
+	if WSOpts[1] > 0; _rightadjust = WSOpts[1]
+	
+	_inverthighlight = 0
+	if WSOpts[2] == 1; _inverthighlight = WSOpts[2]
+	
+	
+	_display = "\f[anchorfontcolor,%(WSOpts[3])]\f[height,%(_fheight)]\f[bold,1]"
+	if reference0 == "Win"; _display += "\f[anchorstyle,none]\f[cursorstyle,none]"
+	for _i = 0; _i < ARRAYSIZE(WordSearch); _i++
+	{
+		_display += "\_l[%(_rightadjust)]"
+		_row = WordSearch[_i]
+		for _ii = 0; _ii < ARRAYSIZE(_row); _ii++
+		{
+			
+			_col = _row[_ii]
+			if reference0 == "Win" //If the user already won, don't display with clickable buttons
+			{
+				
+				
+				_tag1 = ""
+				_tag2 = ""
+				if _highlightarray[_i][_ii] == "1";
+				{
+					if _inverthighlight == 1
+					{
+						_tag1 = "\__q[OnBlank]"
+						_tag2 = "\__q"
+					}
+					else
+					{
+						_tag1 = "\_a[OnBlank]"
+						_tag2 = "\_a"
+					}
+				}
+				elseif _inverthighlight == 1 //if this is a random letter but inverted highlighting is on
+				{
+					_tag1 = "\_a[OnBlank]"
+					_tag2 = "\_a"
+				}
+				_display += "%(_tag1)%(_col)%(_tag2) "
+			}
+			else
+			{
+				//IF the user has selected a letter, give it a unique link and highlight it
+				if reference0 == "StartLetter" && _i == _startRow && _ii == _startCol
+				{
+					_tag = "\_a"; if _inverthighlight == 1; _tag = "\__q"
+					_display += "%(_tag)[OnWordSearch,CancelStart,%(_i),%(_ii),%(_startRow),%(_startCol)]%(_col)%(_tag) "
+				}
+				else //Normal display with clickable buttons
+				{
+					_ref = ""
+					if reference0 == "StartLetter"; _ref = "EndLetter"
+					else; _ref = "StartLetter"
+					_tag = ""
+					if _inverthighlight == 1
+					{
+						_tag = "\_a"
+						if _highlightarray[_i][_ii] == "1"; _tag = "\__q"
+					}
+					else
+					{
+						_tag = "\__q"
+						if _highlightarray[_i][_ii] == "1"; _tag = "\_a"
+					}
+					
+					_display += "%(_tag)[OnWordSearch,%(_ref),%(_i),%(_ii),%(_startRow),%(_startCol)]%(_col)%(_tag) "
+					
+				}
+			}
+		}
+		_display += "\n"
+	}
+	//Display word list
+	_display += "\n[half]\f[height,default]\f[cursorstyle,default]"
+	foreach WordList; _word
+	{
+		_exist = ASEARCH(_word,WordsLeft)
+		if _exist == -1; _display += "\f[strike,1]" //Strike it out if it's been found already
+		_display += "%(_word)"
+		if _exist == -1; _display += "\f[strike,0]"
+		_display += "  "
+	}
+	if ARRAYSIZE(WordsLeft) == 0 && reference0 != "Win"; "\![raise,OnWordSearch,Win,%(_guessedword)]\e" //If the user won, restart this function so that it can remake the board
+	--
+	//Dialogues for when you've made a turn. I ended up making a separate function for this because wow this function got long
+	if reference0 == "EndLetter"
+	{
+		_display += "\n\_q\f[default]"
+		if _valid == 2 //If the user found a word
+		{
+			_display += "%(WordSearchDialogue('Found Word',_guessedword))"
+		}
+		elseif _valid == 1 //If the user found a word, but it's not in the word list or has already been guessed
+		{
+			_display += "%(WordSearchDialogue('Invalid Word',_guessedword))"
+		}
+		else //If the user made an invalid move
+		{
+			_display += "%(WordSearchDialogue('Invalid Move'))"
+		}
+	}
+	elseif reference0 == "Win" //If the user won
+	{
+		_display += "\n\_q\f[default]%(WordSearchDialogue('Finished Puzzle',reference1))"
+	}
+	if reference0 != "Win"; _display += "\n\f[default]%(WordSearchDialogue('Menu During Play'))"
+	"\b2\f[name,Courier New]\![set,autoscroll,disable]\_q%(_display)\*\e" //Actual display
+}
+
+WSReverse //Reverses the string it's given, for the purposes of placing some words backwards
+{
+	_output = ""
+	for _i = 0; _i < STRLEN(_argv[0]); _i++
+	{
+		_output = SUBSTR(_argv[0],_i,1) + _output
+	}
+	_output
+}
+
+CreateWordSearch //:deargodhelpme:
+{
+	_dimensions = 10 //Width and height of the grid
+	if _argv[1] > 0; _dimensions = _argv[1]
+	
+	_totalwords = 10 //How many words to attempt to add, total (each word will be tried multiple times if it does not fit)
+	if _argv[2] > 0; _totalwords = _argv[2]
+	
+	_wordtries = 15 //How many times it will attempt to place a word before giving up
+	if _argv[3] > 0; _wordtries = _argv[3]
+	
+	_allowreverse = 1
+	if _argv[4] == 0; _allowreverse = 0
+	
+	WordList = IARRAY
+	//Create a grid of .s
+	WordSearch = IARRAY
+	
+	//Setting up the base grid, and the array for highlighting words
+	SearchHighlight = IARRAY
+	for _i = 0; _i < _dimensions; _i++ //Rows
+	{
+		_highlight = ""
+		_columns = ""
+		for _ii = 0; _ii < _dimensions; _ii++ //Columns
+		{
+			if _ii != 0; {_columns += ","; _highlight += ","}
+			_columns += "."
+			_highlight += "0"
+		}
+		WordSearch ,= _columns
+		SearchHighlight ,= _highlight
+	}
+	
+	//Get words and add them to the grid
+	_availwords = WordSearchWords
+	_toadd = ""
+	_orig = ""
+	_placed = 0
+	for _i = 0; _i < _totalwords; _i++
+	{
+		//Check to make sure there's a word to add. If there is, pick a random one, then erase it from the array. If the word is too long, skip it and start again.
+		if ARRAYSIZE(_availwords) == 0; {LOGGING("Ran out of words to add");break}
+		_toadd = TOUPPER(ANY(_availwords))
+		LOGGING("Entered loop 1 - Start new word (%(_toadd))")
+		_availwords[LSO] = IARRAY
+		if STRLEN(_toadd) > _dimensions; {LOGGING("%(_toadd) too long for current grid size");continue}
+		
+		//This loop attempts to place the word several times, depending on how you have it set
+		_placed = 0
+		_orig = _toadd
+		for _ii = 0; _ii < _wordtries && _placed == 0; _ii++
+		{
+			//Sets an orientation, decides if it should be reversed
+			_orient = ANY("Horizontal,Vertical,Diagonal \,Diagonal /")
+			if _allowreverse == 1 && RAND(2) == 1
+			{
+				_toadd = WSReverse(_toadd)
+			}
+			_len = STRLEN(_toadd)
+			_x = RAND(_dimensions)
+			_y = RAND(_dimensions)
+			LOGGING("Entered loop 2 - Try to find a place for new word (%(_x),%(_y) orient: %(_orient), len: %(_len)")
+			
+			//Each of these attempts to place it based on the orientation
+			if _orient == "Horizontal" //---Left to Right---
+			{
+				if (_x + _len) > _dimensions //If it's too long
+				{
+					LOGGING("Couldn't place %(_toadd), X: %(_x), orient: %(_orient), len: %(_len), tries so far: %(_ii)")
+					continue
+				}
+				else //If it has enough space
+				{
+					_skip = 0
+					_rowtochange = WordSearch[_y]
+					for _iii = 0; _iii < STRLEN(_toadd); _iii++ //Check to see if any other words are in the way
+					{
+						LOGGING("Entered loop 3 - Attempt to add new word, see if other words block it")
+						if _rowtochange[_x + _iii] == "." || _rowtochange[_x + _iii] == SUBSTR(_toadd,_iii,1) //If it's an empty space or a space that matches the current letter
+						{
+							_rowtochange[_x + _iii] = SUBSTR(_toadd,_iii,1)
+							
+						}
+						else //If it's a taken space
+						{
+							_skip = 1
+							LOGGING("Can't place %(_toadd), %(_rowtochange[_x + _iii]) in the way.")
+							break
+						}
+					}
+					
+					if _skip == 1 //If it got blocked, skip and try placing in another place
+					{
+						_skip = 0
+						continue
+					}
+					else //If it wasn't blocked, go ahead and add it
+					{
+						WordSearch[_y] = _rowtochange
+						_placed = 1
+					}
+				}
+			}
+			elseif _orient == "Vertical" //---Top to Bottom---
+			{
+				if (_y + _len) > _dimensions //If it's too long
+				{
+					LOGGING("Couldn't place %(_toadd), Y: %(_y), orient: %(_orient), len: %(_len), tries so far: %(_ii)")
+					continue
+				}
+				else //If it has enough space
+				{
+					_skip = 0
+					//Make a temp array of this column
+					_coltochange = IARRAY
+					for _iii = 0; _iii < ARRAYSIZE(WordSearch[_x]); _iii++
+					{
+						_coltochange ,= WordSearch[_iii][_x]
+					}
+					
+					for _iii = 0; _iii < STRLEN(_toadd); _iii++ //Check to see if any other words are in the way
+					{
+						LOGGING("Entered loop 3 - Attempt to add new word, see if other words block it")
+						if _coltochange[_y + _iii] == "." || _coltochange[_y + _iii] == SUBSTR(_toadd,_iii,1) //If it's an empty space or a space that matches the current letter
+						{
+							LOGGING("placed %(SUBSTR(_toadd,_iii,1))")
+							_coltochange[_y + _iii] = SUBSTR(_toadd,_iii,1)
+							
+						}
+						else //If it's a taken space
+						{
+							_skip = 1
+							LOGGING("Can't place %(_toadd), %(_coltochange[_y + _iii]) in the way.")
+							break
+						}
+					}
+					
+					if _skip == 1 //If it got blocked, skip and try placing in another place
+					{
+						_skip = 0
+						continue
+					}
+					else //If it wasn't blocked, go ahead and add it
+					{
+						//_x should be the column that needs changed... have to extract it out of every row though and then put it back.
+						for _iii = 0; _iii < ARRAYSIZE(_coltochange); _iii++
+						{
+							_row = WordSearch[_iii]
+							_row[_x] = _coltochange[_iii]
+							WordSearch[_iii] = _row
+						}
+						//WordSearch[_x] = _coltochange
+						_placed = 1
+					}
+				}
+			}
+			elseif _orient == "Diagonal \" //Diagonal top left to bottom right
+			{
+				if (_y + _len) > _dimensions || (_x + _len) > _dimensions //If it's too long
+				{
+					LOGGING("Couldn't place %(_toadd), Y: %(_y), orient: %(_orient), len: %(_len), tries so far: %(_ii)")
+					continue
+				}
+				else //If it has enough space
+				{
+					_skip = 0
+					//Make a temp array of this column
+					_diagtochange = IARRAY
+					for _iii = 0; _iii < _len; _iii++
+					{
+						_diagtochange ,= WordSearch[_y + _iii][_x + _iii]
+					}
+					
+					for _iii = 0; _iii < STRLEN(_toadd); _iii++ //Check to see if any other words are in the way
+					{
+						LOGGING("Entered loop 3 - Attempt to add new word, see if other words block it")
+						if _diagtochange[_iii] == "." || _diagtochange[_iii] == SUBSTR(_toadd,_iii,1) //If it's an empty space or a space that matches the current letter
+						{
+							LOGGING("placed %(SUBSTR(_toadd,_iii,1))")
+							_diagtochange[_iii] = SUBSTR(_toadd,_iii,1)
+							
+						}
+						else //If it's a taken space
+						{
+							_skip = 1
+							LOGGING("Can't place %(_toadd), %(_diagtochange[_iii]) in the way.")
+							break
+						}
+					}
+					
+					if _skip == 1 //If it got blocked, skip and try placing in another place
+					{
+						_skip = 0
+						continue
+					}
+					else //If it wasn't blocked, go ahead and add it
+					{
+						//_x should be the column that needs changed... have to extract it out of every row though and then put it back.
+						for _iii = 0; _iii < ARRAYSIZE(_diagtochange); _iii++
+						{
+							_row = WordSearch[_iii + _y]
+							_row[_x + _iii] = _diagtochange[_iii]
+							WordSearch[_iii + _y] = _row
+						}
+						_placed = 1
+					}
+				}
+			}
+			elseif _orient == "Diagonal /" //diagonal bottom left to top right
+			{
+				if (_y - _len) < 0 || (_x + _len) > _dimensions //If it's too long
+				{
+					LOGGING("Couldn't place %(_toadd), Y: %(_y), orient: %(_orient), len: %(_len), tries so far: %(_ii)")
+					continue
+				}
+				else //If it has enough space
+				{
+					_skip = 0
+					//Make a temp array of this column
+					_diagtochange = IARRAY
+					for _iii = 0; _iii < _len; _iii++
+					{
+						LOGGING("Diagpath %(_iii): '%(WordSearch[_y - _iii][_x + _iii])'")
+						_diagtochange ,= WordSearch[_y - _iii][_x + _iii]
+					}
+					
+					for _iii = 0; _iii < STRLEN(_toadd); _iii++ //Check to see if any other words are in the way
+					{
+						LOGGING("Entered loop 3 - Attempt to add new word, see if other words block it")
+						if _diagtochange[_iii] == "." || _diagtochange[_iii] == SUBSTR(_toadd,_iii,1) //If it's an empty space or a space that matches the current letter
+						{
+							LOGGING("placed %(SUBSTR(_toadd,_iii,1))")
+							_diagtochange[_iii] = SUBSTR(_toadd,_iii,1)
+							
+						}
+						else //If it's a taken space
+						{
+							_skip = 1
+							LOGGING("Can't place %(_toadd), %(_diagtochange[_iii]) in the way.")
+							break
+						}
+					}
+					
+					if _skip == 1 //If it got blocked, skip and try placing in another place
+					{
+						_skip = 0
+						continue
+					}
+					else //If it wasn't blocked, go ahead and add it
+					{
+						//_x should be the column that needs changed... have to extract it out of every row though and then put it back.
+						//_c = 0
+						LOGGING("To place: %(_diagtochange)")
+						for _iii = 0; _iii < ARRAYSIZE(_diagtochange); _iii++
+						{
+							_row = WordSearch[_y - _iii]
+							_row[_x + _iii] = _diagtochange[_iii]
+							WordSearch[_y - _iii] = _row
+							//_c++
+						}
+						//WordSearch[_x] = _diagtochange
+						_placed = 1
+					}
+				}
+			}
+		}
+		if _placed == 1; WordList ,= _orig
+	}
+	
+	//Fill empty spaces on the grid
+	for _i = 0; _i < ARRAYSIZE(WordSearch); _i++
+	{
+		_row = WordSearch[_i]
+		for _ii = 0; _ii < ARRAYSIZE(_row); _ii++
+		{
+			//Comment this out if you want just .s so you can see the words it placed
+			if _row[_ii] == "." && _argv[0] != 1; _row[_ii] = ANY("A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z")
+		}
+		WordSearch[_i] = _row
+	}
+}
