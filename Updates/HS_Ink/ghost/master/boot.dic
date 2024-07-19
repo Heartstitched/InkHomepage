@@ -30,6 +30,7 @@ OnFirstBoot
 	else //Reference0 is the number of times you've uninstalled the ghost, so this is if you're reinstalling them.
 	{
 		"\0\s[-1]\0\s[0]\f[bold,true]Hi there!\w8\w8 It's me again.\w8\w8 What was your name?\f[bold,false]"
+		"\0\s[-1]\0\s[0]\f[bold,true]Heyo! I feel like I've seen you before, but I just can't remember where...\w8\w8 Nice to meetcha!\w8\w8 What was your name?\f[bold,false]"
 	}
 	--
 	"\![open,inputbox,OnNameTeach,-1,--reference=firstboot]\_l[-10000,-10000]\*\q[ ,__VERY_FIRST_BOOT__]"

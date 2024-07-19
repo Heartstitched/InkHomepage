@@ -248,7 +248,7 @@ OnHourTimeSignal : nonoverlap
 		}
 		elseif hour == 12
 		{
-			"\f[bold,true]\0\s[9]Blue usually says it should be lunchtime about now!\w4 If we're not busy we usually take a break to \w8\w8uh....\w8\s[3] recover? \s[0]Blue usally eats something too. \w8\w8\f[bold,false]"
+			"\f[bold,true]\0\s[9]Blue usually says it should be lunchtime about now!\w4 If we're not busy we usually take a break to \w8\w8uh....\w8\s[3] recover? \s[0]Blue usually eats something too. \w8\w8\f[bold,false]"
 		}
 		else
 		{
