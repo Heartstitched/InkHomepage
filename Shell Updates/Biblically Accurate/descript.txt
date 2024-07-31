@@ -4,7 +4,7 @@ type,shell
 name,Biblically Accurate
 craftman, Heartstitched
 craftmanurl,https://www.tumblr.com/Heartstitched
-homeurl,
+homeurl,https://raw.githubusercontent.com/Heartstitched/InkHomepage/main/Shell%20Updates/Biblically%20Accurate
 
 
 seriko.alignmenttodesktop,free
