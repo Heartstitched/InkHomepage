@@ -1,0 +1,4 @@
+Charset,UTF-8
+type,shell
+name,Chatty Ink (No Dressups)
+directory,Chatty Ink (No Dressups)

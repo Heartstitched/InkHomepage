@@ -1,0 +1,75 @@
+charset,UTF-8
+type,shell
+
+name,Chatty Ink
+craftman, Heartstitched
+craftmanurl,https://www.tumblr.com/Heartstitched
+homeurl,
+
+
+seriko.alignmenttodesktop,bottom
+seriko.use_self_alpha,1
+
+
+//Menu stuff
+
+//Text color for options that you're not hovering over
+menu.background.font.color.r,0
+menu.background.font.color.g,0
+menu.background.font.color.b,0
+
+//Text color for options that you're hovering over
+menu.foreground.font.color.r,63
+menu.foreground.font.color.g,63
+menu.foreground.font.color.b,63
+
+//Text color for options that are disabled/grayed out
+menu.disable.font.color.r,111
+menu.disable.font.color.g,111
+menu.disable.font.color.b,111
+
+//Color of the separator bars
+menu.separator.color.r,130
+menu.separator.color.g,130
+menu.separator.color.b,130
+
+menu.background.alignment,righttop + repeat-y
+menu.foreground.alignment,righttop + repeat-y
+menu.sidebar.alignment,bottom
+
+menu.background.bitmap.filename,menu_background.png
+menu.foreground.bitmap.filename,menu_foreground.png
+menu.sidebar.bitmap.filename,menu_sidebar.png
+
+//--Accessories---------------------------------------------------------
+
+sakura.bindoption2.group,Accessories,Multiple
+
+//Broomie
+sakura.bindgroup912.name,Accessories,Broomie
+sakura.bindgroup912.default,0
+
+//Party hat
+sakura.bindgroup922.name,Accessories,Party Hat
+sakura.bindgroup922.default,0
+
+
+
+
+//--Clothes---------------------------------------------------------
+
+//Original Outfit
+sakura.bindgroup910.name,Clothes,Original Outfit
+sakura.bindgroup910.default,1
+sakura.bindoption910.group,Clothes,mustselect
+
+//Niji's Outfit
+sakura.bindgroup911.name,Clothes,Mew Mew Fan
+sakura.bindgroup911.default,0
+
+
+
+
+
+sakura.menu, auto
+
