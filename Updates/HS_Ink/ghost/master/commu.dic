@@ -1,3 +1,4 @@
+
 OnOtherGhostTalk
 {
 	LOGGING("====================================================================")
@@ -19,200 +20,26 @@ OnOtherGhostTalk
 	
 	*/
 	
-	if reference0 == "Needle"
+	if reference0 == "Error"
 	{
-		_talk = reference4
-		
-		if reference3 == "OnOtherOverlap" && "OnNeedlePoke" _in_ _talk //Special case for needle poking
-		{
-			_words = SPLIT(_talk,'"]')
-			_num = ARRAYSIZE(_words)
-			_words = _words[_num - 1]
-			_is_caps = 0
-			if _words == TOUPPER(_words); _is_caps = 1
-			
-			"\0%(TOLOWER(_words))~~"
-			--
-			if _is_caps; "~~"
-		}
-		elseif reference3 == "OnMouseDoubleClick"
-		{
-			_words = SPLIT(_talk,'\_l')[0]
-			_is_caps = 0
-			if _words == TOUPPER(_words); _is_caps = 1
-			
-			"\0%(TOLOWER(_words))~~"
-			--
-			if _is_caps; "~~"
-		}
-		else //Just reacting to normal convos
-		{
-			if "Crabs crabs CRABS crabs " _in_ _talk
-				"\0\b[4]crabs on the beach~~ crabs on the beach~~"
+		_talk = reference4				
+			if "Ink" _in_ _talk
+				"\0\s[3]\f[bold,true]You know i can hear you, yeah??\f[bold,false]"
 				
-			elseif "stop ASKING for DISCOUNTS" _in_ _talk
-				"\0\b[4]price on the tag~~ stop asking~~"
+			if "making something" _in_ _talk
+				"\0\s[3]\f[bold,true]Oooh what'cha making??\f[bold,false]"
+			
+			if "pal" _in_ _talk
+				"\0\s[0]\f[bold,true]Hey that's my word!\f[bold,false]"
 				
-			elseif ",\w4 your choice" _in_ _talk
-				"\0\b[4]choose wisely~~"
-				
-			elseif "wiggling some galaxies into existence" _in_ _talk
-				"\0\b[4]wiggle wiggle~~"
-				
-			elseif "well what're you asking me for" _in_ _talk
-				"\0\b[4]i don't know either~~"
-				
-			elseif "i WANT to GO to THE store AND buy ALL the SHELVES" _in_ _talk
-				"\0\b[4]buy the shelves~~ buy the shelves~~"
-				
-			elseif "make sure you pop a balloon today" _in_ _talk
-				"\0\b[4]pop pop~~"
-				
-			elseif "scalp scalp scalp pick pick pick" _in_ _talk
-				"\0\b[4]pick pick pick~~"
-				
-			elseif " seventy eight " _in_ _talk
-				"\0\b[4]seventy eight seventy eight seventy eight~~"
-				
-			elseif "wanna play hangman?\w8\nguess the word:\n\_q" _in_ _talk
-				"\0\b[4]i bet it's noodle~~"
-				
-			elseif "let me tell you something about cats,\w4" _in_ _talk
-				"\0\b[4]having a soft outer shell helps with keeping noise down on the hard floors~~ you should try it~~"
-				
-			elseif "\_l[-10000]they'll never find me here" _in_ _talk
-				"\0\b[4]\_l[-10000]good hiding spot~~"
-				
-			elseif "lint traps lint traps lint traps\w8" _in_ _talk
-				"\0\b[4]it was full last time i was there~~"
-			
-			elseif "I sense.\w4.\w4.\w4 potential." _in_ _talk
-				"\0\b[4]i sense.\w4.\w4.\w4 oregano"
-			
-			elseif "Don't forget to moisturize." _in_ _talk
-				"\0\b[4]moisture is important~~"
-			
-			elseif "gonna gonna gonna eat the " _in_ _talk
-			{
-				_word = SPLIT(_talk,"eat the ")[1]
-				"\0\b[4]eat the %(_word)~~ eat the %(_word)~~"
-			}
-			
-			elseif " time\![noodle]" _in_ _talk
-			{
-				_word = SPLIT(_talk," time")[0]
-				"\0\b[4]%(_word) time %(_word) time~~"
-			}
-			
-			elseif "rings the noodle bell" _in_ _talk
-				"\0\b[4]ring ring ring~~"
-			
-			elseif "feed me" _in_ _talk
-				"\0\b[4]i have some %food, do you want some %[0]?"
-			
-			elseif "betchu didn't think a needle could be so wise" _in_ _talk
-				"\0\b[4]so wise~~"
-			
-			elseif "another loose whisker" _in_ _talk
-				"\0\b[4]i'll take it if you don't want it"
-			
-			elseif "kick\w8\ntwist\w8\nsquirm\w8\nshift\w8\nwrithe" _in_ _talk
-				"\0\b[4]wiggle \nsquiggle \nwriggle \nsquirm"
-			
-			elseif "but i don't wanna go to school" _in_ _talk
-				"\0\b[4]don't hide in lunchboxes. you never know where you'll end up..."
-			
-			elseif "the paper ate my homework" _in_ _talk
-				"\0\b[4]eat it back"
-			
-			elseif "Grinding teeth to bake into bread." _in_ _talk
-				"\0\b[4]teeth bread~~ good way to get your calcium in~~"
-			
-			elseif "rats in the walls.\w8 RATS IN THE WALLS!\w8" _in_ _talk
-				"\0\b[4]watch out for the teeth"
-			
-			elseif "Dancing in a faerie ring" _in_ _talk
-				"\0\b[4]watch your step"
-			
-			elseif "They'll take you away.\w4 Feed you well.\w8 Hold your hand while you cry at night.\w8\w8" _in_ _talk
-				"\0\b[4]make sure you don't get lost in the halls"
-			
-			elseif "take me to your leader" _in_ _talk
-				"\0\b[4]it's every noodle for itself out here"
-			
-			elseif "Trees are terrible in storms, regardless of if there's lightning involved." _in_ _talk
-				"\0\b[4]it's the truth, don't hide in trees during storms"
-				
-			elseif "hi did you bring pork bacteria" _in_ _talk
-				"\0\b[4]yes"
-			
-			elseif "eggs are just chicken seeds" _in_ _talk
-				"\0\b[4]flour is just noodle seeds~~"
-			
-			elseif "Do you remember\w8\nhow it feels\w8\w8\nto be created?" _in_ _talk
-				"\0\b[0]hot. \w8\w8\ncrowded. \w8\w8\w8\n\nare you okay? \w8\w8\w8\w8\w8\n\n\nwhere did you all go?"
-			
-			elseif "hold my hand                     i don't have hands" _in_ _talk
-				"\0\b[4]slides around you"
-			
-			elseif "does your home get sad when you leave it?" _in_ _talk
-				"\0\b[4]i live in the %(hidingspot)"
-			
-			elseif "Holding You Accountable." _in_ _talk
-				"\0\b[4]for your %(friend) crimes"
-				
-			elseif "put me on top of the " _in_ _talk
-			{
-				_word = SPLIT(_talk,"of the ")[1]
-				"\0\b[4]good idea, the %(_word) will be safe from those %(fiends)"
-			}
-			
-			elseif "don't look at me with your eyes???" _in_ _talk
-				"\0\b[4]i don't have any eyes%(ANY('\n\n\n\w8\w8\w8\w8\w8\w8yet',''))"
-			
-			elseif "why are the trees always so solid" _in_ _talk
-				"\0\b[4]not enough moisture"
-				
-			elseif "Making a wig from plasic bags." _in_ _talk
-				"\0\b[4]pretends to be hair"
-			
-			elseif "u ever feel a little wobbly" _in_ _talk
-				"\0\b[4]that can happen, you may need some time to try out"
-			
-			elseif "is it mermay yet" _in_ _talk
-				"\0\b[4]it can be mermay if you want it to be mermay"
-			
-			elseif "Freeze me and put me in your mouth like a bee." _in_ _talk
-				"\0\b[4]no thank you"
-			
-			elseif "cut open the clouds and scoop out the " _in_ _talk
-				"\0\b[4]good eating"
-				
-			elseif "\nlook out it's the martians" _in_ _talk
-				"\0\b[4]they'll never find us if we get to the %(hidingspot)"
-				
-			elseif "↑ that's a good one i like that one" _in_ _talk
-				"\0\b[4]i like it too~~~"
-				
-			elseif "look at how much fur is coming out of you" _in_ _talk
-				"\0\b[4]knits a blanket"
-				
-			elseif "happy birthday 🎉" _in_ _talk
-				"\0\b[4]happy birthday~~"
-				
-			elseif "you might want to take inventory soon," _in_ _talk
-				"\0\b[4]don't die"
-				
-			elseif "do you think i'd look cool with racing stripes" _in_ _talk
-				"\0\b[4]yeah let me get the paint"
-				
-			elseif "n-n-n-n-n-n-...\w8\w8\nn-n-n-n-n-n-n-n-n-n-...\w8\w8\w8\w8\w8\w8\w8\w8\n\n" _in_ _talk
-				"\0\b[4]%(small)keep your voice down"
-			
 			// elseif "" _in_ _talk
 				// "\0\b[4]"
-		}
+		
 	}
+
+
+
+
 }
 
 
@@ -221,13 +48,33 @@ OnOtherGhostTalk
 //—————————————————————————————— This bit below handles turning this mode on and off ——————————————————————————————
 OnSecondChange
 {
-	if NeedleIsOpen && !ListenForNeedle
-	{
-		"\![raise,OnListenForNeedle,start]"
+
+ //extra checks because hour12 goes 0-11 and im feral
+	if pomoOn && (pomohour == hour12 || (pomohour == 12 && hour12 == 0)) && TOINT(pomomin) == minute && pomosec == second {
+		pomoOn = 0
+		pomosdone++
+		"\0\s[6]\_v[bell.wav]Your work session is over! \x\c"
+		--
+		
+		OnPomoOver
 	}
-	elseif !NeedleIsOpen && ListenForNeedle
+	
+	//ditto
+	if pomoBreakOn && (pomohour == hour12 || (pomohour == 12 && hour12 == 0)) && TOINT(pomomin) == minute && pomosec == second {
+		pomoBreakOn = 0
+		"\0\s[5]\_v[bell.wav]Your break is over.\w8 Hope you rested some!\x\c"
+		--
+		OnPomoEnd
+	}
+	
+	
+	if ErrorIsOpenTalk && !ListenForError
 	{
-		"\![raise,OnListenForNeedle,end]"
+		"\![raise,OnListenForError,start]"
+	}
+	elseif !ErrorIsOpenTalk && ListenForError
+	{
+		"\![raise,OnListenForError,end]"
 	}
 	
 		if passsec == 60
@@ -248,37 +95,38 @@ OnSecondChange
 	{
  		//This dialogue is for when the two characters are overlapping each other. If you don't want your characters to care, you can just leave this blank.
 		
- 		"\0\s[0]Me and Triangle are overlapping.\w8\1\s[19]That's strange since your resolution is %screenwidthx%screenheight, %(username). Shouldn't we have enough space?\4\e"
+ 		//"\0\s[0]Me and Triangle are overlapping.\w8\1\s[19]That's strange since your resolution is %screenwidthx%screenheight, %(username). Shouldn't we have enough space?\4\e"
 		
 		//You can see here the use of two envelopes, screenwidth and screenheight, to tell the user their resolution. Oddly, they are not in parentheses. I'm not sure why this is, but they don't display right otherwise. An odd quirk with these two envelopes.
 		//Note also how Triangle moves away at the end of the dialogue. This is due to the \4 tag. That will make any one character move away from the other if they are able. I talked about this tag and its counterpart tag \5 in the SakuraScript page on the walkthrough.
 	}
+
 }
 
-OnListenForNeedle
+OnListenForError
 {
 	LOGGING("====================================================================")
-	LOGGING("OnListenForNeedle")
+	LOGGING("OnListenForError")
 	LOGGING("reference: %(reference)")
-	LOGGING("ListenForNeedle before: %(ListenForNeedle)")
-	LOGGING("NeedleIsOpen: %(NeedleIsOpen)")
+	LOGGING("ListenForError before: %(ListenForError)")
+	LOGGING("ErrorIsOpenTalk: %(ErrorIsOpenTalk)")
 	if reference0 == "start"
 	{
-		ListenForNeedle = 1
+		ListenForError = 1
 		"\![set,otherghosttalk,after]"
 	}
 	else
 	{
-		ListenForNeedle = 0
+		ListenForError = 0
 		"\![set,otherghosttalk,false]"
 	}
-	LOGGING("ListenForNeedle after: %(ListenForNeedle)")
+	LOGGING("ListenForError after: %(ListenForError)")
 	LOGGING
 }
 
-NeedleIsOpen
+ErrorIsOpenTalk
 {
-	ASEARCH("Needle",ghostexlist) != -1
+	ASEARCH("Error",ghostexlist) != -1
 }
 
 On_otherghostname
@@ -289,3 +137,79 @@ On_otherghostname
 		ghostexlist ,= _ghost[0,C_BYTE1]
 	}
 }
+
+
+
+//—————————————————————————————— Other Ghosts Open/Close ——————————————————————————————
+
+//---- OnGhostCalling ---------------------------------------------------------------
+//when you call another ghost. It activates immediately, so write dialogue accordingly.
+OnGhostCalling
+{
+	case reference0
+	{
+
+		when "Error"
+		{
+			"\0\s[0]\f[bold,true]\f[bold,false]"
+		}
+		when "Gin"
+		{
+			"\0\s[0]\f[bold,true]\f[bold,false]"
+		}
+		others
+		{
+			"\0\s[2]\f[bold,true]So long,\w3 %(reference0).\f[bold,false]\w8"
+			
+			"\0\s[1]\f[bold,true]%(reference4) has departed.\f[bold,false]\w8"
+			
+			"\0\s[2]\f[bold,true]Goodbye,\w4 %(reference0).\f[bold,false]\w8"
+			
+			"\0\s[2]\f[bold,true]That's it for %(reference4).\f[bold,false]\w8"
+			--
+			"\s[5]\n\n[half]"
+			--
+			"\f[bold,true]And hello to %(reference1)!\w8\f[bold,false]\e"
+			
+			"\f[bold,true]Now %(reference5) is here!\w8\f[bold,false]\e"
+			
+			"\f[bold,true]And hello to %(reference5)!\w8\f[bold,false]\e"
+			
+			"\f[bold,true]Now %(reference1) is here!\w8\f[bold,false]\e"
+		}
+	}
+}
+
+//when you close another ghost. Only activates after the other ghost is gone.
+OnOtherGhostClosed
+{
+	case reference0
+	{
+		
+		when "Gin"
+		{
+			"\0\s[0]\f[bold,true]\f[bold,false]"
+		}
+		when "Error"
+		{
+			"\0\s[5]\f[bold,true]Heeey where do you think you're going, Error??\f[bold,false]"
+		}
+		others
+		{
+			"\0\s[5]\f[bold,true]Bye bye,\w3 %(reference0)!\w8\f[bold,false]\e"
+			
+			"\0\s[2]\f[bold,true]Farewell,\w3 %(reference0).\w8\f[bold,false]\e"
+			
+			"\0\s[2]\f[bold,true]Goodbye,\w3 %(reference0).\w8\f[bold,false]\e"
+			
+			"\0\s[5]\f[bold,true]Seeya later,\w3 %(reference0)!\w8\f[bold,false]\e"
+			
+			"\0\s[2]\f[bold,true]Take care,\w3 %(reference0)!\w8\f[bold,false]\e"
+			
+			"\0\s[2]\f[bold,true]Seeya,\w3 %(reference0)!\w8\f[bold,false]\e"
+			
+			"\0\s[2]\f[bold,true]Aw, hope to see %(reference0) again sometime...\w8\f[bold,false]\e"
+		}
+	}
+}
+
