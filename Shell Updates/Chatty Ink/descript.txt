@@ -4,7 +4,7 @@ type,shell
 name,Chatty Ink
 craftman, Heartstitched
 craftmanurl,https://www.tumblr.com/Heartstitched
-homeurl,https://raw.githubusercontent.com/Heartstitched/InkHomepage/main/Shell%20Updates/Chatty%20Ink
+homeurl,"https://raw.githubusercontent.com/Heartstitched/InkHomepage/main/Shell-Updates/Chatty-Ink"
 
 
 seriko.alignmenttodesktop,bottom
