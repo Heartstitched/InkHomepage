@@ -50,22 +50,22 @@ OnSecondChange
 {
 
  //extra checks because hour12 goes 0-11 and im feral
-	if pomoOn && (pomohour == hour12 || (pomohour == 12 && hour12 == 0)) && TOINT(pomomin) == minute && pomosec == second {
-		pomoOn = 0
-		pomosdone++
-		"\0\s[6]\_v[bell.wav]Your work session is over! \x\c"
-		--
+	// if pomoOn && (pomohour == hour12 || (pomohour == 12 && hour12 == 0)) && TOINT(pomomin) == minute && pomosec == second {
+		// pomoOn = 0
+		// pomosdone++
+		// "\0\s[6]\_v[bell.wav]Your work session is over! \x\c"
+		// --
 		
-		OnPomoOver
-	}
+		// OnPomoOver
+	// }
 	
 	//ditto
-	if pomoBreakOn && (pomohour == hour12 || (pomohour == 12 && hour12 == 0)) && TOINT(pomomin) == minute && pomosec == second {
-		pomoBreakOn = 0
-		"\0\s[5]\_v[bell.wav]Your break is over.\w8 Hope you rested some!\x\c"
-		--
-		OnPomoEnd
-	}
+	// if pomoBreakOn && (pomohour == hour12 || (pomohour == 12 && hour12 == 0)) && TOINT(pomomin) == minute && pomosec == second {
+		// pomoBreakOn = 0
+		// "\0\s[5]\_v[bell.wav]Your break is over.\w8 Hope you rested some!\x\c"
+		// --
+		// OnPomoEnd
+	// }
 	
 	
 	if ErrorIsOpenTalk && !ListenForError
